@@ -21,23 +21,7 @@ var Input = function (x, y, on) {
         this.show();
     };
 
-    this.drawConnections = function () {
-        for(var i = 0; i < this.nextGates.length; i++) {
-            var startX = this.x + 25;
-            var startY = this.y + 12;
-            var goalX = this.nextGates[i].x;
-            var goalY = this.nextGates[i].y + 25;
-            var midX = (startX + goalX) / 2;
-            var graphics = game.add.graphics(0, 0);
-            graphics.lineStyle(3, 0xffd900, 1);
-            graphics.moveTo(startX, startY);
-            graphics.lineTo(midX, startY);
-            graphics.lineTo(midX, goalY);
-            graphics.lineTo(goalX, goalY);
-
-            window.graphics = graphics;
-        }
-    }
+    
 
 
     this.show();
