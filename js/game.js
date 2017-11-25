@@ -4,7 +4,7 @@ var gridUnit = 25;
 
 gameElements = {
     gates: [],
-    inputs: [],
+    parents: [],
     outputs: []
 }
 
@@ -19,21 +19,26 @@ function preload() {
 
 function create() {
 	input1 = new Input(2, 2, true);
-	input2 = new Input(2, 10, true);
-	gate1 = new Gate('or', 8, 2);
+	input2 = new Input(2, 8, true);
+	gate1 = new Gate('or', 8, 4);
 
 	gameElements.gates.push(gate1);
-	gameElements.inputs.push(input1);
-	gameElements.inputs.push(input2);
+	gameElements.parents.push(input1);
+	gameElements.parents.push(input2);
 
-	gate1.inputs.push(input1);
-	gate1.inputs.push(input2);
-    gameElements.outputs.push(new Output(true, 'off', 24, 4));
-	gameElements.outputs.push(new Output(false, 'off', 24, 8));
+	input1.nextGates.push(gate1);
+	input1.addChild(gate1);
+	input2.addChild(gate1);
+    gameElements.outputs.push(new Output(true, 'off', 24, 8));
+	gate1.addChild(gameElements.outputs[0]);
+
+	// Updating all gates/outputs
+	for (var i = 0; i < gameElements.parents.length; i++) {
+	   gameElements.parents[i].updated.dispatch();
+    }
 }
 
 function update() {
-	// Drawing Connectios between
 	for(var i = 0; i < gameElements.gates.length; i++) {
 		gameElements.gates[i].drawConnections();
 	}
