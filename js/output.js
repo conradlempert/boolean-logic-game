@@ -1,6 +1,6 @@
 var Output = function (expected, type, x, y) {
     this.on = false;
-    this.expected = expected;
+    this.expected = expected || false;
     this.x = x * gridUnit;
     this.y = y * gridUnit;
     this.sprite = game.add.sprite(this.x, this.y, this.on ? 'on' : 'off');
@@ -19,6 +19,7 @@ var Output = function (expected, type, x, y) {
             this.setValue(this.parents[0].on);
         else
             this.setValue(false);
+        this.updated.dispatch(this.on === this.expected);
     };
 
     this.show = function () {
