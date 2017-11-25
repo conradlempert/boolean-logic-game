@@ -26,12 +26,11 @@ function create() {
 	ourGame.inputs.push(input1);
 
 	input1.nextGates.push(gate1);
-    ourGame.outputs.push(new Output(true, 'off', 200, 25));
-	ourGame.outputs.push(new Output(false, 'off', 200, 100));
+    ourGame.outputs.push(new Output(true, 'off', 24, 4));
+	ourGame.outputs.push(new Output(false, 'off', 24, 8));
 }
 
 function update() {
-	// Drawing Connectios between
 	for(var i = 0; i < ourGame.inputs.length; i++) {
 		ourGame.inputs[i].drawConnections();
 	}

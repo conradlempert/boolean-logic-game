@@ -1,8 +1,9 @@
 var Output = function (expected, type, x, y) {
     this.on = false;
-    this.type = type;
     this.expected = expected;
-    this.sprite = game.add.sprite(x, y, type);
+    this.x = x * gridUnit;
+    this.y = y * gridUnit;
+    this.sprite = game.add.sprite(this.x, this.y, this.on ? 'on' : 'off');
 
     this.show = function () {
         if(this.on) {
