@@ -2,9 +2,10 @@ var Input = function (x, y, on) {
 
     // Attributes /////////////////////////////////////////
     this.on = on || true;
+    this.x = x * gridUnit;
+    this.y = y * gridUnit;
     this.nextGates = [];
-    this.sprite = game.add.sprite(x * 25, y * 25, 'on');
-
+    this.sprite = game.add.sprite(this.x, this.y, 'on');
 
     // Methods ///////////////////////////////////////////
     this.show = function () {
@@ -22,17 +23,24 @@ var Input = function (x, y, on) {
 
     this.drawConnections = function () {
         for(var i = 0; i < this.nextGates.length; i++) {
-            var graphics = game.add.graphics(100, 100);
-            graphics.lineStyle(10, 0xffd900, 1);
-            graphics.moveTo(50,50);
-            graphics.lineTo(250, 50);
-            graphics.lineTo(100, 100);
-            graphics.lineTo(250, 220);
-            graphics.lineTo(50, 220);
-            graphics.lineTo(50, 50);
+            var startX = this.x + 25;
+            var startY = this.y + 12;
+            var goalX = this.nextGates[i].x;
+            var goalY = this.nextGates[i].y + 25;
+            var midX = (startX + goalX) / 2;
+            var graphics = game.add.graphics(0, 0);
+            graphics.lineStyle(3, 0xffd900, 1);
+            graphics.moveTo(startX, startY);
+            graphics.lineTo(midX, startY);
+            graphics.lineTo(midX, goalY);
+            graphics.lineTo(goalX, goalY);
+
             window.graphics = graphics;
         }
     }
+
+
+    this.show();
 
     // Signals ///////////////////////////////////////////
     this.sprite.inputEnabled = true;

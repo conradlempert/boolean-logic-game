@@ -21,7 +21,7 @@ function create() {
 	ourGame = new GameElements();
 	input1 = new Input(2, 2, true);
 	gate1 = new Gate('or', 8, 2);
-	
+
 	ourGame.gates.push(gate1);
 	ourGame.inputs.push(input1);
 
@@ -36,11 +36,4 @@ function update() {
 		ourGame.inputs[i].drawConnections();
 	}
 }
-
-
-
-
-
-
-
 
