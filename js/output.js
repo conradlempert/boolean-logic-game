@@ -19,7 +19,7 @@ var Output = function (expected, type, x, y) {
             this.setValue(this.parents[0].on);
         else
             this.setValue(false);
-        this.updated.dispatch(this.on == this.expected);
+        this.updated.dispatch(this.on === this.expected);
     };
 
     this.show = function () {
