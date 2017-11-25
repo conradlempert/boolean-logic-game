@@ -1,46 +1,46 @@
+
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var gridUnit = 25;
+
+var GameElements = function () {
+    this.gates = [];
+    this.inputs = [];
+    this.outputs = [];
+}
 
 function preload() {
 	game.load.image('logo', 'img/openhpi.jpg');
-	game.load.image('and', 'img/and.jpg');
 	game.load.image('on', 'img/on.png');
 	game.load.image('off', 'img/off.png');
+    game.load.image('and', 'img/and.png');
+    game.load.image('or', 'img/or.png');
+    game.load.image('not', 'img/not.png');
 }
 
 function create() {
-	//game.add.sprite(100, 100, 'logo');
-	gate1 = new Gate('and', 50, 50);
-	input1 = new Input(50, 150, true);
-	input1.show();
+	ourGame = new GameElements();
+	input1 = new Input(2, 2, true);
+	gate1 = new Gate('or', 8, 2);
+	
+	ourGame.gates.push(gate1);
+	ourGame.inputs.push(input1);
+
+	input1.nextGates.push(gate1);
+    ourGame.outputs.push(new Output(true, 'off', 200, 25));
+	ourGame.outputs.push(new Output(false, 'off', 200, 100));
 }
 
 function update() {
-}
-
-function Gate(type, x, y) {
-	this.type = type;
-	this.sprite = game.add.sprite(x, y, type);
-}
-
-function Input(x, y, defaultOn) {
-
-	this.show = function () {
-		if(this.on) {
-			this.sprite.loadTexture('on');
-		} else {
-			this.sprite.loadTexture('off');
-		}
+	// Drawing Connectios between
+	for(var i = 0; i < ourGame.inputs.length; i++) {
+		ourGame.inputs[i].drawConnections();
 	}
-
-	this.switch = function () {
-		this.on = !this.on;
-		this.show();
-	}
-
-	this.on = defaultOn;
-	this.sprite = game.add.sprite(x, y, 'on');
-	this.show();
-
-
-	
 }
+
+
+
+
+
+
+
+
