@@ -1,5 +1,7 @@
 var Gate = function (type, x, y) {
-    this.type = type;
-    this.sprite = game.add.sprite(x * 25, y * 25, type);
-    this.nextGates = [];
+        this.x = x * gridUnit;
+        this.y = y * gridUnit;
+        this.type = type;
+        this.sprite = game.add.sprite(this.x, this.y, type);
+        this.nextGates = [];
 }
