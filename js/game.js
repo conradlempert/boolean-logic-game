@@ -28,8 +28,8 @@ function create() {
 
 	gate1.inputs.push(input1);
 	gate1.inputs.push(input2);
-    gameElements.outputs.push(new Output(true, 'off', 200, 25));
-	gameElements.outputs.push(new Output(false, 'off', 200, 100));
+    gameElements.outputs.push(new Output(true, 'off', 24, 4));
+	gameElements.outputs.push(new Output(false, 'off', 24, 8));
 }
 
 function update() {

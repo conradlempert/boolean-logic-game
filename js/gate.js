@@ -8,13 +8,11 @@ var Gate = function (type, x, y) {
 
     this.drawConnections = function () {
         for(var i = 0; i < this.inputs.length; i++) {
-        	console.log(this.inputs[i]);
         	var goalX = this.x;
             var goalY = this.y + 13;
         	if(i == 1) {
         		goalY = this.y + 37;
         	}
-        	console.log(goalY);
             var startX = this.inputs[i].x + 25;
             var startY = this.inputs[i].y + 12;
             var midX = (startX + goalX) / 2;
