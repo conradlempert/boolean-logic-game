@@ -25,8 +25,6 @@ function getGateSprite(type) {
             return game.add.tileSprite(0, 0, 330, 170, 'gates');
 		case "or":
 			return game.add.tileSprite(0, 0, 330, 170, 'gates');
-
-
 	}
 }
 
