@@ -5,6 +5,7 @@ function preload() {
 	game.load.image('and', 'img/and.jpg');
 	game.load.image('on', 'img/on.png');
 	game.load.image('off', 'img/off.png');
+    game.load.image('gates', 'img/gates.png');
 }
 
 function create() {
@@ -12,9 +13,21 @@ function create() {
 	gate1 = new Gate('and', 50, 50);
 	input1 = new Input(50, 150, true);
 	input1.show();
+
 }
 
 function update() {
+}
+
+function getGateSprite(type) {
+	switch (type) {
+		case "and":
+            return game.add.tileSprite(0, 0, 330, 170, 'gates');
+		case "or":
+			return game.add.tileSprite(0, 0, 330, 170, 'gates');
+
+
+	}
 }
 
 function Gate(type, x, y) {
@@ -22,7 +35,7 @@ function Gate(type, x, y) {
 	this.sprite = game.add.sprite(x, y, type);
 }
 
-function Input(x, y, defaultOn) {
+function Input(x, y, on) {
 
 	this.show = function () {
 		if(this.on) {
@@ -32,15 +45,12 @@ function Input(x, y, defaultOn) {
 		}
 	}
 
-	this.switch = function () {
+	this.toggle = function () {
 		this.on = !this.on;
 		this.show();
 	}
 
-	this.on = defaultOn;
+	this.on = on || true;
 	this.sprite = game.add.sprite(x, y, 'on');
 	this.show();
-
-
-	
 }
