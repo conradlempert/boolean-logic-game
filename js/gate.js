@@ -5,7 +5,6 @@ var Gate = function (type, x, y) {
     this.y = y * gridUnit;
     this.type = type;
     this.sprite = game.add.sprite(this.x, this.y, type);
-    this.nextGates = [];
     this.updated = new Phaser.Signal();
     this.input1 = false;
     this.input2 = false;
@@ -18,14 +17,18 @@ var Gate = function (type, x, y) {
         for(var i = 0; i < this.parents.length; i++) {
             var goalX = this.x;
             var goalY = this.y + 13;
-            if(i == 1) {
+            if(i === 1) {
                 goalY = this.y + 37;
             }
             var startX = this.parents[i].x + 25;
             var startY = this.parents[i].y + 12;
             var midX = (startX + goalX) / 2;
             var graphics = game.add.graphics(0, 0);
-            graphics.lineStyle(3, 0xffd900, 1);
+            if(this.parents[i].on) {
+            	graphics.lineStyle(3, 0x00ff00, 1);
+            } else {
+            	graphics.lineStyle(3, 0xff0000, 1);
+            }
             graphics.moveTo(startX, startY);
             graphics.lineTo(midX, startY);
             graphics.lineTo(midX, goalY);
@@ -33,7 +36,7 @@ var Gate = function (type, x, y) {
 
             window.graphics = graphics;
         }
-    }
+    };
 
     this.register = function (parent) {
         this.parents.push(parent);
@@ -68,7 +71,6 @@ var Gate = function (type, x, y) {
     };
 
     this.addChild = function (child) {
-        this.nextGates.push(child);
         child.register(this);
     };
 

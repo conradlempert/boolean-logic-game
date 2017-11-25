@@ -4,7 +4,7 @@ var gridUnit = 25;
 
 gameElements = {
     gates: [],
-    parents: [],
+    inputs: [],
     outputs: []
 }
 
@@ -19,15 +19,31 @@ function preload() {
 
 function create() {
 	createLevel1()
+
+
 	// Updating all gates/outputs
-	for (var i = 0; i < gameElements.parents.length; i++) {
-	   gameElements.parents[i].updated.dispatch();
+	for (var i = 0; i < gameElements.inputs.length; i++) {
+	   gameElements.inputs[i].updated.dispatch();
+    }
+    for (i = 0; i < gameElements.outputs.length; i++) {
+	    gameElements.outputs[i].updated.add(checkWin, this);
     }
 }
 
 function update() {
 	for(var i = 0; i < gameElements.gates.length; i++) {
 		gameElements.gates[i].drawConnections();
+		gameElements.outputs[i].drawConnections();
 	}
+}
+
+function checkWin() {
+    var gameWon = true;
+    for (var i = 0; i < gameElements.outputs.length; i++) {
+        gameWon = (gameElements.outputs[i].on === gameElements.outputs[i].expected) && gameWon;
+    }
+    if (gameWon) {
+        window.alert("you won!");
+    }
 }
 
