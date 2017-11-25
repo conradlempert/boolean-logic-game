@@ -6,7 +6,7 @@ var GameElements = function () {
     this.gates = [];
     this.inputs = [];
     this.outputs = [];
-}
+};
 
 function preload() {
 	game.load.image('logo', 'img/openhpi.jpg');
@@ -20,14 +20,23 @@ function preload() {
 function create() {
 	ourGame = new GameElements();
 	input1 = new Input(2, 2, true);
+	input2 = new Input(3, 3, true);
 	gate1 = new Gate('or', 8, 2);
 
 	ourGame.gates.push(gate1);
 	ourGame.inputs.push(input1);
+	ourGame.inputs.push(input2);
+
 
 	input1.nextGates.push(gate1);
+	input1.addChild(gate1);
+	input2.addChild(gate1);
     ourGame.outputs.push(new Output(true, 'off', 200, 25));
 	ourGame.outputs.push(new Output(false, 'off', 200, 100));
+	gate1.addChild(ourGame.outputs[0]);
+	for (var i = 0; i < ourGame.inputs.length; i++) {
+	    ourGame.inputs[i].updated.dispatch();
+    }
 }
 
 function update() {

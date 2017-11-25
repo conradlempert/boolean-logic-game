@@ -7,6 +7,8 @@ var Input = function (x, y, on) {
     this.nextGates = [];
     this.sprite = game.add.sprite(this.x, this.y, 'on');
 
+    this.updated = new Phaser.Signal();
+
     // Methods ///////////////////////////////////////////
     this.show = function () {
         if(this.on) {
@@ -19,6 +21,7 @@ var Input = function (x, y, on) {
     this.toggle = function () {
         this.on = !this.on;
         this.show();
+        this.updated.dispatch();
     };
 
     this.drawConnections = function () {
@@ -37,7 +40,13 @@ var Input = function (x, y, on) {
 
             window.graphics = graphics;
         }
-    }
+    };
+
+    this.addChild = function (child) {
+        this.nextGates.push(child);
+        child.register(this);
+        this.updated.dispatch();
+    };
 
 
     this.show();
@@ -46,4 +55,4 @@ var Input = function (x, y, on) {
     this.sprite.inputEnabled = true;
     this.sprite.events.onInputDown.add(this.toggle, this);
     this.show()
-}
+};

@@ -4,6 +4,22 @@ var Output = function (expected, type, x, y) {
     this.expected = expected;
     this.sprite = game.add.sprite(x, y, type);
 
+    this.updated = new Phaser.Signal();
+
+    this.parents = [];
+
+    this.register = function (parent) {
+        this.parents.push(parent);
+        parent.updated.add(this.updateValues, this);
+    };
+
+    this.updateValues = function () {
+        if (this.parents[0] !== undefined)
+            this.setValue(this.parents[0].on);
+        else
+            this.setValue(false);
+    };
+
     this.show = function () {
         if(this.on) {
             this.sprite.loadTexture('on');
@@ -12,8 +28,8 @@ var Output = function (expected, type, x, y) {
         }
     };
 
-    this.switch = function () {
-        this.on = !this.on;
+    this.setValue = function (on) {
+        this.on = on;
         this.show();
     };
 };
