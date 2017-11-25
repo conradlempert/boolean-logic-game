@@ -2,10 +2,10 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 var gridUnit = 25;
 
-var GameElements = function () {
-    this.gates = [];
-    this.inputs = [];
-    this.outputs = [];
+gameElements = {
+    gates: [],
+    inputs: [],
+    outputs: []
 }
 
 function preload() {
@@ -18,22 +18,21 @@ function preload() {
 }
 
 function create() {
-	ourGame = new GameElements();
 	input1 = new Input(2, 2, true);
 	gate1 = new Gate('or', 8, 2);
 
-	ourGame.gates.push(gate1);
-	ourGame.inputs.push(input1);
+	gameElements.gates.push(gate1);
+	gameElements.inputs.push(input1);
 
-	input1.nextGates.push(gate1);
-    ourGame.outputs.push(new Output(true, 'off', 200, 25));
-	ourGame.outputs.push(new Output(false, 'off', 200, 100));
+	gate1.inputs.push(input1);
+    gameElements.outputs.push(new Output(true, 'off', 200, 25));
+	gameElements.outputs.push(new Output(false, 'off', 200, 100));
 }
 
 function update() {
 	// Drawing Connectios between
-	for(var i = 0; i < ourGame.inputs.length; i++) {
-		ourGame.inputs[i].drawConnections();
+	for(var i = 0; i < gameElements.inputs.length; i++) {
+		gameElements.gates[i].drawConnections();
 	}
 }
 
