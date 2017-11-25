@@ -17,7 +17,9 @@ function create() {
 	input1 = new Input(500, 500, true);
 	input1.show();
 
+	game.load.image('gates', 'img/gates.png');
 }
+
 
 function update() {
 }
