@@ -33,7 +33,7 @@ var Gate = function (type, x, y) {
 
             window.graphics = graphics;
         }
-    }
+    };
 
     this.register = function (parent) {
         this.parents.push(parent);
