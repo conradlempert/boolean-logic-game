@@ -42,6 +42,9 @@ function create() {
 function update() {
 	for(var i = 0; i < gameElements.gates.length; i++) {
 		gameElements.gates[i].drawConnections();
+		
+	}
+	for(var i = 0; i < gameElements.outputs.length; i++) {
 		gameElements.outputs[i].drawConnections();
 		gameElements.outputs[i].show();
 	}

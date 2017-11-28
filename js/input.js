@@ -4,6 +4,7 @@ var Input = function (x, y, on) {
     this.on = on || true;
     this.x = x * gridUnit;
     this.y = y * gridUnit;
+    this.type = "input";
     this.sprite = game.add.sprite(this.x, this.y, 'on');
 
     this.updated = new Phaser.Signal();

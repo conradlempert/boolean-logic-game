@@ -15,13 +15,24 @@ var Gate = function (type, x, y) {
 
     this.drawConnections = function () {
         for(var i = 0; i < this.parents.length; i++) {
+        	var parent = this.parents[i];
             var goalX = this.x;
-            var goalY = this.y + 13;
-            if(i === 1) {
-                goalY = this.y + 37;
+            if(this.type == "not") {
+            	var goalY = this.y + 25;
+            } else {
+            	if(i === 0) {
+            		var goalY = this.y + 13;
+            	} else {
+                	var goalY = this.y + 37;
+            	}
             }
-            var startX = this.parents[i].x + 25;
-            var startY = this.parents[i].y + 12;
+            if(parent.type == "input") {
+            	var startX = parent.x + 25;
+            	var startY = parent.y + 12;
+            } else {
+            	var startX = parent.x + 50;
+            	var startY = parent.y + 25;
+            }
             drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
         }
     };
