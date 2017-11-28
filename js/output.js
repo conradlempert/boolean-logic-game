@@ -20,21 +20,7 @@ var Output = function (expected, type, x, y) {
             var goalY = this.y + 12;
             var startX = this.parents[i].x + 50;
             var startY = this.parents[i].y + 25;
-            var midX = (startX + goalX) / 2;
-            var graphics = game.add.graphics(0, 0);
-            graphics.lineStyle(3, 0xffff00, 1);
-            if(showConnectionColors) {
-                if(this.parents[i].on) {
-                    graphics.lineStyle(3, 0x00ff00, 1);
-                } else {
-                    graphics.lineStyle(3, 0xff0000, 1);
-                }
-            }
-            graphics.moveTo(startX, startY);
-            graphics.lineTo(midX, startY);
-            graphics.lineTo(midX, goalY);
-            graphics.lineTo(goalX, goalY);
-            window.graphics = graphics;
+            drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
         }
     }
 
@@ -47,10 +33,14 @@ var Output = function (expected, type, x, y) {
     };
 
     this.show = function () {
-        if(this.on) {
-            this.sprite.loadTexture('on');
+        if(!simulationMode) {
+            this.sprite.loadTexture('neutral');
         } else {
-            this.sprite.loadTexture('off');
+            if(this.on) {
+                this.sprite.loadTexture('on');
+            } else {
+                this.sprite.loadTexture('off');
+            }
         }
     };
 

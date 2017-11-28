@@ -22,22 +22,7 @@ var Gate = function (type, x, y) {
             }
             var startX = this.parents[i].x + 25;
             var startY = this.parents[i].y + 12;
-            var midX = (startX + goalX) / 2;
-            var graphics = game.add.graphics(0, 0);
-            graphics.lineStyle(3, 0xffff00, 1);
-            if(showConnectionColors) {
-            	if(this.parents[i].on) {
-            		graphics.lineStyle(3, 0x00ff00, 1);
-           		} else {
-            		graphics.lineStyle(3, 0xff0000, 1);
-            	}
-           	}
-            graphics.moveTo(startX, startY);
-            graphics.lineTo(midX, startY);
-            graphics.lineTo(midX, goalY);
-            graphics.lineTo(goalX, goalY);
-
-            window.graphics = graphics;
+            drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
         }
     };
 

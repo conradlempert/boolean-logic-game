@@ -2,7 +2,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 var gridUnit = 25;
 var simulationMode = true;
-var showConnectionColors = true;
+var inputsDisabled = false;
 var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
 
 gameElements = {
@@ -15,12 +15,14 @@ function preload() {
 	game.load.image('logo', 'img/openhpi.jpg');
 	game.load.image('on', 'img/on.png');
 	game.load.image('off', 'img/off.png');
+	game.load.image('neutral', 'img/neutral.png');
     game.load.image('and', 'img/and.png');
     game.load.image('or', 'img/or.png');
     game.load.image('not', 'img/not.png');
     game.load.image('autoplay', 'img/button_autoplay.png');
     game.load.image('challenge', 'img/button_challenge.png');
     game.load.image('play', 'img/button_play.png');
+    game.load.image('retry', 'img/button_retry.png');
 }
 
 function create() {
@@ -33,19 +35,27 @@ function create() {
     }
     winText = game.add.text(300, 20, "", style);
 
-    renderButtons();
+    simulationMode = true;
+    modeButton = game.add.button(0, 0, 'autoplay', activateChallengeMode, this, 2, 1, 0);
 }
 
 function update() {
 	for(var i = 0; i < gameElements.gates.length; i++) {
 		gameElements.gates[i].drawConnections();
 		gameElements.outputs[i].drawConnections();
+		gameElements.outputs[i].show();
 	}
 }
 
 function checkWin() {
+    
+    simulationMode = true;
+    inputsDisabled = true;
+
+    playButton.destroy();
+    retryButton = game.add.button(140, 0, 'retry', retry, this, 2, 1, 0);
+
     var gameWon = true;
-    showConnectionColors = true;
     for (var i = 0; i < gameElements.outputs.length; i++) {
         gameWon = (gameElements.outputs[i].on === gameElements.outputs[i].expected) && gameWon;
     }
@@ -56,27 +66,46 @@ function checkWin() {
     }
 
 }
-
-function renderButtons() {
-	
+function activateAutoPlay() {
 	if(simulationMode) {
-		modeButton = game.add.button(0, 0, 'autoplay', changeSimulationMode, this, 2, 1, 0);
+		retryButton.destroy();
 	} else {
-		modeButton = game.add.button(0, 0, 'challenge', changeSimulationMode, this, 2, 1, 0);
-		playButton = game.add.button(140, 0, 'play', checkWin, this, 2, 1, 0);
-	}
-
-}
-
-function changeSimulationMode() {
-	simulationMode = !simulationMode;
-	modeButton.destroy();
-	if(simulationMode) {
 		playButton.destroy();
-		showConnectionColors = true;
-	} else {
-		showConnectionColors = false;
 	}
-	renderButtons();
+	simulationMode = true;
+	modeButton.destroy();
+	winText.text = '';
+	modeButton = game.add.button(0, 0, 'autoplay', activateChallengeMode, this, 2, 1, 0);
+}
+function activateChallengeMode() {
+	simulationMode = false;
+	modeButton.destroy();
+	modeButton = game.add.button(0, 0, 'challenge', activateAutoPlay, this, 2, 1, 0);
+	playButton = game.add.button(140, 0, 'play', checkWin, this, 2, 1, 0);
 }
 
+function retry() {
+	simulationMode = false;
+	inputsDiabled = false;
+	winText.text = '';
+	retryButton.destroy();
+	playButton = game.add.button(140, 0, 'play', checkWin, this, 2, 1, 0);
+}
+function drawConnection(startX, startY, goalX, goalY, on) {
+	var midX = (startX + goalX) / 2;
+	var graphics = game.add.graphics(0, 0);
+    graphics.lineStyle(3, 0xffff00, 1);
+    if(simulationMode) {
+        if(on) {
+            graphics.lineStyle(3, 0x00ff00, 1);
+        } else {
+            graphics.lineStyle(3, 0xff0000, 1);
+        }
+    }
+    graphics.moveTo(startX, startY);
+    graphics.lineTo(midX, startY);
+    graphics.lineTo(midX, goalY);
+    graphics.lineTo(goalX, goalY);
+
+    window.graphics = graphics;
+}
