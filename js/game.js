@@ -86,7 +86,7 @@ function activateChallengeMode() {
 
 function retry() {
 	simulationMode = false;
-	inputsDiabled = false;
+	inputsDisabled = false;
 	winText.text = '';
 	retryButton.destroy();
 	playButton = game.add.button(140, 0, 'play', checkWin, this, 2, 1, 0);

@@ -18,9 +18,11 @@ var Input = function (x, y, on) {
     };
 
     this.toggle = function () {
-        this.on = !this.on;
-        this.show();
-        this.updated.dispatch();
+        if(!inputsDisabled) {
+            this.on = !this.on;
+            this.show();
+            this.updated.dispatch();
+        }
     };
 
     this.addChild = function (child) {
