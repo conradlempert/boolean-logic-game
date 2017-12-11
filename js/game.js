@@ -26,7 +26,7 @@ function preload() {
 }
 
 function create() {
-	createLevel1()
+	createLevelX()
 
 
 	// Updating all gates/outputs
