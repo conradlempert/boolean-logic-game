@@ -1,13 +1,17 @@
-var Output = function (expected, type, x, y) {
+var Output = function (expected, x, y, level) {
     this.on = false;
     this.expected = expected || false;
     this.x = x * gridUnit;
     this.y = y * gridUnit;
-    this.sprite = game.add.sprite(this.x, this.y, this.on ? 'on' : 'off');
-
+    this.level = level;
+    
     this.updated = new Phaser.Signal();
 
     this.parents = [];
+
+    this.init = function() {
+        this.sprite = game.add.sprite(this.x, this.y, 'neutral');
+    }
 
     this.register = function (parent) {
         this.parents.push(parent);
@@ -20,7 +24,7 @@ var Output = function (expected, type, x, y) {
             var goalY = this.y + 12;
             var startX = this.parents[i].x + 50;
             var startY = this.parents[i].y + 25;
-            drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
+            this.level.drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
         }
     }
 
@@ -33,7 +37,7 @@ var Output = function (expected, type, x, y) {
     };
 
     this.show = function () {
-        if(!simulationMode) {
+        if(!this.level.simulationMode) {
             this.sprite.loadTexture('neutral');
         } else {
             if(this.on) {

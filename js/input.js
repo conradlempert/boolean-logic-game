@@ -1,15 +1,24 @@
-var Input = function (x, y, on) {
+var Input = function (x, y, on, level) {
 
     // Attributes /////////////////////////////////////////
     this.on = on || true;
     this.x = x * gridUnit;
     this.y = y * gridUnit;
     this.type = "input";
-    this.sprite = game.add.sprite(this.x, this.y, 'on');
-
+    this.level = level;
     this.updated = new Phaser.Signal();
-
+    
     // Methods ///////////////////////////////////////////
+
+    this.init = function () {
+        this.sprite = game.add.sprite(this.x, this.y, 'on');
+        this.sprite.inputEnabled = true;
+        this.sprite.events.onInputDown.add(this.toggle, this);
+        
+        this.updated.dispatch();
+
+        this.show();
+    }
     this.show = function () {
         if(this.on) {
             this.sprite.loadTexture('on');
@@ -19,7 +28,7 @@ var Input = function (x, y, on) {
     };
 
     this.toggle = function () {
-        if(!inputsDisabled) {
+        if(!this.level.inputsDisabled) {
             this.on = !this.on;
             this.show();
             this.updated.dispatch();
@@ -31,10 +40,4 @@ var Input = function (x, y, on) {
         this.updated.dispatch();
     };
 
-    this.show();
-
-    // Signals ///////////////////////////////////////////
-    this.sprite.inputEnabled = true;
-    this.sprite.events.onInputDown.add(this.toggle, this);
-    this.show()
 };
