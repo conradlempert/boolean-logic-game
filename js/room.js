@@ -15,12 +15,10 @@ var Room = function (name, background) {
 	}
 	game.state.add(this.name, this.state);
 
-	this.show = function () {
+	this.show = () => {
 		game.state.start(this.name);
 	}
-	this.addItem = function(x, y, name, callback) {
-		var item = new Item(x, y, name, callback);
+	this.addItem = function(item) {
 		this.items.push(item);
-		return item;
 	} 
 }

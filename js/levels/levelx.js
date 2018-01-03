@@ -1,7 +1,7 @@
 var createLevelX = function () {
 
     //Define Inputs//////////////////////////////////////
-    levelx = new Level('levelx');
+    levelx = new Level('levelx', true);
     var i1 = levelx.addInput(2, 2, false);
     var i2 = levelx.addInput(2, 8, false);
     var i3 = levelx.addInput(2, 14, false);
@@ -34,6 +34,6 @@ var createLevelX = function () {
     g6.addChild(o1);
     g4.addChild(o2);
 
-    levelx.show();
+    return levelx;
 
 };

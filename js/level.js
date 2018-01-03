@@ -1,8 +1,10 @@
-var Level = function (name) {
+var Level = function (name, isChallenge = false, winAction = function() {}) {
 	this.name = name;
 	this.inputs = [];
 	this.outputs = [];
 	this.gates = [];
+	this.winAction = winAction;
+	this.isChallenge = isChallenge;
 	this.simulationMode = true;
 	this.inputsDisabled = false;
 	this.state = {
@@ -16,11 +18,14 @@ var Level = function (name) {
 			for (var i = 0; i < this.inputs.length; i++) {
 	   			this.inputs[i].init();
     		}
-    		
-    		this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
+    		if(this.isChallenge) {
+    			this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
+    			this.simulationMode = false;
+    		} else {
+    			this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
+    			this.simulationMode = true;
+    		}
     		this.winText = game.add.text(300, 20, "", style);
-
-    		this.simulationMode = true;
     		
 		},
 		update: () => {
@@ -55,7 +60,7 @@ var Level = function (name) {
 
 	
 
-	this.show = function () {
+	this.show = () => {
 		game.state.start(this.name);
 	}
 
@@ -73,6 +78,7 @@ var Level = function (name) {
     	}
     	if (gameWon) {
         	this.winText.text = "You win!";
+        	window.setTimeout(this.winAction, 1000);
     	} else {
     		this.winText.text = "You lose!"
     	}
