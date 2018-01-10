@@ -18,12 +18,15 @@ function preload() {
     game.load.image('and', 'img/and.png');
     game.load.image('or', 'img/or.png');
     game.load.image('not', 'img/not.png');
-    game.load.image('autoplay', 'img/button_autoplay.png');
-    game.load.image('challenge', 'img/button_challenge.png');
+    //game.load.image('autoplay', 'img/button_autoplay.png');
+    //game.load.image('challenge', 'img/button_challenge.png');
     game.load.image('play', 'img/button_play.png');
+    game.load.image('back', 'img/button_back.png');
     game.load.image('retry', 'img/button_retry.png');
     game.load.image('computer', 'img/computer.png');
     game.load.image('pad', 'img/pad.jpg');
+    game.load.image('robot', 'img/robot.png');
+    game.load.image('pixel', 'img/bubble.png');
     game.load.spritesheet('pigeon', 'img/pigeon.png', 84, 84);
 }
 
@@ -37,9 +40,14 @@ function create() {
     room1.addItem(new Item(100, 500, 'pigeon', 30));
 
     room2 = new Room('room2','room2.jpg');
+    robotPopUp = new PopUp(450, 290, 'pixel');
     room2.addItem(new Item(250, 300, 'pad', 0, levelx.show));
+    room2.addItem(new Item(500, 350, 'robot', 0, robotPopUp.show));
 
+    level1.room = room1;
     level1.winAction = room2.show;
+
+    levelx.room = room2;
     levelx.winAction = function () {
         alert("Lernspiel abgeschlossen!");
     }

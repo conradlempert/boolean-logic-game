@@ -1,5 +1,6 @@
-var Level = function (name, isChallenge = false, winAction = function() {}) {
+var Level = function (name, isChallenge = false, room = null, winAction = function() {}) {
 	this.name = name;
+	this.room = room;
 	this.inputs = [];
 	this.outputs = [];
 	this.gates = [];
@@ -22,9 +23,10 @@ var Level = function (name, isChallenge = false, winAction = function() {}) {
     			this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
     			this.simulationMode = false;
     		} else {
-    			this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
+    			//this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
     			this.simulationMode = true;
     		}
+    		this.backButton = game.add.button(0, 0, 'back', this.room.show, this, 2, 1, 0);
     		this.winText = game.add.text(300, 20, "", style);
     		
 		},
