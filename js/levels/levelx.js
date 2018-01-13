@@ -1,52 +1,39 @@
 var createLevelX = function () {
 
     //Define Inputs//////////////////////////////////////
-    gameElements.inputs.push(new Input(2, 2, false));
-    gameElements.inputs.push(new Input(2, 8, false));
-    gameElements.inputs.push(new Input(2, 14, false));
-    gameElements.inputs.push(new Input(2, 20, false));
-
+    levelx = new Level('levelx', true);
+    var i1 = levelx.addInput(2, 2, false);
+    var i2 = levelx.addInput(2, 8, false);
+    var i3 = levelx.addInput(2, 14, false);
+    var i4 = levelx.addInput(2, 20, false);
 
     //Define Gates///////////////////////////////////////
-    gameElements.gates.push(new Gate('and', 8, 4));
-    gameElements.inputs[0].addChild(gameElements.gates[0]);
-    gameElements.inputs[1].addChild(gameElements.gates[0]);
-
-    gameElements.gates.push(new Gate('or', 8, 10));
-    gameElements.inputs[1].addChild(gameElements.gates[1]);
-    gameElements.inputs[2].addChild(gameElements.gates[1]);
-
-
-    gameElements.gates.push(new Gate('not', 8, 14));
-    gameElements.inputs[2].addChild(gameElements.gates[2]);
-
-
-    gameElements.gates.push(new Gate('and', 14, 16));
-    gameElements.gates[2].addChild(gameElements.gates[3]);
-    gameElements.inputs[3].addChild(gameElements.gates[3]);
-
-
-    gameElements.gates.push(new Gate('or', 14, 6));
-    gameElements.gates[0].addChild(gameElements.gates[4]);
-    gameElements.gates[1].addChild(gameElements.gates[4]);
-
-
-    gameElements.gates.push(new Gate('or', 20, 8));
-    gameElements.gates[4].addChild(gameElements.gates[5]);
-    gameElements.gates[3].addChild(gameElements.gates[5]);
-
-
+    var g1 = levelx.addGate('and', 8, 4);
+    var g2 = levelx.addGate('or', 8, 10);
+    var g3 = levelx.addGate('not', 8, 14);
+    var g4 = levelx.addGate('and', 14, 16);
+    var g5 = levelx.addGate('or', 14, 6);
+    var g6 = levelx.addGate('or', 20, 8);
 
     //Define Outputs/////////////////////////////////////
-
-    gameElements.outputs.push(new Output(false, 'output', 26, 12));
-    gameElements.gates[5].addChild(gameElements.outputs[0]);
-
-    gameElements.outputs.push(new Output(false, 'output', 26, 18));
-    gameElements.gates[3].addChild(gameElements.outputs[1]);
-
-
+    var o1 = levelx.addOutput(false, 26, 12);
+    var o2 = levelx.addOutput(false, 26, 18);
+    
     //Define Connections/////////////////////////////////
+    i1.addChild(g1);
+    i2.addChild(g1);
+    i2.addChild(g2);
+    i3.addChild(g2);
+    i3.addChild(g3);
+    g3.addChild(g4);
+    i4.addChild(g4);
+    g1.addChild(g5);
+    g2.addChild(g5);
+    g5.addChild(g6);
+    g4.addChild(g6);
+    g6.addChild(o1);
+    g4.addChild(o2);
 
+    return levelx;
 
 };

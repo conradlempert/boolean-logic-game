@@ -1,10 +1,11 @@
-var Gate = function (type, x, y) {
+var Gate = function (type, x, y, level) {
     // Attributes
 
     this.x = x * gridUnit;
     this.y = y * gridUnit;
     this.type = type;
-    this.sprite = game.add.sprite(this.x, this.y, type);
+    this.level = level;
+    
     this.updated = new Phaser.Signal();
     this.input1 = false;
     this.input2 = false;
@@ -12,7 +13,9 @@ var Gate = function (type, x, y) {
     this.parents = [];
 
     // Methods
-
+    this.init = function () {
+        this.sprite = game.add.sprite(this.x, this.y, type);
+    }
     this.drawConnections = function () {
         for(var i = 0; i < this.parents.length; i++) {
         	var parent = this.parents[i];
@@ -33,7 +36,7 @@ var Gate = function (type, x, y) {
             	var startX = parent.x + 50;
             	var startY = parent.y + 25;
             }
-            drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
+            this.level.drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
         }
     };
 

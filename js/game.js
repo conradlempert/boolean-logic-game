@@ -1,8 +1,7 @@
 
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 var gridUnit = 25;
-var simulationMode = true;
-var inputsDisabled = false;
+
 var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
 
 gameElements = {
@@ -19,96 +18,44 @@ function preload() {
     game.load.image('and', 'img/and.png');
     game.load.image('or', 'img/or.png');
     game.load.image('not', 'img/not.png');
-    game.load.image('autoplay', 'img/button_autoplay.png');
-    game.load.image('challenge', 'img/button_challenge.png');
+    //game.load.image('autoplay', 'img/button_autoplay.png');
+    //game.load.image('challenge', 'img/button_challenge.png');
     game.load.image('play', 'img/button_play.png');
+    game.load.image('back', 'img/button_back.png');
     game.load.image('retry', 'img/button_retry.png');
+    game.load.image('computer', 'img/computer.png');
+    game.load.image('pad', 'img/pad.jpg');
+    game.load.image('robot', 'img/robot.png');
+    game.load.image('pixel', 'img/bubble.png');
+    game.load.spritesheet('pigeon', 'img/pigeon.png', 84, 84);
 }
 
 function create() {
-	createLevelX()
 
+    level1 = createLevel1();
+    levelx = createLevelX();
 
-	// Updating all gates/outputs
-	for (var i = 0; i < gameElements.inputs.length; i++) {
-	   gameElements.inputs[i].updated.dispatch();
+    room1 = new Room('room1','room1.jpg');
+    room1.addItem(new Item(500, 500, 'computer', 0, level1.show));
+    room1.addItem(new Item(100, 500, 'pigeon', 30));
+
+    room2 = new Room('room2','room2.jpg');
+    robotPopUp = new PopUp(450, 290, 'pixel');
+    room2.addItem(new Item(250, 300, 'pad', 0, levelx.show));
+    room2.addItem(new Item(500, 350, 'robot', 0, robotPopUp.show));
+
+    level1.room = room1;
+    level1.winAction = room2.show;
+
+    levelx.room = room2;
+    levelx.winAction = function () {
+        alert("Lernspiel abgeschlossen!");
     }
-    winText = game.add.text(300, 20, "", style);
 
-    simulationMode = true;
-    modeButton = game.add.button(0, 0, 'autoplay', activateChallengeMode, this, 2, 1, 0);
+    room1.show();
+    
 }
 
 function update() {
-	for(var i = 0; i < gameElements.gates.length; i++) {
-		gameElements.gates[i].drawConnections();
-		
-	}
-	for(var i = 0; i < gameElements.outputs.length; i++) {
-		gameElements.outputs[i].drawConnections();
-		gameElements.outputs[i].show();
-	}
-}
-
-function checkWin() {
-    
-    simulationMode = true;
-    inputsDisabled = true;
-
-    playButton.destroy();
-    retryButton = game.add.button(140, 0, 'retry', retry, this, 2, 1, 0);
-
-    var gameWon = true;
-    for (var i = 0; i < gameElements.outputs.length; i++) {
-        gameWon = (gameElements.outputs[i].on === gameElements.outputs[i].expected) && gameWon;
-    }
-    if (gameWon) {
-        winText.text = "You win!";
-    } else {
-    	winText.text = "You lose!"
-    }
-
-}
-function activateAutoPlay() {
-	if(simulationMode) {
-		retryButton.destroy();
-	} else {
-		playButton.destroy();
-	}
-	simulationMode = true;
-	modeButton.destroy();
-	winText.text = '';
-	modeButton = game.add.button(0, 0, 'autoplay', activateChallengeMode, this, 2, 1, 0);
-}
-function activateChallengeMode() {
-	simulationMode = false;
-	modeButton.destroy();
-	modeButton = game.add.button(0, 0, 'challenge', activateAutoPlay, this, 2, 1, 0);
-	playButton = game.add.button(140, 0, 'play', checkWin, this, 2, 1, 0);
-}
-
-function retry() {
-	simulationMode = false;
-	inputsDisabled = false;
-	winText.text = '';
-	retryButton.destroy();
-	playButton = game.add.button(140, 0, 'play', checkWin, this, 2, 1, 0);
-}
-function drawConnection(startX, startY, goalX, goalY, on) {
-	var midX = (startX + goalX) / 2;
-	var graphics = game.add.graphics(0, 0);
-    graphics.lineStyle(3, 0xffff00, 1);
-    if(simulationMode) {
-        if(on) {
-            graphics.lineStyle(3, 0x00ff00, 1);
-        } else {
-            graphics.lineStyle(3, 0xff0000, 1);
-        }
-    }
-    graphics.moveTo(startX, startY);
-    graphics.lineTo(midX, startY);
-    graphics.lineTo(midX, goalY);
-    graphics.lineTo(goalX, goalY);
-
-    window.graphics = graphics;
+	
 }
