@@ -4,7 +4,7 @@ MAINTAINER Aron Kunze <aron.kunze@gmail.com>
 RUN apt-get update && apt-get install -qq -y --no-install-recommends build-essential nodejs libpq-dev git npm
 RUN npm install -g yarn
 
-ENV INSTALL_PATH /munus
+ENV INSTALL_PATH /openhpigame
 RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 

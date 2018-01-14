@@ -4,7 +4,7 @@ var Room = function (name, background) {
 	this.items = [];
 	this.state = {
 		preload: () => {
-			game.load.image(this.name, 'img/' + this.background);
+			game.load.image(this.name, 'assets/' + this.background);
 		},
 		create: () => {
 			game.add.sprite(0, 0, this.name);
