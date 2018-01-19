@@ -14,11 +14,17 @@
 //= require turbolinks
 //= require_tree .
 
+console.log(window.location.pathname)
+if (window.location.pathname === '/') {
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create});
+    var gridUnit = 25;
+    var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+}
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create});
-var gridUnit = 25;
 
-var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+function postScore(score) {
+    window.location.href = '/quiz_finished?score=' + score
+}
 
 gameElements = {
     gates: [],
