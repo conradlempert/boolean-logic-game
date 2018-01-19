@@ -1,2 +1,7 @@
 #wrapper
   #game
+- if Rails.env == 'development'
+  %button{onclick: 'postScore(1.0)'}
+    finish
+
+  =lti_tool_provider
