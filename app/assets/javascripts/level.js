@@ -1,6 +1,5 @@
-var Level = function (name, isChallenge = false, room = null, winAction = function() {}) {
+var Level = function (name, isChallenge = false, winAction = function() {}) {
 	this.name = name;
-	this.room = room;
 	this.inputs = [];
 	this.outputs = [];
 	this.gates = [];
@@ -8,41 +7,8 @@ var Level = function (name, isChallenge = false, room = null, winAction = functi
 	this.isChallenge = isChallenge;
 	this.simulationMode = true;
 	this.inputsDisabled = false;
-	this.state = {
-		create: () => {
-			for (var i = 0; i < this.outputs.length; i++) {
-	   			this.outputs[i].init();
-    		}
-    		for (var i = 0; i < this.gates.length; i++) {
-	   			this.gates[i].init();
-    		}
-			for (var i = 0; i < this.inputs.length; i++) {
-	   			this.inputs[i].init();
-    		}
-    		if(this.isChallenge) {
-    			this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
-    			this.simulationMode = false;
-    		} else {
-    			//this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
-    			this.simulationMode = true;
-    		}
-    		this.backButton = game.add.button(0, 0, 'back', this.room.show, this, 2, 1, 0);
-    		this.winText = game.add.text(300, 20, "", style);
-    		
-		},
-		update: () => {
-			for(var i = 0; i < this.gates.length; i++) {
-				this.gates[i].drawConnections();
-			}
-			for(var i = 0; i < this.outputs.length; i++) {
-				this.outputs[i].drawConnections();
-				this.outputs[i].show();
-			}
-		}
-	}
-
-	game.state.add(this.name, this.state);
-
+	this.window = {x:0, y:0, width:game.width, height:game.height};
+	this.backgroundImage = "defaultBg";
 
 	this.addInput = function (x, y, on) {
 		var input = new Input(x, y, on, this);
@@ -60,10 +26,43 @@ var Level = function (name, isChallenge = false, room = null, winAction = functi
 		return gate;
 	}
 
-	
+	this.update = () => {
+        for(var i = 0; i < this.gates.length; i++) {
+            this.gates[i].drawConnections();
+        }
+        for(var i = 0; i < this.outputs.length; i++) {
+            this.outputs[i].drawConnections();
+            this.outputs[i].show();
+        }
+    }
 
-	this.show = () => {
-		game.state.start(this.name);
+	this.show = (room) => {
+
+	    this.room = room;
+
+	    console.log("wow");
+        this.bgSprite = game.add.sprite(this.window.x, this.window.y, this.backgroundImage);
+        this.bgSprite.width = this.window.width;
+        this.bgSprite.height = this.window.height;
+
+        for (var i = 0; i < this.outputs.length; i++) {
+            this.outputs[i].init();
+        }
+        for (var i = 0; i < this.gates.length; i++) {
+            this.gates[i].init();
+        }
+        for (var i = 0; i < this.inputs.length; i++) {
+            this.inputs[i].init();
+        }
+        if(this.isChallenge) {
+            this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
+            this.simulationMode = false;
+        } else {
+            //this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
+            this.simulationMode = true;
+        }
+        this.backButton = game.add.button(0, 0, 'back', this.room.closeLevel, this, 2, 1, 0);
+        this.winText = game.add.text(300, 20, "", style);
 	}
 
 	this.checkWin = function() {
