@@ -34,6 +34,7 @@ function preload() {
     game.load.image('and', 'assets/and.png');
     game.load.image('or', 'assets/or.png');
     game.load.image('not', 'assets/not.png');
+    game.load.image('equals', 'assets/equals.png');
     //game.load.image('autoplay', 'assets/button_autoplay.png');
     //game.load.image('challenge', 'assets/button_challenge.png');
     game.load.image('play', 'assets/button_play.png');
