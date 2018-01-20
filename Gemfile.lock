@@ -1,3 +1,11 @@
+PATH
+  remote: gems/omniauth-lti
+  specs:
+    omniauth-lti (0.0.3)
+      ims-lti (= 1.1.13)
+      oauth (~> 0.5)
+      omniauth
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -71,8 +79,12 @@ GEM
       temple (>= 0.8.0)
       thor
       tilt
+    hashie (3.5.7)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
+    ims-lti (1.1.13)
+      builder
+      oauth (>= 0.4.5, < 0.6)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -93,6 +105,10 @@ GEM
     nio4r (2.2.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    oauth (0.5.4)
+    omniauth (1.8.1)
+      hashie (>= 3.4.6, < 3.6.0)
+      rack (>= 1.6.2, < 3)
     pg (0.21.0)
     public_suffix (3.0.1)
     puma (3.11.0)
@@ -186,6 +202,7 @@ DEPENDENCIES
   hamlit
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  omniauth-lti!
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.4)
