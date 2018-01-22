@@ -61,6 +61,19 @@ function create() {
     room2.addItem(new Item(250, 300, 'pad', 0, levelx.show));
     room2.addItem(new Item(500, 350, 'robot', 0, robotPopUp.show));
 
+
+    var speech = [
+        {
+            speaker: "A",
+            text: "Hallo"
+        },
+        {
+            speaker: "B",
+            text: "Tschau"
+        }
+    ];
+    dialogue = new Dialogue(speech);
+
     level1.room = room1;
     level1.winAction = room2.show;
 
