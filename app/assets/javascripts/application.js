@@ -31,6 +31,7 @@ gameElements = {
 }
 
 function preload() {
+    game.load.video('intro', 'assets/intro.mp4');
     game.load.image('logo', 'assets/openhpi.jpg');
     game.load.image('on', 'assets/on.png');
     game.load.image('off', 'assets/off.png');
@@ -99,6 +100,10 @@ function create() {
         alert("Lernspiel abgeschlossen!");
     }
 
-    room1.show();
+    video = game.add.video('intro');
+    video.onComplete.dispatch = function () {room1.show()};
+    video.play(false);
+    video.addToWorld();
+
 
 }
