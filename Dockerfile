@@ -9,6 +9,7 @@ RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 
 
+COPY /gems ./gems
 COPY Gemfile Gemfile.lock ./
 RUN gem update --system
 RUN bundle install --binstubs
