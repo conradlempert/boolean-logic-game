@@ -1,7 +1,7 @@
 var createLevelX = function () {
 
     //Define Inputs//////////////////////////////////////
-    levelx = new Level('levelx', true);
+    levelx = new Level('levelx', 'challenge', '[A && B || (B || C)] || !C && D');
     var i1 = levelx.addInput(2, 2, false);
     var i2 = levelx.addInput(2, 8, false);
     var i3 = levelx.addInput(2, 14, false);

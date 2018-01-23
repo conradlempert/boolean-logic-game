@@ -26,6 +26,10 @@ var Item = function(x, y, name, room, action) {
                 break;
             case "popup":
                 this.action.popup.show();
+                break;
+            case "endlevel":
+                this.room.endLevel();
+                break;
             default:
                 break;
         }
