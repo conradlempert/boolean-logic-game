@@ -106,7 +106,7 @@ function create() {
         alert("Lernspiel abgeschlossen!");
     }
 
-//    room1.show();
+    room1.show();
 
     var speech = [
         {
@@ -118,6 +118,6 @@ function create() {
             text: "If the rocks cry out in silence so will I"
         }
     ];
-    myDialogue = new Dialogue(speech);
+ //   myDialogue = new Dialogue(speech);
 
 }
