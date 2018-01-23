@@ -1,5 +1,5 @@
 var createLevel1 = function (){
-    level1 = new Level('level1', true);
+    level1 = new Level('level1', 'challenge', 'A == B');
     input1 = level1.addInput(2, 2, true);
     input2 = level1.addInput(2, 8, true);
     gate1 = level1.addGate('equals', 8, 4);
