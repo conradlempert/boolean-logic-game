@@ -1,12 +1,11 @@
-var Level = function (name, isChallenge = false, winAction = function() {}) {
+var Level = function (name, type = "challenge", expression = "", winAction = function() {}) {
 	this.name = name;
 	this.inputs = [];
 	this.outputs = [];
 	this.gates = [];
 	this.winAction = winAction;
-	this.isChallenge = isChallenge;
-	this.simulationMode = true;
-	this.inputsDisabled = false;
+	this.type = type;
+	this.expression = expression;
 	this.window = {x:0, y:0, width:game.width, height:game.height};
 	this.backgroundImage = "defaultBg";
 
@@ -40,7 +39,6 @@ var Level = function (name, isChallenge = false, winAction = function() {}) {
 
 	    this.room = room;
 
-	    console.log("wow");
         this.bgSprite = game.add.sprite(this.window.x, this.window.y, this.backgroundImage);
         this.bgSprite.width = this.window.width;
         this.bgSprite.height = this.window.height;
@@ -54,24 +52,41 @@ var Level = function (name, isChallenge = false, winAction = function() {}) {
         for (var i = 0; i < this.inputs.length; i++) {
             this.inputs[i].init();
         }
-        if(this.isChallenge) {
-            this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
-            this.simulationMode = false;
-        } else {
-            //this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
-            this.simulationMode = true;
+        switch(type) {
+            case "challenge":
+                this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
+                this.simulationMode = false;
+                break;
+            case "demo":
+                this.simulationMode = true;
+                break;
+            case "choice":
+                for(var i = 0; i < this.choices.length; i++) {
+                    var button = game.add.button(100 + i*300, 300, "play", (button) => {this.checkChoice(button.id)}, this, 2, 1, 0);
+                    button.id = i;
+                }
+                this.simulationMode = true;
+                break;
+            default:
+                console.log(this.name + ": Invalid Level type!");
+                break;
         }
+
+        this.inputsDisabled = false;
         this.backButton = game.add.button(0, 0, 'back', this.room.closeLevel, this, 2, 1, 0);
         this.winText = game.add.text(300, 20, "", style);
+        this.expressionText = game.add.text(300, 500, this.expression, style);
 	}
 
-// Not used
-	this.hide = function() {
-		this.bgSprite.destroy();
-		this.playButton.destroy();
-		this.backButton.destroy();
-		this.winText.destroy();
-	}
+
+	this.checkChoice = function(index) {
+        if(this.choices[index]) {
+            this.winText.text = "You win!";
+            window.setTimeout(this.winAction, 1000);
+        } else {
+            this.fail();
+        }
+    }
 
 	this.checkWin = function() {
     
@@ -89,27 +104,8 @@ var Level = function (name, isChallenge = false, winAction = function() {}) {
         	this.winText.text = "You win!";
         	window.setTimeout(this.winAction, 1000);
     	} else {
-    		this.winText.text = "You lose!"
+    		this.fail();
     	}
-	}
-
-	this.activateAutoPlay = function() {
-		if(this.simulationMode) {
-			this.retryButton.destroy();
-		} else {
-			this.playButton.destroy();
-		}
-		this.simulationMode = true;
-		this.modeButton.destroy();
-		this.winText.text = '';
-		this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
-	}
-
-	this.activateChallengeMode = function() {
-		this.simulationMode = false;
-		this.modeButton.destroy();
-		this.modeButton = game.add.button(0, 0, 'challenge', this.activateAutoPlay, this, 2, 1, 0);
-		this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
 	}
 
 	this.retry = function() {
@@ -138,4 +134,8 @@ var Level = function (name, isChallenge = false, winAction = function() {}) {
 
     	window.graphics = graphics;
 	}
+
+	this.fail = function() {
+	    this.room.closeLevel();
+    }
 }

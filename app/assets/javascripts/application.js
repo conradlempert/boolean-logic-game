@@ -31,6 +31,7 @@ gameElements = {
 }
 
 function preload() {
+    game.load.video('intro', 'assets/intro.mp4');
     game.load.image('logo', 'assets/openhpi.jpg');
     game.load.image('on', 'assets/on.png');
     game.load.image('off', 'assets/off.png');
@@ -48,6 +49,7 @@ function preload() {
     game.load.image('computer', 'assets/computer.png');
     game.load.image('pad', 'assets/pad.jpg');
     game.load.image('robot', 'assets/robot.png');
+    game.load.image('grid', 'assets/gitter.jpg');
     game.load.image('pixel', 'assets/bubble.png');
     game.load.image('toaster', 'assets/toaster.png');
     game.load.spritesheet('pigeon', 'assets/pigeon.png', 84, 84);
@@ -57,17 +59,8 @@ function preload() {
 
 function create() {
 
-    level1 = createLevel1();
-    levelx = createLevelX();
-    demo = createDemo();
-
     room1 = new Room('room1','room1.jpg');
-    room1.addItem(new Item(500, 500, 'computer', room1,
-        {
-            type: "level",
-            level: level1
-        }
-    ));
+    room1.addItem(new Item(500, 500, 'computer', room1, { type: "endlevel" }));
     room1.addItem(new Item(100, 500, 'pigeon', room1,
         {
             type: "animation",
@@ -77,36 +70,37 @@ function create() {
     room1.addItem(new Item(300, 500, 'toaster', room1,
         {
             type: "level",
-            level: demo
+            level: createDemo()
         }
     ));
 
-    room2 = new Room('room2','room2.jpg');
+    room2 = new Room('room2','room2.png');
+    room2.addItem(new Item(530, 240, 'grid', room2, { type: "endlevel" }));
+
+    room3 = new Room('room3','room3.jpg');
     robotPopUp = new PopUp(450, 290, 'pixel');
-    room2.addItem(new Item(250, 300, 'pad', room2,
-        {
-            type: "level",
-            level: levelx
-        }
-    ));
-    room2.addItem(new Item(500, 350, 'robot', room2,
+    room3.addItem(new Item(250, 300, 'pad', room3, { type: "endlevel" }));
+    room3.addItem(new Item(500, 350, 'robot', room3,
         {
             type: "popup",
             popup: robotPopUp
         }
     ));
 
-    console.log("Hello");
+    room1.endLevels = [createLevel1()];
+    room2.endLevels = [multipleChoice1(), multipleChoice2(), multipleChoice3()];
+    room3.endLevels = [createLevelX()];
+
+    room1.nextRoom = room2;
+    room2.nextRoom = room3;
+    room3.nextRoom = room1;
+
+    video = game.add.video('intro');
+    video.onComplete.dispatch = function () {room1.show()};
+    video.play(false);
+    video.addToWorld();
 
 
-    level1.room = room1;
-
-    level1.winAction = room2.show;
-    levelx.winAction = function () {
-        alert("Lernspiel abgeschlossen!");
-    }
-
-    room1.show();
 
     var speech = [
         {

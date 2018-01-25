@@ -4,6 +4,10 @@ var Room = function (name, background) {
 	this.items = [];
 	this.activeLevel = null;
 	this.dialogeShown = false;
+	this.endLevels = [];
+	this.currentEndLevel = 0;
+	this.nextRoom = null;
+
 	this.state = {
 		preload: () => {
 			game.load.image(this.name, 'assets/' + this.background);
@@ -20,10 +24,24 @@ var Room = function (name, background) {
 	game.state.add(this.name, this.state);
 
 	this.showLevel = (level) => {
-	    if(this.activeLevel == null) {
-            this.activeLevel = level;
-            level.show(this);
+	    this.activeLevel = level;
+	    level.show(this);
+    }
+
+    this.endLevel = () => {
+	    var nextLevel = this.endLevels[this.currentEndLevel];
+	    if(this.endLevels.length == this.currentEndLevel + 1) {
+	        //This is the last endLevel in this room
+
+            nextLevel.winAction = this.nextRoom.show;
+            console.log("name: " + nextLevel.name + ", winAction: " + nextLevel.winAction);
+        } else {
+	        //There is another level to be done in this room
+            this.currentEndLevel++;
+	        nextLevel.winAction = this.endLevel;
         }
+
+	    this.showLevel(nextLevel);
     }
 
     this.closeLevel = () => {
