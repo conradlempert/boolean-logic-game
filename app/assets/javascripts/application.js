@@ -52,6 +52,7 @@ function preload() {
     game.load.image('grid', 'assets/gitter.jpg');
     game.load.image('pixel', 'assets/bubble.png');
     game.load.image('toaster', 'assets/toaster.png');
+    game.load.image('lock', 'assets/lock.png');
     game.load.spritesheet('pigeon', 'assets/pigeon.png', 84, 84);
     game.load.image('eric', 'assets/eric.png');
     game.load.image('mouse', 'assets/mouse.png');
