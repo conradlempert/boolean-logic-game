@@ -78,6 +78,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.expressionText = game.add.text(300, 500, this.expression, style);
 	}
 
+
 	this.checkChoice = function(index) {
         if(this.choices[index]) {
             this.winText.text = "You win!";
