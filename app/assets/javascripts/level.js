@@ -9,8 +9,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.window = {x:0, y:0, width:game.width, height:game.height};
 	this.backgroundImage = "defaultBg";
 
-	this.addInput = function (x, y, on) {
-		var input = new Input(x, y, on, this);
+	this.addInput = function (x, y, on, locked = false) {
+		var input = new Input(x, y, on, this, locked);
 		this.inputs.push(input);
 		return input;
 	}

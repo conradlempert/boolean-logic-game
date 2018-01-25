@@ -3,7 +3,7 @@ var Room = function (name, background) {
 	this.background = background;
 	this.items = [];
 	this.activeLevel = null;
-	this.dialogeShown = false;
+	this.entrySpeech = null;
 	this.endLevels = [];
 	this.currentEndLevel = 0;
 	this.nextRoom = null;
@@ -14,6 +14,9 @@ var Room = function (name, background) {
 		},
 		create: () => {
 			this.render();
+            if(this.entrySpeech != null) {
+                this.dialogue = new Dialogue(this.entrySpeech);
+            }
 		},
 		update: () => {
 		    if(this.activeLevel != null) {
@@ -54,20 +57,6 @@ var Room = function (name, background) {
         for(var i = 0; i < this.items.length; i++) {
             this.items[i].init();
         }
-        if(name === 'room1' && !this.dialogeShown) {
-        	this.dialogeShown = true;
-		    var speech = [
-	        {
-	            image: "mouse",
-	            text: "Maus: Hi Eric! Lust auf einen kleinen Coup im Louvre?"
-	        },
-	        {
-	            image: "eric",
-	            text: "Eric: Ja. Lass uns gucken was wir da borgen können."
-	        }
-	    	];
-	    	myDialogue = new Dialogue(speech);
-		}
     }
 
 	this.show = () => {

@@ -1,20 +1,24 @@
-var Input = function (x, y, on, level) {
+var Input = function (x, y, on, level, locked = false) {
 
     // Attributes /////////////////////////////////////////
-    this.on = on || true;
+    this.on = on;
     this.x = x * gridUnit;
     this.y = y * gridUnit;
     this.type = "input";
     this.level = level;
+    this.locked = locked;
     this.updated = new Phaser.Signal();
     
     // Methods ///////////////////////////////////////////
 
     this.init = function () {
         this.sprite = game.add.sprite(this.x, this.y, 'on');
-        this.sprite.inputEnabled = true;
-        this.sprite.events.onInputDown.add(this.toggle, this);
-        
+        if(this.locked) {
+            this.lockSprite = game.add.sprite(this.x + 20, this.y - 20, 'lock');
+        } else {
+            this.sprite.inputEnabled = true;
+            this.sprite.events.onInputDown.add(this.toggle, this);
+        }
         this.updated.dispatch();
 
         this.show();

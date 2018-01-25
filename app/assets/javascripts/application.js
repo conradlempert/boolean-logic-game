@@ -52,6 +52,7 @@ function preload() {
     game.load.image('grid', 'assets/gitter.jpg');
     game.load.image('pixel', 'assets/bubble.png');
     game.load.image('toaster', 'assets/toaster.png');
+    game.load.image('lock', 'assets/lock.png');
     game.load.spritesheet('pigeon', 'assets/pigeon.png', 84, 84);
     game.load.image('eric', 'assets/eric.png');
     game.load.image('mouse', 'assets/mouse.png');
@@ -95,23 +96,20 @@ function create() {
     room2.nextRoom = room3;
     room3.nextRoom = room1;
 
+    room1.entrySpeech = [
+        {
+            image: "mouse",
+            text: "Maus: Hi Eric! Lust auf einen kleinen Coup im Louvre?"
+        },
+        {
+            image: "eric",
+            text: "Eric: Ja. Lass uns gucken was wir da borgen können."
+        }
+    ];
+
     video = game.add.video('intro');
     video.onComplete.dispatch = function () {room1.show()};
     video.play(false);
     video.addToWorld();
-
-
-
-    var speech = [
-        {
-            image: "mouse",
-            text: "If the wind goes where you send it so will I"
-        },
-        {
-            image: "eric",
-            text: "If the rocks cry out in silence so will I"
-        }
-    ];
- //   myDialogue = new Dialogue(speech);
 
 }
