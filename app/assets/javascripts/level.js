@@ -65,6 +65,14 @@ var Level = function (name, isChallenge = false, winAction = function() {}) {
         this.winText = game.add.text(300, 20, "", style);
 	}
 
+// Not used
+	this.hide = function() {
+		this.bgSprite.destroy();
+		this.playButton.destroy();
+		this.backButton.destroy();
+		this.winText.destroy();
+	}
+
 	this.checkWin = function() {
     
     	this.simulationMode = true;

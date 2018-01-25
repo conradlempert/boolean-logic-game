@@ -8,14 +8,14 @@ var Dialogue = function (speech) {
 
 	this.draw = function () {
 		this.graphics = game.add.graphics(0, this.y);
-		this.graphics.beginFill(0x00ff00);
+		this.graphics.beginFill(0x54545454);
 		this.graphics.drawRect(0,40,game.world.width, game.world.height-this.y);
-		this.graphics.lineStyle(2, 0x0000FF, 1);
+		this.graphics.lineStyle(2, "", 1);
 		this.graphics.endFill();
 
 		this.sprite = game.add.sprite(0, this.y+50, this.speech[this.textIndex].image);
 
-		var style = { font: "20px Arial", fill: "#ff0044" };//, align: "center" };
+		var style = { font: "20px Arial", fill: "blue" };//, align: "center" };
 		this.text = game.add.text(150, this.y+50, 
 			"", style);
 		this.graphics.inputEnabled = true;
