@@ -99,11 +99,11 @@ function create() {
     room1.entrySpeech = [
         {
             image: "mouse",
-            text: "If the wind goes where you send it so will I"
+            text: "Maus: Hi Eric! Lust auf einen kleinen Coup im Louvre?"
         },
         {
             image: "eric",
-            text: "If the rocks cry out in silence so will I"
+            text: "Eric: Ja. Lass uns gucken was wir da borgen können."
         }
     ];
 
