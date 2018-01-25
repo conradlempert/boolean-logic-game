@@ -95,14 +95,7 @@ function create() {
     room2.nextRoom = room3;
     room3.nextRoom = room1;
 
-    video = game.add.video('intro');
-    video.onComplete.dispatch = function () {room1.show()};
-    video.play(false);
-    video.addToWorld();
-
-
-
-    var speech = [
+    room1.entrySpeech = [
         {
             image: "mouse",
             text: "If the wind goes where you send it so will I"
@@ -112,6 +105,10 @@ function create() {
             text: "If the rocks cry out in silence so will I"
         }
     ];
- //   myDialogue = new Dialogue(speech);
+
+    video = game.add.video('intro');
+    video.onComplete.dispatch = function () {room1.show()};
+    video.play(false);
+    video.addToWorld();
 
 }

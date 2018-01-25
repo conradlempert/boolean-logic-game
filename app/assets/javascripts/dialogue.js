@@ -8,15 +8,15 @@ var Dialogue = function (speech) {
 
 	this.draw = function () {
 		this.graphics = game.add.graphics(0, this.y);
-		this.graphics.beginFill(0x54545454);
-		this.graphics.drawRect(0,40,game.world.width, game.world.height-this.y);
+		this.graphics.beginFill(0xAAAAAA);
+		this.graphics.drawRect(20,20,game.world.width-40, game.world.height-this.y-40);
 		this.graphics.lineStyle(2, "", 1);
 		this.graphics.endFill();
 
-		this.sprite = game.add.sprite(0, this.y+50, this.speech[this.textIndex].image);
+		this.sprite = game.add.sprite(40, this.y+40, this.speech[this.textIndex].image);
 
-		var style = { font: "20px Arial", fill: "blue" };//, align: "center" };
-		this.text = game.add.text(150, this.y+50, 
+		var style = { font: "20px Arial", fill: "black" };//, align: "center" };
+		this.text = game.add.text(200, this.y+50,
 			"", style);
 		this.graphics.inputEnabled = true;
 		this.graphics.events.onInputUp.add(this.textClick, this);
@@ -28,7 +28,6 @@ var Dialogue = function (speech) {
 	}	
 
 	this.textClick = function (){
-		console.log("Click");
 		if (++this.textIndex < this.speech.length) {
 			this.setUpSpeaker(this.textIndex);
 		} else {
