@@ -7,7 +7,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.type = type;
 	this.completed = false;
 	this.expression = expression;
-	this.window = {x:0, y:0, width:game.width, height:game.height};
+	this.window = {x:0, y:40, width:game.width, height:game.height - 40};
 	this.backgroundImage = "defaultBg";
 
 	this.addInput = function (x, y, on, locked = false) {
@@ -55,7 +55,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         }
         switch(type) {
             case "challenge":
-                this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
+                this.playButton = game.add.button(140, 40, 'play', this.checkWin, this, 2, 1, 0);
                 this.simulationMode = false;
                 break;
             case "demo":
@@ -74,8 +74,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         }
 
         this.inputsDisabled = false;
-        this.backButton = game.add.button(0, 0, 'back', this.room.closeLevel, this, 2, 1, 0);
-        this.winText = game.add.text(300, 20, "", style);
+        this.backButton = game.add.button(0, 40, 'back', this.room.closeLevel, this, 2, 1, 0);
+        this.winText = game.add.text(300, 60, "", style);
         this.expressionText = game.add.text(300, 500, this.expression, style);
 	}
 

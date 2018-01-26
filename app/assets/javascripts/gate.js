@@ -1,8 +1,8 @@
 var Gate = function (type, x, y, level) {
     // Attributes
 
-    this.x = x * gridUnit;
-    this.y = y * gridUnit;
+    this.x = x * gridUnit + 40;
+    this.y = y * gridUnit + 40;
     this.type = type;
     this.level = level;
     

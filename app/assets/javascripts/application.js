@@ -58,6 +58,7 @@ function preload() {
     game.load.spritesheet('pigeon', 'assets/pigeon.png', 84, 84);
     game.load.image('eric', 'assets/eric.png');
     game.load.image('mouse', 'assets/mouse.png');
+    game.load.image('status', 'assets/status.jpg');
 }
 
 function create() {
@@ -110,7 +111,10 @@ function create() {
     ];
 
     video = game.add.video('intro');
-    video.onComplete.dispatch = function () {room1.show()};
+    video.onComplete.dispatch = function () {
+        room1.show();
+        showStatusBar();
+    };
     video.play(false)
 
 
@@ -123,4 +127,8 @@ function create() {
 function raiseScore() {
     score++;
     console.log(score);
+}
+
+function showStatusBar() {
+    game.add.sprite(0,0,'status');
 }
