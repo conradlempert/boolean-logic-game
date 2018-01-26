@@ -82,6 +82,8 @@ GEM
     hashie (3.5.7)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
+    i18n-js (3.0.4)
+      i18n (~> 0.6, >= 0.6.6)
     ims-lti (1.1.13)
       builder
       oauth (>= 0.4.5, < 0.6)
@@ -200,6 +202,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   hamlit
+  i18n-js (~> 3.0)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   omniauth-lti!
