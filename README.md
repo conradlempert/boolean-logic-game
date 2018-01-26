@@ -21,3 +21,11 @@ LTI Secrets and Keys can be configured in `config/initializers/lti.rb`
 The app is preconfigured for the key `openhpi` the corresponding secret 
 must be specified in the `.env` file
 
+## Important LTI Parameters
+
+### lis_outcome_service_url
+For updating the score
+
+### launch_presentation_return_url
+Url to return to after game was completed
+
