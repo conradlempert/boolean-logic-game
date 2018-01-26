@@ -15,7 +15,6 @@ var Item = function(x, y, name, room, action) {
 	    if(this.room.activeLevel != null) {
             this.room.closeLevel();
         }
-        console.log(this.action.type);
         switch(this.action.type) {
             case "animation":
                 this.sprite.animations.add(this.name);
