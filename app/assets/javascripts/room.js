@@ -32,19 +32,20 @@ var Room = function (name, background) {
     }
 
     this.endLevel = () => {
-	    var nextLevel = this.endLevels[this.currentEndLevel];
+	    var thisLevel = this.endLevels[this.currentEndLevel];
 	    if(this.endLevels.length == this.currentEndLevel + 1) {
 	        //This is the last endLevel in this room
 
-            nextLevel.winAction = this.nextRoom.show;
-            console.log("name: " + nextLevel.name + ", winAction: " + nextLevel.winAction);
+            thisLevel.winAction = this.nextRoom.show;
         } else {
 	        //There is another level to be done in this room
-            this.currentEndLevel++;
-	        nextLevel.winAction = this.endLevel;
+            thisLevel.winAction = this.endLevel;
+            if(thisLevel.completed) {
+                this.currentEndLevel++;
+            }
         }
 
-	    this.showLevel(nextLevel);
+	    this.showLevel(this.endLevels[this.currentEndLevel]);
     }
 
     this.closeLevel = () => {

@@ -109,7 +109,16 @@ function create() {
 
     video = game.add.video('intro');
     video.onComplete.dispatch = function () {room1.show()};
-    video.play(false);
+    video.play(false)
+
+
+    score = 0;
+
     video.addToWorld();
 
+}
+
+function raiseScore() {
+    score++;
+    console.log(score);
 }

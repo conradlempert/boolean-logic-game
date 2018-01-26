@@ -5,6 +5,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.gates = [];
 	this.winAction = winAction;
 	this.type = type;
+	this.completed = false;
 	this.expression = expression;
 	this.window = {x:0, y:0, width:game.width, height:game.height};
 	this.backgroundImage = "defaultBg";
@@ -81,7 +82,9 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 	this.checkChoice = function(index) {
         if(this.choices[index]) {
+            this.completed = true;
             this.winText.text = "You win!";
+            raiseScore();
             window.setTimeout(this.winAction, 1000);
         } else {
             this.fail();
@@ -96,11 +99,12 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
     	this.playButton.destroy();
     	this.retryButton = game.add.button(140, 0, 'retry', this.retry, this, 2, 1, 0);
 
-    	var gameWon = true;
+    	this.completed = true;
     	for (var i = 0; i < this.outputs.length; i++) {
-        	gameWon = (this.outputs[i].on === this.outputs[i].expected) && gameWon;
+        	this.completed = (this.outputs[i].on === this.outputs[i].expected) && this.completed;
     	}
-    	if (gameWon) {
+    	if (this.completed) {
+    	    raiseScore();
         	this.winText.text = "You win!";
         	window.setTimeout(this.winAction, 1000);
     	} else {
