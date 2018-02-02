@@ -1,3 +1,6 @@
 en:
-  hello: "Hello world"
+  lti:
+    error:
+      h1: "There was an error while transmitting your results"
+      p: "Please contact your learning platform"
 
