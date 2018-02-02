@@ -19,6 +19,8 @@
 if (window.location.pathname === '/') {
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create});
     var gridUnit = 25;
+    var maxScore = 7;
+    var statusBarHeight = 50;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
 }
 
@@ -26,11 +28,7 @@ function postScore(score) {
     window.location.href = '/quiz_finished?score=' + score
 }
 
-gameElements = {
-    gates: [],
-    inputs: [],
-    outputs: []
-}
+
 
 function preload() {
     game.load.video('intro', 'assets/intro.mp4');
@@ -47,6 +45,7 @@ function preload() {
     game.load.image('defaultBg', 'assets/defaultBg.jpg')
     game.load.image('play', 'assets/button_play.png');
     game.load.image('back', 'assets/button_back.png');
+    game.load.image('button_empty', 'assets/button_empty.png');
     game.load.image('retry', 'assets/button_retry.png');
     game.load.image('computer', 'assets/computer.png');
     game.load.image('pad', 'assets/pad.jpg');
@@ -64,14 +63,14 @@ function preload() {
 function create() {
 
     room1 = new Room('room1','room1.jpg');
-    room1.addItem(new Item(500, 500, 'computer', room1, { type: "endlevel" }));
-    room1.addItem(new Item(100, 500, 'pigeon', room1,
+    room1.addItem(new Item(600, 500, 'computer', room1, { type: "endlevel" }));
+    room1.addItem(new Item(200, 500, 'pigeon', room1,
         {
             type: "animation",
             fps: 30
         }
     ));
-    room1.addItem(new Item(300, 500, 'toaster', room1,
+    room1.addItem(new Item(400, 500, 'toaster', room1,
         {
             type: "level",
             level: createDemo()
@@ -79,7 +78,7 @@ function create() {
     ));
 
     room2 = new Room('room2','room2.png');
-    room2.addItem(new Item(530, 240, 'grid', room2, { type: "endlevel" }));
+    room2.addItem(new Item(530, 300, 'grid', room2, { type: "endlevel" }));
 
     room3 = new Room('room3','room3.jpg');
     robotPopUp = new PopUp(450, 290, 'pixel');
@@ -113,22 +112,32 @@ function create() {
     video = game.add.video('intro');
     video.onComplete.dispatch = function () {
         room1.show();
-        showStatusBar();
     };
     video.play(false)
 
 
     score = 0;
 
-    video.addToWorld();
+    //video.addToWorld();
+    room1.show();
 
 }
 
 function raiseScore() {
     score++;
-    console.log(score);
+    showStatusBar();
 }
 
 function showStatusBar() {
     game.add.sprite(0,0,'status');
+    var style = { font: "30px Arial", fill: "black" };
+    drawButton("Level 1", 200, 0, 120, "#ffffff", () => {alert("wow")});
+    scoreText = game.add.text(10, 7, "Score: " + score + "/" + maxScore, style);
+}
+
+function drawButton(text, x, y, width, color, callback) {
+
+    game.add.button(x, y + 2, "button_empty", callback, this, 2, 1, 0);
+    var style = { font: "24px Arial", fill: "black" };
+    var text = game.add.text(x + 14, y + 10, text, style);
 }

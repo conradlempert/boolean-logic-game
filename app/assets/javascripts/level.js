@@ -7,7 +7,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.type = type;
 	this.completed = false;
 	this.expression = expression;
-	this.window = {x:0, y:40, width:game.width, height:game.height - 40};
+	this.window = {x:0, y:statusBarHeight, width:game.width, height:game.height - 40};
 	this.backgroundImage = "defaultBg";
 
 	this.addInput = function (x, y, on, locked = false) {

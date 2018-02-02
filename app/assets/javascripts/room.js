@@ -54,10 +54,11 @@ var Room = function (name, background) {
     }
 
     this.render = () => {
-        game.add.sprite(0, 40, this.name);
+        game.add.sprite(0, statusBarHeight, this.name);
         for(var i = 0; i < this.items.length; i++) {
             this.items[i].init();
         }
+        showStatusBar();
     }
 
 	this.show = () => {
