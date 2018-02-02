@@ -1,51 +1,17 @@
-var Level = function (name, isChallenge = false, room = null, winAction = function() {}) {
+var Level = function (name, type = "challenge", expression = "", winAction = function() {}) {
 	this.name = name;
-	this.room = room;
 	this.inputs = [];
 	this.outputs = [];
 	this.gates = [];
 	this.winAction = winAction;
-	this.isChallenge = isChallenge;
-	this.simulationMode = true;
-	this.inputsDisabled = false;
-	this.state = {
-		create: () => {
-			for (var i = 0; i < this.outputs.length; i++) {
-	   			this.outputs[i].init();
-    		}
-    		for (var i = 0; i < this.gates.length; i++) {
-	   			this.gates[i].init();
-    		}
-			for (var i = 0; i < this.inputs.length; i++) {
-	   			this.inputs[i].init();
-    		}
-    		if(this.isChallenge) {
-    			this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
-    			this.simulationMode = false;
-    		} else {
-    			//this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
-    			this.simulationMode = true;
-    		}
-    		this.backButton = game.add.button(0, 0, 'back', this.room.show, this, 2, 1, 0);
-    		this.winText = game.add.text(300, 20, "", style);
-    		
-		},
-		update: () => {
-			for(var i = 0; i < this.gates.length; i++) {
-				this.gates[i].drawConnections();
-			}
-			for(var i = 0; i < this.outputs.length; i++) {
-				this.outputs[i].drawConnections();
-				this.outputs[i].show();
-			}
-		}
-	}
+	this.type = type;
+	this.completed = false;
+	this.expression = expression;
+	this.window = {x:0, y:0, width:game.width, height:game.height};
+	this.backgroundImage = "defaultBg";
 
-	game.state.add(this.name, this.state);
-
-
-	this.addInput = function (x, y, on) {
-		var input = new Input(x, y, on, this);
+	this.addInput = function (x, y, on, locked = false) {
+		var input = new Input(x, y, on, this, locked);
 		this.inputs.push(input);
 		return input;
 	}
@@ -60,11 +26,70 @@ var Level = function (name, isChallenge = false, room = null, winAction = functi
 		return gate;
 	}
 
-	
+	this.update = () => {
+        for(var i = 0; i < this.gates.length; i++) {
+            this.gates[i].drawConnections();
+        }
+        for(var i = 0; i < this.outputs.length; i++) {
+            this.outputs[i].drawConnections();
+            this.outputs[i].show();
+        }
+    }
 
-	this.show = () => {
-		game.state.start(this.name);
+	this.show = (room) => {
+
+	    this.room = room;
+
+        this.bgSprite = game.add.sprite(this.window.x, this.window.y, this.backgroundImage);
+        this.bgSprite.width = this.window.width;
+        this.bgSprite.height = this.window.height;
+
+        for (var i = 0; i < this.outputs.length; i++) {
+            this.outputs[i].init();
+        }
+        for (var i = 0; i < this.gates.length; i++) {
+            this.gates[i].init();
+        }
+        for (var i = 0; i < this.inputs.length; i++) {
+            this.inputs[i].init();
+        }
+        switch(type) {
+            case "challenge":
+                this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
+                this.simulationMode = false;
+                break;
+            case "demo":
+                this.simulationMode = true;
+                break;
+            case "choice":
+                for(var i = 0; i < this.choices.length; i++) {
+                    var button = game.add.button(100 + i*300, 300, "play", (button) => {this.checkChoice(button.id)}, this, 2, 1, 0);
+                    button.id = i;
+                }
+                this.simulationMode = true;
+                break;
+            default:
+                console.log(this.name + ": Invalid Level type!");
+                break;
+        }
+
+        this.inputsDisabled = false;
+        this.backButton = game.add.button(0, 0, 'back', this.room.closeLevel, this, 2, 1, 0);
+        this.winText = game.add.text(300, 20, "", style);
+        this.expressionText = game.add.text(300, 500, this.expression, style);
 	}
+
+
+	this.checkChoice = function(index) {
+        if(this.choices[index]) {
+            this.completed = true;
+            this.winText.text = "You win!";
+            raiseScore();
+            window.setTimeout(this.winAction, 1000);
+        } else {
+            this.fail();
+        }
+    }
 
 	this.checkWin = function() {
     
@@ -74,35 +99,17 @@ var Level = function (name, isChallenge = false, room = null, winAction = functi
     	this.playButton.destroy();
     	this.retryButton = game.add.button(140, 0, 'retry', this.retry, this, 2, 1, 0);
 
-    	var gameWon = true;
+    	this.completed = true;
     	for (var i = 0; i < this.outputs.length; i++) {
-        	gameWon = (this.outputs[i].on === this.outputs[i].expected) && gameWon;
+        	this.completed = (this.outputs[i].on === this.outputs[i].expected) && this.completed;
     	}
-    	if (gameWon) {
+    	if (this.completed) {
+    	    raiseScore();
         	this.winText.text = "You win!";
         	window.setTimeout(this.winAction, 1000);
     	} else {
-    		this.winText.text = "You lose!"
+    		this.fail();
     	}
-	}
-
-	this.activateAutoPlay = function() {
-		if(this.simulationMode) {
-			this.retryButton.destroy();
-		} else {
-			this.playButton.destroy();
-		}
-		this.simulationMode = true;
-		this.modeButton.destroy();
-		this.winText.text = '';
-		this.modeButton = game.add.button(0, 0, 'autoplay', this.activateChallengeMode, this, 2, 1, 0);
-	}
-
-	this.activateChallengeMode = function() {
-		this.simulationMode = false;
-		this.modeButton.destroy();
-		this.modeButton = game.add.button(0, 0, 'challenge', this.activateAutoPlay, this, 2, 1, 0);
-		this.playButton = game.add.button(140, 0, 'play', this.checkWin, this, 2, 1, 0);
 	}
 
 	this.retry = function() {
@@ -131,4 +138,8 @@ var Level = function (name, isChallenge = false, room = null, winAction = functi
 
     	window.graphics = graphics;
 	}
+
+	this.fail = function() {
+	    this.room.closeLevel();
+    }
 }

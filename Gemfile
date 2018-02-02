@@ -8,6 +8,8 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
+# Allow LTI Launches
+gem 'omniauth-lti', path: './gems/omniauth-lti'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
@@ -20,6 +22,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'hamlit'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+
+# Using i18n in Javascript
+gem 'i18n-js', '~> 3.0'
 
 
 # Use CoffeeScript for .coffee assets and views
