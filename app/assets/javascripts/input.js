@@ -44,4 +44,11 @@ var Input = function (x, y, on, level, locked = false) {
         this.updated.dispatch();
     };
 
+    this.destroy = function () {
+        this.sprite.destroy();
+        if (this.lockSprite) {
+            this.lockSprite.destroy();
+        }
+    }
+
 };

@@ -52,4 +52,8 @@ var Output = function (expected, x, y, level) {
         this.on = on;
         this.show();
     };
+
+    this.destroy = function() {
+        this.sprite.destroy();
+    }
 };

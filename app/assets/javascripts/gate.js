@@ -78,5 +78,9 @@ var Gate = function (type, x, y, level) {
         child.register(this);
     };
 
+    this.destroy = function () {
+        this.sprite.destroy();
+    }
+
 }
 

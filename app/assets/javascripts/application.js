@@ -116,7 +116,7 @@ function create() {
 
     score = 0;
 
-    video.addToWorld();
+
 
 }
 
