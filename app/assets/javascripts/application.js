@@ -75,9 +75,24 @@ function create() {
     room1.addItem(new Item(400, 500, 'toaster', room1,
         {
             type: "level",
-            level: createDemo()
+            level: createLE_A_and_B()
         }
     ));
+    room1.addItem(new Item(350, 500, 'toaster', room1,
+        {
+            type: "level",
+            level: createLE_A()
+        }));
+    room1.addItem(new Item(400, 450, 'toaster', room1,
+        {
+            type: "level",
+            level: createLE_A_or_B()
+        }));
+    room1.addItem(new Item(500, 400, 'toaster', room1,
+        {
+            type: "level",
+            level: createLE_A_equals_B()
+        }));
 
     room2 = new Room('room2','room2.png', 2);
     room2.addItem(new Item(530, 300, 'grid', room2, { type: "endlevel" }));
@@ -100,17 +115,8 @@ function create() {
     room2.nextRoom = room3;
     room3.nextRoom = room1;
 
-    room1.entrySpeech = [
-        {
-            image: "mouse",
-            text: "Maus: Hi Eric! Lust auf einen kleinen Coup im Louvre?"
-        },
-        {
-            image: "eric",
-            text: "Eric: Ja. Lass uns gucken was wir da borgen können."
-        }
-    ];
-
+//    I18n.locale = "de";
+    score = 0;
     video = game.add.video('intro');
     video.onComplete.dispatch = function () {
         room1.show();

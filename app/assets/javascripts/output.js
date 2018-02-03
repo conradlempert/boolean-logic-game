@@ -4,8 +4,10 @@ var Output = function (expected, x, y, level) {
     this.x = x * gridUnit;
     this.y = y * gridUnit + statusBarHeight;
     this.level = level;
+
     
     this.updated = new Phaser.Signal();
+    this.onClickUpdated = new Phaser.Signal(); // dispatched, if the value change of this pin is triggered by a click by the user as opposed to internal updates
 
     this.parents = [];
 
@@ -28,12 +30,15 @@ var Output = function (expected, x, y, level) {
         }
     }
 
-    this.updateValues = function () {
+    this.updateValues = function (args) {
         if (this.parents[0] !== undefined)
             this.setValue(this.parents[0].on);
         else
             this.setValue(false);
         this.updated.dispatch(this.on === this.expected);
+        if (args.onClick === true) {
+            this.onClickUpdated.dispatch();
+        }
     };
 
     this.show = function () {
@@ -52,4 +57,8 @@ var Output = function (expected, x, y, level) {
         this.on = on;
         this.show();
     };
+
+    this.destroy = function() {
+        this.sprite.destroy();
+    }
 };

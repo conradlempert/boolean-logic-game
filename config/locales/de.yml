@@ -3,6 +3,21 @@ de:
     error:
       h1: "Bei der Übertragung Ihrer Bewertung ist ein Fehler aufgetreten"
       p: "Kontaktieren Sie Ihre Lernplattform"
+  r1:
+    d1:
+      - "Maus: Schön, wir sind endlich da. Lass uns an die Arbeit gehen und die Blumen pflücken."
+      - "Eric: Immer halblang, ein Samenkorn reicht vollkommen."
+      - "Maus: Du bist ja bescheiden."
+      - "Eric: Wie immer eben. Hoffentlich finden wir das Ding schnell, bei dem ganzen Plunder der hier rumsteht."
+      - "Maus: Na dann hopp hopp, sieh dir den Plunder erst einmal genauer an!"
+    le_A&&B:
+      - "Maus: Aha. Hier müssen also beide Ausdrücke wahr sein, damit auch das Ergebnis wahr ist."
+    le_A:
+      - "Maus: Und auch, wenn ich dich vielleicht langweile: Dieser Schalter hier ist ein logischer Ausdruck, der ein Signal an die Anlage sendet. Unser Ausdruck oder Signal A kann entweder wahr, also an, oder falsch, also aus, sein. Probiers mal aus!"
+    le_A||B:
+      - "Maus: Interessant. Wenn einer oder beide Ausdrücke wahr sind, ist das Ergebnis wahr."
+    le_A==B:
+      - "Maus: Du kannst zwei Ausdrücke auf Gleichheit überprüfen… Dazu müssen also beide Ausdrücke gleich sein."
   game:
     buttons:
       room: "Raum"
