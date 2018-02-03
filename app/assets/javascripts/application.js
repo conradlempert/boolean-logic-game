@@ -21,6 +21,7 @@ if (window.location.pathname === '/') {
     var gridUnit = 25;
     var maxScore = 7;
     var statusBarHeight = 50;
+    var progress = 0;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
 }
 
@@ -62,7 +63,7 @@ function preload() {
 
 function create() {
 
-    room1 = new Room('room1','room1.jpg');
+    room1 = new Room('room1','room1.jpg', 1);
     room1.addItem(new Item(600, 500, 'computer', room1, { type: "endlevel" }));
     room1.addItem(new Item(200, 500, 'pigeon', room1,
         {
@@ -77,10 +78,10 @@ function create() {
         }
     ));
 
-    room2 = new Room('room2','room2.png');
+    room2 = new Room('room2','room2.png', 2);
     room2.addItem(new Item(530, 300, 'grid', room2, { type: "endlevel" }));
 
-    room3 = new Room('room3','room3.jpg');
+    room3 = new Room('room3','room3.jpg', 3);
     robotPopUp = new PopUp(450, 290, 'pixel');
     room3.addItem(new Item(250, 300, 'pad', room3, { type: "endlevel" }));
     room3.addItem(new Item(500, 350, 'robot', room3,
@@ -113,7 +114,7 @@ function create() {
     video.onComplete.dispatch = function () {
         room1.show();
     };
-    video.play(false)
+    //video.play(false);
 
 
     score = 0;
@@ -129,15 +130,22 @@ function raiseScore() {
 }
 
 function showStatusBar() {
+    //console.log(progress);
     game.add.sprite(0,0,'status');
     var style = { font: "30px Arial", fill: "black" };
-    drawButton("Level 1", 200, 0, 120, "#ffffff", () => {alert("wow")});
-    scoreText = game.add.text(10, 7, "Score: " + score + "/" + maxScore, style);
+    if(progress > 1) {
+        drawButton("Room 2", 300, 0, 120, "#ffffff", room2.show, room2);
+    }
+    if(progress > 2) {
+        drawButton("Room 3", 400, 0, 120, "#ffffff", room3.show, room3);
+    }
+    drawButton("Room 1", 200, 0, 120, "#ffffff", room1.show, room1);
+    scoreText = game.add.text(10, 6, "Score: " + score + "/" + maxScore, style);
 }
 
-function drawButton(text, x, y, width, color, callback) {
+function drawButton(text, x, y, width, color, callback, reference) {
 
-    game.add.button(x, y + 2, "button_empty", callback, this, 2, 1, 0);
+    game.add.button(x, y + 2, "button_empty", callback, reference, 2, 1, 0);
     var style = { font: "24px Arial", fill: "black" };
     var text = game.add.text(x + 14, y + 10, text, style);
 }
