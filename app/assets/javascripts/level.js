@@ -10,6 +10,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.window = {x:0, y:0, width:game.width, height:game.height};
 	this.backgroundImage = "defaultBg";
 	this.destroyableGraphics = [];
+	// this.group = new Phaser.Group(game);
 
 	// element: Every element that should disappear when the level is closed is passed to this function
 	this.registerToDestroy = function(element) {
@@ -69,7 +70,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
                 this.registerToDestroy(this.playButton);
                 this.simulationMode = false;
                 break;
-            case "demo":
+            case "lernItem":
                 this.simulationMode = true;
                 break;
             case "choice":
@@ -164,12 +165,17 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 	// Löscht alle Elemente, die this.registerToDestroy() übergeben wurden
     this.destroy = function() {
+		// this.window.destroy();
         for(var i = 0; i < this.destroyableGraphics.length; i++) {
         	if (this.destroyableGraphics[i] != null) {
                 this.destroyableGraphics[i].destroy();
             }
 		}
     }
+
+    this.onOutputChange = function() {
+
+	}
 
 
 }

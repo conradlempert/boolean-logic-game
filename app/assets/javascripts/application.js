@@ -73,9 +73,24 @@ function create() {
     room1.addItem(new Item(300, 500, 'toaster', room1,
         {
             type: "level",
-            level: createDemo()
+            level: createLE_A_and_B()
         }
     ));
+    room1.addItem(new Item(350, 500, 'toaster', room1,
+        {
+            type: "level",
+            level: createLE_A()
+        }));
+    room1.addItem(new Item(400, 450, 'toaster', room1,
+        {
+            type: "level",
+            level: createLE_A_or_B()
+        }));
+    room1.addItem(new Item(500, 400, 'toaster', room1,
+        {
+            type: "level",
+            level: createLE_A_equals_B()
+        }));
 
     room2 = new Room('room2','room2.png');
     room2.addItem(new Item(530, 240, 'grid', room2, { type: "endlevel" }));
@@ -98,29 +113,15 @@ function create() {
     room2.nextRoom = room3;
     room3.nextRoom = room1;
 
-    I18n.locale = "de";
-    var text = I18n.t('lti.error.h1');
-    room1.entrySpeech = [
-        {
-            image: "mouse",
-            text: text
-        },
-        {
-            image: "eric",
-            text: "Eric: Ja. Lass uns gucken was wir da borgen können."
-        }
-    ];
+//    I18n.locale = "de";
+
 
     /* video = game.add.video('intro');
     video.onComplete.dispatch = function () {room1.show()};
     video.play(false) */
     room1.show();
 
-
     score = 0;
-
-
-
 }
 
 function raiseScore() {

@@ -8,6 +8,7 @@ var Input = function (x, y, on, level, locked = false) {
     this.level = level;
     this.locked = locked;
     this.updated = new Phaser.Signal();
+    this.onClickUpdate = new Phaser.Signal();
     
     // Methods ///////////////////////////////////////////
 
@@ -19,7 +20,7 @@ var Input = function (x, y, on, level, locked = false) {
             this.sprite.inputEnabled = true;
             this.sprite.events.onInputDown.add(this.toggle, this);
         }
-        this.updated.dispatch();
+        this.updated.dispatch({onClick: false});
 
         this.show();
     }
@@ -35,7 +36,8 @@ var Input = function (x, y, on, level, locked = false) {
         if(!this.level.inputsDisabled) {
             this.on = !this.on;
             this.show();
-            this.updated.dispatch();
+            this.onClickUpdate.dispatch();
+            this.updated.dispatch({onClick: true});
         }
     };
 

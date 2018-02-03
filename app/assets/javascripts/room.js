@@ -14,9 +14,9 @@ var Room = function (name, background) {
 		},
 		create: () => {
 			this.render();
-            if(this.entrySpeech != null) {
-                this.dialogue = new Dialogue(this.entrySpeech);
-            }
+			if (this.name === "room1") {
+				new Dialogue("r1.d1");
+			}
 		},
 		update: () => {
 		    if(this.activeLevel != null) {
