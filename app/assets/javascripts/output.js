@@ -2,7 +2,7 @@ var Output = function (expected, x, y, level) {
     this.on = false;
     this.expected = expected || false;
     this.x = x * gridUnit;
-    this.y = y * gridUnit;
+    this.y = y * gridUnit + statusBarHeight;
     this.level = level;
     
     this.updated = new Phaser.Signal();

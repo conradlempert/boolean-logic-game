@@ -3,7 +3,7 @@ var Input = function (x, y, on, level, locked = false) {
     // Attributes /////////////////////////////////////////
     this.on = on;
     this.x = x * gridUnit;
-    this.y = y * gridUnit;
+    this.y = y * gridUnit + statusBarHeight;
     this.type = "input";
     this.level = level;
     this.locked = locked;
