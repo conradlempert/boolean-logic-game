@@ -130,18 +130,26 @@ function showStatusBar() {
     game.add.sprite(0,0,'status');
     var style = { font: "30px Arial", fill: "black" };
     if(progress > 1) {
-        drawButton("Room 2", 300, 0, 120, "#ffffff", room2.show, room2);
+        drawButton("Room 2", 300, 0, "#ffffff", room2.show, room2);
     }
     if(progress > 2) {
-        drawButton("Room 3", 400, 0, 120, "#ffffff", room3.show, room3);
+        drawButton("Room 3", 400, 0, "#ffffff", room3.show, room3);
     }
-    drawButton("Room 1", 200, 0, 120, "#ffffff", room1.show, room1);
+    drawButton("Room 1", 200, 0, "#ffffff", room1.show, room1);
     scoreText = game.add.text(10, 6, "Score: " + score + "/" + maxScore, style);
 }
 
-function drawButton(text, x, y, width, color, callback, reference) {
+function drawButton(text, x, y, color, callback, reference) {
 
-    game.add.button(x, y + 2, "button_empty", callback, reference, 2, 1, 0);
+    var button = game.add.button(x, y + 2, "button_empty", callback, reference, 2, 1, 0);
     var style = { font: "24px Arial", fill: "black" };
     var text = game.add.text(x + 14, y + 10, text, style);
+
+    return {
+        button: button,
+        text: text,
+        destroy: () => {
+        button.destroy();
+        text.destroy();
+    }};
 }

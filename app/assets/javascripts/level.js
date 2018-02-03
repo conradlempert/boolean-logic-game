@@ -55,7 +55,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         }
         switch(type) {
             case "challenge":
-                this.playButton = game.add.button(140, statusBarHeight, 'play', this.checkWin, this, 2, 1, 0);
+                this.playButton = drawButton("   Play", 100, statusBarHeight, "black", this.checkWin, this);
                 this.simulationMode = false;
                 break;
             case "demo":
@@ -63,8 +63,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
                 break;
             case "choice":
                 for(var i = 0; i < this.choices.length; i++) {
-                    var button = game.add.button(100 + i*300, 300, "play", (button) => {this.checkChoice(button.id)}, this, 2, 1, 0);
-                    button.id = i;
+                    var button = drawButton("Choose", 100 + i*300, 300, "black", (button) => {this.checkChoice(button.id)}, this);
+                    button.button.id = i;
                 }
                 this.simulationMode = true;
                 break;
@@ -95,7 +95,6 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
     	this.inputsDisabled = true;
 
     	this.playButton.destroy();
-    	//this.retryButton = game.add.button(140, 0, 'retry', this.retry, this, 2, 1, 0);
 
     	this.completed = true;
     	for (var i = 0; i < this.outputs.length; i++) {
