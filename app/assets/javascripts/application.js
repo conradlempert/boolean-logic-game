@@ -24,6 +24,10 @@ if (window.location.pathname === '/') {
     var progress = 0;
     var score = 0;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+
+    I18n.defaultLocale = "de";
+    I18n.locale = "de";
+
 }
 
 function postScore(score) {
@@ -42,13 +46,9 @@ function preload() {
     game.load.image('or', 'assets/or.png');
     game.load.image('not', 'assets/not.png');
     game.load.image('equals', 'assets/equals.png');
-    //game.load.image('autoplay', 'assets/button_autoplay.png');
-    //game.load.image('challenge', 'assets/button_challenge.png');
     game.load.image('defaultBg', 'assets/defaultBg.jpg')
-    game.load.image('play', 'assets/button_play.png');
     game.load.image('back', 'assets/button_back.png');
     game.load.image('button_empty', 'assets/button_empty.png');
-    game.load.image('retry', 'assets/button_retry.png');
     game.load.image('computer', 'assets/computer.png');
     game.load.image('pad', 'assets/pad.jpg');
     game.load.image('robot', 'assets/robot.png');
@@ -130,18 +130,26 @@ function showStatusBar() {
     game.add.sprite(0,0,'status');
     var style = { font: "30px Arial", fill: "black" };
     if(progress > 1) {
-        drawButton("Room 2", 300, 0, 120, "#ffffff", room2.show, room2);
+        drawButton(I18n.t("game.buttons.room") + " 2", 300, 0, "#ffffff", room2.show, room2);
     }
     if(progress > 2) {
-        drawButton("Room 3", 400, 0, 120, "#ffffff", room3.show, room3);
+        drawButton(I18n.t("game.buttons.room") + " 3", 400, 0, "#ffffff", room3.show, room3);
     }
-    drawButton("Room 1", 200, 0, 120, "#ffffff", room1.show, room1);
-    scoreText = game.add.text(10, 6, "Score: " + score + "/" + maxScore, style);
+    drawButton(I18n.t("game.buttons.room") + " 1", 200, 0, "#ffffff", room1.show, room1);
+    scoreText = game.add.text(10, 6, I18n.t("game.texts.score") + ": " + score + "/" + maxScore, style);
 }
 
-function drawButton(text, x, y, width, color, callback, reference) {
+function drawButton(text, x, y, color, callback, reference) {
 
-    game.add.button(x, y + 2, "button_empty", callback, reference, 2, 1, 0);
+    var button = game.add.button(x, y + 2, "button_empty", callback, reference, 2, 1, 0);
     var style = { font: "24px Arial", fill: "black" };
     var text = game.add.text(x + 14, y + 10, text, style);
+
+    return {
+        button: button,
+        text: text,
+        destroy: () => {
+        button.destroy();
+        text.destroy();
+    }};
 }

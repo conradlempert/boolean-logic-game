@@ -3,3 +3,11 @@ de:
     error:
       h1: "Bei der Übertragung Ihrer Bewertung ist ein Fehler aufgetreten"
       p: "Kontaktieren Sie Ihre Lernplattform"
+  game:
+    buttons:
+      room: "Raum"
+      play: "Spielen"
+      choose: "Wählen"
+    texts:
+      correct: "Richtig!"
+      score: "Punkte"
