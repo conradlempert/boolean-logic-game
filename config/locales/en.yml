@@ -3,4 +3,7 @@ en:
     error:
       h1: "There was an error while transmitting your results"
       p: "Please contact your learning platform"
-
+  r1:
+    d1:
+      m1: "There was an error while transmitting your results"
+      e1: "Please contact your learning platform"

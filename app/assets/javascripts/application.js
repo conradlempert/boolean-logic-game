@@ -98,10 +98,12 @@ function create() {
     room2.nextRoom = room3;
     room3.nextRoom = room1;
 
+    I18n.locale = "de";
+    var text = I18n.t('lti.error.h1');
     room1.entrySpeech = [
         {
             image: "mouse",
-            text: "Maus: Hi Eric! Lust auf einen kleinen Coup im Louvre?"
+            text: text
         },
         {
             image: "eric",
@@ -109,9 +111,10 @@ function create() {
         }
     ];
 
-    video = game.add.video('intro');
+    /* video = game.add.video('intro');
     video.onComplete.dispatch = function () {room1.show()};
-    video.play(false)
+    video.play(false) */
+    room1.show();
 
 
     score = 0;

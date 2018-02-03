@@ -3,3 +3,8 @@ de:
     error:
       h1: "Bei der Übertragung Ihrer Bewertung ist ein Fehler aufgetreten"
       p: "Kontaktieren Sie Ihre Lernplattform"
+  r1:
+    d1:
+      m1: "There was an error while transmitting your results"
+      e1: "Please contact your learning platform"
+
