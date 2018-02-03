@@ -24,6 +24,10 @@ if (window.location.pathname === '/') {
     var progress = 0;
     var score = 0;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+
+    I18n.defaultLocale = "de";
+    I18n.locale = "de";
+
 }
 
 function postScore(score) {
@@ -126,13 +130,13 @@ function showStatusBar() {
     game.add.sprite(0,0,'status');
     var style = { font: "30px Arial", fill: "black" };
     if(progress > 1) {
-        drawButton("Room 2", 300, 0, "#ffffff", room2.show, room2);
+        drawButton(I18n.t("game.buttons.room") + " 2", 300, 0, "#ffffff", room2.show, room2);
     }
     if(progress > 2) {
-        drawButton("Room 3", 400, 0, "#ffffff", room3.show, room3);
+        drawButton(I18n.t("game.buttons.room") + " 3", 400, 0, "#ffffff", room3.show, room3);
     }
-    drawButton("Room 1", 200, 0, "#ffffff", room1.show, room1);
-    scoreText = game.add.text(10, 6, "Score: " + score + "/" + maxScore, style);
+    drawButton(I18n.t("game.buttons.room") + " 1", 200, 0, "#ffffff", room1.show, room1);
+    scoreText = game.add.text(10, 6, I18n.t("game.texts.score") + ": " + score + "/" + maxScore, style);
 }
 
 function drawButton(text, x, y, color, callback, reference) {
