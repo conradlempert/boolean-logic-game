@@ -1,8 +1,8 @@
 var Output = function (expected, x, y, level) {
     this.on = false;
     this.expected = expected || false;
-    this.x = x * gridUnit + 40;
-    this.y = y * gridUnit + 40;
+    this.x = x * gridUnit;
+    this.y = y * gridUnit + statusBarHeight;
     this.level = level;
     
     this.updated = new Phaser.Signal();
