@@ -42,13 +42,9 @@ function preload() {
     game.load.image('or', 'assets/or.png');
     game.load.image('not', 'assets/not.png');
     game.load.image('equals', 'assets/equals.png');
-    //game.load.image('autoplay', 'assets/button_autoplay.png');
-    //game.load.image('challenge', 'assets/button_challenge.png');
     game.load.image('defaultBg', 'assets/defaultBg.jpg')
-    game.load.image('play', 'assets/button_play.png');
     game.load.image('back', 'assets/button_back.png');
     game.load.image('button_empty', 'assets/button_empty.png');
-    game.load.image('retry', 'assets/button_retry.png');
     game.load.image('computer', 'assets/computer.png');
     game.load.image('pad', 'assets/pad.jpg');
     game.load.image('robot', 'assets/robot.png');
