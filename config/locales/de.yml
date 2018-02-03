@@ -18,3 +18,11 @@ de:
       - "Maus: Interessant. Wenn einer oder beide Ausdrücke wahr sind, ist das Ergebnis wahr."
     le_A==B:
       - "Maus: Du kannst zwei Ausdrücke auf Gleichheit überprüfen… Dazu müssen also beide Ausdrücke gleich sein."
+  game:
+    buttons:
+      room: "Raum"
+      play: "Spielen"
+      choose: "Wählen"
+    texts:
+      correct: "Richtig!"
+      score: "Punkte"

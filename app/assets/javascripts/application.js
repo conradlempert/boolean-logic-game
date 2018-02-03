@@ -19,18 +19,22 @@
 if (window.location.pathname === '/') {
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create});
     var gridUnit = 25;
+    var maxScore = 7;
+    var statusBarHeight = 50;
+    var progress = 0;
+    var score = 0;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+
+    I18n.defaultLocale = "de";
+    I18n.locale = "de";
+
 }
 
 function postScore(score) {
     window.location.href = '/quiz_finished?score=' + score
 }
 
-gameElements = {
-    gates: [],
-    inputs: [],
-    outputs: []
-}
+
 
 function preload() {
     game.load.video('intro', 'assets/intro.mp4');
@@ -42,12 +46,9 @@ function preload() {
     game.load.image('or', 'assets/or.png');
     game.load.image('not', 'assets/not.png');
     game.load.image('equals', 'assets/equals.png');
-    //game.load.image('autoplay', 'assets/button_autoplay.png');
-    //game.load.image('challenge', 'assets/button_challenge.png');
     game.load.image('defaultBg', 'assets/defaultBg.jpg')
-    game.load.image('play', 'assets/button_play.png');
     game.load.image('back', 'assets/button_back.png');
-    game.load.image('retry', 'assets/button_retry.png');
+    game.load.image('button_empty', 'assets/button_empty.png');
     game.load.image('computer', 'assets/computer.png');
     game.load.image('pad', 'assets/pad.jpg');
     game.load.image('robot', 'assets/robot.png');
@@ -58,19 +59,20 @@ function preload() {
     game.load.spritesheet('pigeon', 'assets/pigeon.png', 84, 84);
     game.load.image('eric', 'assets/eric.png');
     game.load.image('mouse', 'assets/mouse.png');
+    game.load.image('status', 'assets/status.jpg');
 }
 
 function create() {
 
-    room1 = new Room('room1','room1.jpg');
-    room1.addItem(new Item(500, 500, 'computer', room1, { type: "endlevel" }));
-    room1.addItem(new Item(100, 500, 'pigeon', room1,
+    room1 = new Room('room1','room1.jpg', 1);
+    room1.addItem(new Item(600, 500, 'computer', room1, { type: "endlevel" }));
+    room1.addItem(new Item(200, 500, 'pigeon', room1,
         {
             type: "animation",
             fps: 30
         }
     ));
-    room1.addItem(new Item(300, 500, 'toaster', room1,
+    room1.addItem(new Item(400, 500, 'toaster', room1,
         {
             type: "level",
             level: createLE_A_and_B()
@@ -92,10 +94,10 @@ function create() {
             level: createLE_A_equals_B()
         }));
 
-    room2 = new Room('room2','room2.png');
-    room2.addItem(new Item(530, 240, 'grid', room2, { type: "endlevel" }));
+    room2 = new Room('room2','room2.png', 2);
+    room2.addItem(new Item(530, 300, 'grid', room2, { type: "endlevel" }));
 
-    room3 = new Room('room3','room3.jpg');
+    room3 = new Room('room3','room3.jpg', 3);
     robotPopUp = new PopUp(450, 290, 'pixel');
     room3.addItem(new Item(250, 300, 'pad', room3, { type: "endlevel" }));
     room3.addItem(new Item(500, 350, 'robot', room3,
@@ -114,17 +116,46 @@ function create() {
     room3.nextRoom = room1;
 
 //    I18n.locale = "de";
-
-
-    /* video = game.add.video('intro');
-    video.onComplete.dispatch = function () {room1.show()};
-    video.play(false) */
-    room1.show();
-
     score = 0;
+    video = game.add.video('intro');
+    video.onComplete.dispatch = function () {
+        room1.show();
+    };
+    video.play(false);
+
+    video.addToWorld();
+
 }
 
 function raiseScore() {
     score++;
-    console.log(score);
+    showStatusBar();
+}
+
+function showStatusBar() {
+    game.add.sprite(0,0,'status');
+    var style = { font: "30px Arial", fill: "black" };
+    if(progress > 1) {
+        drawButton(I18n.t("game.buttons.room") + " 2", 300, 0, "#ffffff", room2.show, room2);
+    }
+    if(progress > 2) {
+        drawButton(I18n.t("game.buttons.room") + " 3", 400, 0, "#ffffff", room3.show, room3);
+    }
+    drawButton(I18n.t("game.buttons.room") + " 1", 200, 0, "#ffffff", room1.show, room1);
+    scoreText = game.add.text(10, 6, I18n.t("game.texts.score") + ": " + score + "/" + maxScore, style);
+}
+
+function drawButton(text, x, y, color, callback, reference) {
+
+    var button = game.add.button(x, y + 2, "button_empty", callback, reference, 2, 1, 0);
+    var style = { font: "24px Arial", fill: "black" };
+    var text = game.add.text(x + 14, y + 10, text, style);
+
+    return {
+        button: button,
+        text: text,
+        destroy: () => {
+        button.destroy();
+        text.destroy();
+    }};
 }

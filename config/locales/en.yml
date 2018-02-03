@@ -3,7 +3,11 @@ en:
     error:
       h1: "There was an error while transmitting your results"
       p: "Please contact your learning platform"
-  r1:
-    d1:
-      m1: "Bla"
-      e1: "Please contact your learning platform"
+  game:
+    buttons:
+      room: "Room"
+      play: "  Play"
+      choose: "Choose"
+    texts:
+      correct: "Correct!"
+      score: "Score"
