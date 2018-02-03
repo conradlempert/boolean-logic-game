@@ -23,7 +23,6 @@ var Room = function (name, background, nr) {
             if(this.entrySpeech != null) {
                 this.dialogue = new Dialogue(this.entrySpeech);
             }
-            //console.log(progress);
             if(this.nr > progress) {
                 progress = this.nr;
             }

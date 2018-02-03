@@ -22,6 +22,7 @@ if (window.location.pathname === '/') {
     var maxScore = 7;
     var statusBarHeight = 50;
     var progress = 0;
+    var score = 0;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
 }
 
@@ -114,13 +115,9 @@ function create() {
     video.onComplete.dispatch = function () {
         room1.show();
     };
-    //video.play(false);
+    video.play(false);
 
-
-    score = 0;
-
-    //video.addToWorld();
-    room1.show();
+    video.addToWorld();
 
 }
 
@@ -130,7 +127,6 @@ function raiseScore() {
 }
 
 function showStatusBar() {
-    //console.log(progress);
     game.add.sprite(0,0,'status');
     var style = { font: "30px Arial", fill: "black" };
     if(progress > 1) {
