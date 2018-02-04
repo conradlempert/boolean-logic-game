@@ -113,7 +113,7 @@ function create() {
     ));
 
     room4 = new Room('room4', 'finalroom.png', 4);
-    room4.addItem(new Item(370,200, 'samenkorn', room4));
+    room4.addItem(new Item(460,310, 'samenkorn', room4));
 
     room1.endLevels = [createLevel1()];
     room2.endLevels = [multipleChoice1(), multipleChoice2(), multipleChoice3()];
