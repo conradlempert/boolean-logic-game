@@ -58,37 +58,46 @@ function preload() {
     game.load.image('lock', 'assets/lock.png');
     game.load.spritesheet('pigeon', 'assets/pigeon.png', 84, 84);
     game.load.image('eric', 'assets/eric.png');
-    game.load.image('mouse', 'assets/mouse.png');
     game.load.image('status', 'assets/status.jpg');
+    game.load.image('mouse', 'assets/rat.png');
+    game.load.image('sterni', 'assets/sterni.png');
+    game.load.image('mona_lisa', 'assets/mona_lisa.jpg');
+    game.load.image('imac', 'assets/imac.png');
+    game.load.image('modern', 'assets/modern.png');
+    game.load.image('transparent', 'assets/transparent.png');
+
+
+
+//    game.load.image('room1', 'assetså/barbarini_room.jpg');
 }
 
 function create() {
 
-    room1 = new Room('room1','room1.jpg', 1);
-    room1.addItem(new Item(600, 500, 'computer', room1, { type: "endlevel" }));
+    room1 = new Room('room1','roomz.jpg', 1);
+    room1.addItem(new Item(370, 320, 'transparent', room1, { type: "endlevel" }));
     room1.addItem(new Item(200, 500, 'pigeon', room1,
         {
             type: "animation",
             fps: 30
         }
     ));
-    room1.addItem(new Item(400, 500, 'toaster', room1,
+    room1.addItem(new Item(70, 500, 'sterni', room1,
         {
             type: "level",
             level: createLE_A_and_B()
         }
     ));
-    room1.addItem(new Item(350, 500, 'toaster', room1,
+    room1.addItem(new Item(290, 290, 'mona_lisa', room1,
         {
             type: "level",
             level: createLE_A()
         }));
-    room1.addItem(new Item(400, 450, 'toaster', room1,
+    room1.addItem(new Item(400, 450, 'imac', room1,
         {
             type: "level",
             level: createLE_A_or_B()
         }));
-    room1.addItem(new Item(500, 400, 'toaster', room1,
+    room1.addItem(new Item(470, 290, 'modern', room1,
         {
             type: "level",
             level: createLE_A_equals_B()
@@ -124,6 +133,7 @@ function create() {
     video.play(false);
 
     video.addToWorld();
+//    room1.show();
 
 }
 
