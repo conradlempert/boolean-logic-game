@@ -19,14 +19,12 @@
 if (window.location.pathname === '/') {
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create});
     var gridUnit = 25;
-    var maxScore = 7;
+    var maxScore = 5;
     var statusBarHeight = 50;
     var progress = 0;
     var score = 0;
+    var dialogueOpen = false;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-
-    I18n.defaultLocale = "de";
-    I18n.locale = "de";
 
 }
 
@@ -59,16 +57,14 @@ function preload() {
     game.load.spritesheet('pigeon', 'assets/pigeon.png', 84, 84);
     game.load.image('eric', 'assets/eric.png');
     game.load.image('status', 'assets/status.jpg');
+    game.load.image('finalroom', 'assets/finalroom.png');
+    game.load.image('samenkorn', 'assets/samenkorn.png');
     game.load.image('mouse', 'assets/rat.png');
     game.load.image('sterni', 'assets/sterni.png');
     game.load.image('mona_lisa', 'assets/mona_lisa.jpg');
     game.load.image('imac', 'assets/imac.png');
     game.load.image('modern', 'assets/modern.png');
     game.load.image('transparent', 'assets/transparent.png');
-
-
-
-//    game.load.image('room1', 'assetså/barbarini_room.jpg');
 }
 
 function create() {
@@ -109,12 +105,15 @@ function create() {
     room3 = new Room('room3','room3.jpg', 3);
     robotPopUp = new PopUp(450, 290, 'pixel');
     room3.addItem(new Item(250, 300, 'pad', room3, { type: "endlevel" }));
-    room3.addItem(new Item(500, 350, 'robot', room3,
+    room3.addItem(new Item(630, 480, 'robot', room3,
         {
             type: "popup",
             popup: robotPopUp
         }
     ));
+
+    room4 = new Room('room4', 'finalroom.png', 4);
+    room4.addItem(new Item(370,200, 'samenkorn', room4));
 
     room1.endLevels = [createLevel1()];
     room2.endLevels = [multipleChoice1(), multipleChoice2(), multipleChoice3()];
@@ -122,9 +121,9 @@ function create() {
 
     room1.nextRoom = room2;
     room2.nextRoom = room3;
-    room3.nextRoom = room1;
+    room3.nextRoom = room4;
 
-//    I18n.locale = "de";
+    I18n.locale = "de";
     score = 0;
     video = game.add.video('intro');
     video.onComplete.dispatch = function () {

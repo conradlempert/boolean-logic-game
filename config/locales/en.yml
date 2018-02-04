@@ -3,6 +3,9 @@ en:
     error:
       h1: "There was an error while transmitting your results"
       p: "Please contact your learning platform"
+  dialogue:
+    fail:
+      - "Hmm, das war nicht richtig. Guck dir noch mal die Lern-Items an, wenn du das noch nicht verstanden hast."
   game:
     buttons:
       room: "Room"

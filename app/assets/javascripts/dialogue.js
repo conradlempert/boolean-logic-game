@@ -45,6 +45,7 @@ var Dialogue = function (i18nScope) {
 		this.setUpSpeaker(this.textIndex);
 
 		window.graphics = this.graphics;
+		dialogueOpen = true;
 	}	
 
 	this.textClick = function (){
@@ -54,6 +55,7 @@ var Dialogue = function (i18nScope) {
 			this.graphics.destroy();
 			this.text.destroy();
 			this.sprite.destroy();
+			dialogueOpen = false;
 		}
 
 	}
