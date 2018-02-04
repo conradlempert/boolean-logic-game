@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a35d690e-a620-4f64-8938-3873f56a7242" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/application.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/application.js" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/dialogue.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/dialogue.js" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/gate.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/gate.js" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/input.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/input.js" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/level.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/level.js" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/levels/demo.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/levels/learn_item.js" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/output.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/output.js" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/room.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/room.js" />
-      <change beforePath="$PROJECT_DIR$/config/locales/de.yml" afterPath="$PROJECT_DIR$/config/locales/de.yml" />
-      <change beforePath="$PROJECT_DIR$/config/locales/en.yml" afterPath="$PROJECT_DIR$/config/locales/en.yml" />
-    </list>
+    <list default="true" id="a35d690e-a620-4f64-8938-3873f56a7242" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -40,7 +28,7 @@
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/gate.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="454">
-              <caret line="71" column="36" lean-forward="true" selection-start-line="71" selection-start-column="36" selection-end-line="71" selection-end-column="36" />
+              <caret line="71" column="36" lean-forward="false" selection-start-line="71" selection-start-column="36" selection-end-line="71" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -59,10 +47,11 @@
       <file leaf-file-name="application.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="88" column="35" lean-forward="false" selection-start-line="88" selection-start-column="35" selection-end-line="88" selection-end-column="35" />
+            <state relative-caret-position="366">
+              <caret line="90" column="35" lean-forward="false" selection-start-line="90" selection-start-column="35" selection-end-line="90" selection-end-column="35" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1517683453000" expanded="true" signature="5226:5229" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -71,8 +60,8 @@
       <file leaf-file-name="de.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/locales/de.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="405">
+              <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -82,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/level.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="215">
-              <caret line="19" column="36" lean-forward="true" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+              <caret line="19" column="36" lean-forward="false" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -291,12 +280,12 @@
       <option name="presentableId" value="Default" />
       <updated>1517567361664</updated>
       <workItem from="1517567371730" duration="4335000" />
-      <workItem from="1517670408896" duration="11799000" />
+      <workItem from="1517670408896" duration="11951000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16134000" />
+    <option name="totallyTimeSpent" value="16286000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="796" extended-state="0" />
@@ -338,6 +327,7 @@
           <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1517683453000" expanded="true" signature="5226:5229" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -505,7 +495,7 @@
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/level.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
-          <caret line="19" column="36" lean-forward="true" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+          <caret line="19" column="36" lean-forward="false" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -529,7 +519,7 @@
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/gate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="454">
-          <caret line="71" column="36" lean-forward="true" selection-start-line="71" selection-start-column="36" selection-end-line="71" selection-end-column="36" />
+          <caret line="71" column="36" lean-forward="false" selection-start-line="71" selection-start-column="36" selection-end-line="71" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -552,18 +542,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="88" column="35" lean-forward="false" selection-start-line="88" selection-start-column="35" selection-end-line="88" selection-end-column="35" />
+        <state relative-caret-position="366">
+          <caret line="90" column="35" lean-forward="false" selection-start-line="90" selection-start-column="35" selection-end-line="90" selection-end-column="35" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1517683453000" expanded="true" signature="5226:5229" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/locales/de.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="405">
+          <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
           <folding />
         </state>
       </provider>
