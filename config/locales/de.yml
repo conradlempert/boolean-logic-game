@@ -18,6 +18,32 @@ de:
       - "Maus: Interessant. Wenn einer oder beide Ausdrücke wahr sind, ist das Ergebnis wahr."
     le_A==B:
       - "Maus: Du kannst zwei Ausdrücke auf Gleichheit überprüfen… Dazu müssen also beide Ausdrücke gleich sein."
+    endlevel:
+      - "Maus: Na dann, gutes Gelingen beim Tür öffnen. Hoffentlich kennst du die Logik-Gatter noch."
+      - "Eric: Na logo!"
+      - "Maus: Die zwei oberen Ausdrücke sind fest, da können wir nichts machen."
+      - "Eric: Ach, ich schaff das auch nur mit den unteren beiden!"
+  dialogue:
+    fail:
+      - "Maus: Hmm, das war nicht richtig. Guck dir noch mal die Lern-Items an, wenn du das noch nicht verstanden hast."
+  r2:
+    entrance:
+      - "Maus: Hier sehe ich auch kein Samenkorn. Und das Fenster ist scheinbar durch das Präzedenz-Preservations-Verfahren gesichert."
+      - "Eric: Bitte, was für ein Verfahren?!"
+      - "Maus: Na, die Operator-Rangfolge."
+      - "Eric: Ah. Wie bei uns beiden, so bei Logikformeln: Wer geht voran?"
+      - "Maus: Du Diplom-Dieb! Im Museum gilt Besucher vor Maus vor Dieb, bei Logik gilt NICHT vor UND vor ODER."
+      - "Maus: Und wenn du dich jetzt fragst, wozu das notwendig ist… Stell dir mal vor, die Alarmanlage und du werten das unterschiedlich aus. Und zack, hast du den Alarm ausgelöst, obwohl du dachtest alles richtig zu machen!"
+      - "Maus: Also merke dir: Zuerst wird immer NICHT ausgewertet. Danach bindet das UND stärker als das ODER. Alles klar?"
+    endlevel:
+      - "Maus: Los gehts! Wähle den richtigen Schaltplan zur Formel aus!"
+  r3:
+    endlevel:
+      - "Hier musst du einmal umdenken: Nur wenn beide Ausgänge aus sind, gewinnst du!"
+  r4:
+    entrance:
+      - "Maus: Da ist es ja! Warum du dich mit einem Samenkorn zufrieden gibst, ist mir jedoch nicht klar."
+      - "Eric: Aus kleinen Samen können große Bäume wachsen - wart nur ab!"
   game:
     buttons:
       room: "Raum"
@@ -25,4 +51,5 @@ de:
       choose: "Wählen"
     texts:
       correct: "Richtig!"
+      wrong: "Falsch!"
       score: "Punkte"

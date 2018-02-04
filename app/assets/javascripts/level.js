@@ -10,7 +10,6 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.window = {x:0, y:statusBarHeight, width:game.width, height:game.height - 40};
 	this.backgroundImage = "defaultBg";
 	this.destroyableGraphics = [];
-	// this.group = new Phaser.Group(game);
 
 	// element: Every element that should disappear when the level is closed is passed to this function
 	this.registerToDestroy = function(element) {
@@ -95,8 +94,20 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.winText = game.add.text(300, 60, "", style);
         this.registerToDestroy(this.winText);
     
-        this.expressionText = game.add.text(300, 500, this.expression, style);
+        this.expressionText = game.add.text(300, 550, this.expression, style);
         this.registerToDestroy(this.expressionText);
+		this.update();
+
+		switch (this.name) {
+			case "level1": new Dialogue("r1.endlevel");
+				break;
+			case "choice1": new Dialogue("r2.endlevel");
+				break;
+			case "levelx": new Dialogue("r3.endlevel");
+				break;
+			default:
+				break;
+		}
 	}
 
 
@@ -140,27 +151,33 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 
 	this.drawConnection = function(startX, startY, goalX, goalY, on) {
-		var midX = (startX + goalX) / 2;
-		var graphics = game.add.graphics(0, 0);
-		this.registerToDestroy(graphics);
-    	graphics.lineStyle(3, 0xffff00, 1);
-    	if(this.simulationMode) {
-        	if(on) {
-            	graphics.lineStyle(3, 0x00ff00, 1);
-        	} else {
-            	graphics.lineStyle(3, 0xff0000, 1);
-        	}
-    	}
-    	graphics.moveTo(startX, startY);
-    	graphics.lineTo(midX, startY);
-    	graphics.lineTo(midX, goalY);
-    	graphics.lineTo(goalX, goalY);
+		if(!dialogueOpen) {
+			var midX = (startX + goalX) / 2;
+			var graphics = game.add.graphics(0, 0);
+			this.registerToDestroy(graphics);
+			graphics.lineStyle(3, 0xffff00, 1);
+			if (this.simulationMode) {
+				if (on) {
+					graphics.lineStyle(3, 0x00ff00, 1);
+				} else {
+					graphics.lineStyle(3, 0xff0000, 1);
+				}
+			}
+			graphics.moveTo(startX, startY);
+			graphics.lineTo(midX, startY);
+			graphics.lineTo(midX, goalY);
+			graphics.lineTo(goalX, goalY);
 
-    	window.graphics = graphics;
+			window.graphics = graphics;
+		}
 	}
 
 	this.fail = function() {
-	    this.room.closeLevel();
+		this.winText.text = I18n.t("game.texts.wrong");
+		window.setTimeout(() => {
+			this.room.closeLevel();
+			new Dialogue("dialogue.fail");
+		}, 1000);
     }
 
 

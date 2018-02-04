@@ -20,14 +20,24 @@ var Room = function (name, background, nr) {
 		        this.endLevels[i].completed = false;
             }
 			this.render();
-			if (this.name === "room1") {
-				new Dialogue("r1.d1");
+			switch(this.name) {
+				case "room1":
+					new Dialogue("r1.d1");
+					break;
+				case "room2":
+					new Dialogue("r2.entrance");
+					break;
+				case "room4":
+					new Dialogue("r4.entrance");
+					break;
+				default:
+					break;
 			}
 
-      if(this.nr > progress) {
-         progress = this.nr;
-      }
-      showStatusBar();
+      		if(this.nr > progress) {
+         		progress = this.nr;
+      		}
+      		showStatusBar();
 
 		},
 		update: () => {
@@ -47,6 +57,7 @@ var Room = function (name, background, nr) {
 	    var thisLevel = this.endLevels[this.currentEndLevel];
 
 	    if(thisLevel.completed) {
+			this.closeLevel();
             this.currentEndLevel++;
             if(this.endLevels.length == this.currentEndLevel) {
                 this.nextRoom.show();
