@@ -37,6 +37,11 @@ de:
       - "Maus: Also merke dir: Zuerst wird immer NICHT ausgewertet. Danach bindet das UND stärker als das ODER. Alles klar?"
     endlevel:
       - "Maus: Los gehts! Wähle den richtigen Schaltplan zur Formel aus!"
+    out:
+      - "Maus: Starke Leistung Eric!"
+      - "Eric: Easy, feste Präzedenz ermöglicht es mir auch ohne Klammerung zu sehen, welcher Plan zu einer Formel gehört."
+      - "Maus: Dieses Wissen öffnet Türen!"
+      - "Eric: Na dann, schnell weiter. Was uns wohl im nächsten Raum erwartet?"
   r3:
     endlevel:
       - "Hier musst du einmal umdenken: Nur wenn beide Ausgänge aus sind, gewinnst du!"

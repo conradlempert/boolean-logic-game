@@ -12,25 +12,24 @@ var Item = function(x, y, name, room, action) {
 	}
 
 	this.clickAction = function () {
-	    if(this.room.activeLevel != null) {
-            this.room.closeLevel();
-        }
-        switch(this.action.type) {
-            case "animation":
-                this.sprite.animations.add(this.name);
-                this.sprite.animations.play(this.name, this.action.fps, false);
-                break;
-            case "level":
-                this.room.showLevel(this.action.level);
-                break;
-            case "popup":
-                this.action.popup.show();
-                break;
-            case "endlevel":
-                this.room.endLevel();
-                break;
-            default:
-                break;
+	    if(this.room.activeLevel == null) {
+	        switch(this.action.type) {
+                case "animation":
+                    this.sprite.animations.add(this.name);
+                    this.sprite.animations.play(this.name, this.action.fps, false);
+                    break;
+                case "level":
+                    this.room.showLevel(this.action.level);
+                    break;
+                case "popup":
+                    this.action.popup.show();
+                    break;
+                case "endlevel":
+                    this.room.endLevel();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

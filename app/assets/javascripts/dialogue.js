@@ -1,6 +1,7 @@
-var Dialogue = function (i18nScope) {
+var Dialogue = function (i18nScope, callback = () => {}) {
 
 	this.textIndex = 0;
+	this.callback = callback;
 
 	this.y = game.world.height*0.6;
 
@@ -45,7 +46,6 @@ var Dialogue = function (i18nScope) {
 		this.setUpSpeaker(this.textIndex);
 
 		window.graphics = this.graphics;
-		dialogueOpen = true;
 	}	
 
 	this.textClick = function (){
@@ -56,6 +56,7 @@ var Dialogue = function (i18nScope) {
 			this.text.destroy();
 			this.sprite.destroy();
 			dialogueOpen = false;
+			this.callback();
 		}
 
 	}

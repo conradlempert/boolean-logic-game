@@ -24,5 +24,7 @@ var multipleChoice1 = function (){
     gate3.addChild(gate2);
     gate2.addChild(output2);
 
+    choice.dialogue = "r2.endlevel";
+
     return choice;
 }
