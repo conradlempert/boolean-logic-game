@@ -22,5 +22,7 @@ var createLevel1 = function (){
 
     gate1.addChild(output1);
 
+    level1.dialogue = "r1.endlevel";
+
     return level1;
 }

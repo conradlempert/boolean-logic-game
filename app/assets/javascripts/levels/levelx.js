@@ -34,6 +34,8 @@ var createLevelX = function () {
     g6.addChild(o1);
     g4.addChild(o2);
 
+    levelx.dialogue = "r3.endlevel";
+
     return levelx;
 
 };

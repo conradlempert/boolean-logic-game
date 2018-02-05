@@ -133,6 +133,11 @@ function create() {
     room2.nextRoom = room3;
     room3.nextRoom = room4;
 
+    room1.inDialogue = "r1.d1";
+    room2.inDialogue = "r2.entrance";
+    room2.outDialogue = "r2.out";
+    room4.inDialogue = "r4.entrance";
+
     I18n.locale = "de";
     score = 0;
     video = game.add.video('intro');

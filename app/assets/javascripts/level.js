@@ -10,6 +10,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.window = {x:0, y:statusBarHeight, width:game.width, height:game.height - 40};
 	this.backgroundImage = "defaultBg";
 	this.destroyableGraphics = [];
+	this.dialogue = null;
 
 	// element: Every element that should disappear when the level is closed is passed to this function
 	this.registerToDestroy = function(element) {
@@ -98,16 +99,12 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.registerToDestroy(this.expressionText);
 		this.update();
 
-		switch (this.name) {
-			case "level1": new Dialogue("r1.endlevel");
-				break;
-			case "choice1": new Dialogue("r2.endlevel");
-				break;
-			case "levelx": new Dialogue("r3.endlevel");
-				break;
-			default:
-				break;
-		}
+		if(this.dialogue != null) {
+		    new Dialogue(this.dialogue);
+		    if(this.type == "challenge") {
+		        dialogueOpen = true;
+            }
+        }
 	}
 
 

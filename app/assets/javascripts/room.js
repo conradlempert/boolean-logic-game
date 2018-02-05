@@ -4,7 +4,8 @@ var Room = function (name, background, nr) {
 	this.items = [];
 	this.nr = nr;
 	this.activeLevel = null;
-	this.entrySpeech = null;
+	this.inDialogue = null;
+	this.outDialogue = null;
 	this.endLevels = [];
 	this.currentEndLevel = 0;
 	this.nextRoom = null;
@@ -20,19 +21,10 @@ var Room = function (name, background, nr) {
 		        this.endLevels[i].completed = false;
             }
 			this.render();
-			switch(this.name) {
-				case "room1":
-					new Dialogue("r1.d1");
-					break;
-				case "room2":
-					new Dialogue("r2.entrance");
-					break;
-				case "room4":
-					new Dialogue("r4.entrance");
-					break;
-				default:
-					break;
-			}
+
+		    if(this.inDialogue != null) {
+		        new Dialogue(this.inDialogue);
+            }
 
       		if(this.nr > progress) {
          		progress = this.nr;
@@ -60,7 +52,11 @@ var Room = function (name, background, nr) {
 			this.closeLevel();
             this.currentEndLevel++;
             if(this.endLevels.length == this.currentEndLevel) {
-                this.nextRoom.show();
+                if(this.outDialogue != null) {
+                    new Dialogue(this.outDialogue, this.nextRoom.show);
+                } else {
+                    this.nextRoom.show();
+                }
             } else {
                 thisLevel = this.endLevels[this.currentEndLevel];
                 this.showLevel(thisLevel);
