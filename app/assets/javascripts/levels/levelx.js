@@ -2,10 +2,10 @@ var createLevelX = function () {
 
     //Define Inputs//////////////////////////////////////
     levelx = new Level('levelx', 'challenge', '[A && B || (B || C)] || !C && D');
-    var i1 = levelx.addInput(2, 2, false);
-    var i2 = levelx.addInput(2, 8, false);
-    var i3 = levelx.addInput(2, 14, false);
-    var i4 = levelx.addInput(2, 20, false);
+    var i1 = levelx.addInput(2, 2, true);
+    var i2 = levelx.addInput(2, 8, true);
+    var i3 = levelx.addInput(2, 14, true);
+    var i4 = levelx.addInput(2, 20, true);
 
     //Define Gates///////////////////////////////////////
     var g1 = levelx.addGate('and', 8, 4);

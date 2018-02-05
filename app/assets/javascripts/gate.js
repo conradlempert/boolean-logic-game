@@ -2,11 +2,12 @@ var Gate = function (type, x, y, level) {
     // Attributes
 
     this.x = x * gridUnit;
-    this.y = y * gridUnit;
+    this.y = y * gridUnit + statusBarHeight;
     this.type = type;
     this.level = level;
     
     this.updated = new Phaser.Signal();
+    this.onClickUpdated = new Phaser.Signal();
     this.input1 = false;
     this.input2 = false;
 
@@ -45,7 +46,7 @@ var Gate = function (type, x, y, level) {
         parent.updated.add(this.updateValues, this);
     };
 
-    this.updateValues = function () {
+    this.updateValues = function (args) {
         if (this.parents[0]) {
             this.input1 = this.parents[0].on;
         } else {
@@ -56,10 +57,7 @@ var Gate = function (type, x, y, level) {
         } else {
             this.input2 = false;
         }
-        this.evaluate();
-    };
 
-    this.evaluate = function () {
         switch (this.type){
             case 'and': this.on = this.input1 && this.input2;
                 break;
@@ -71,12 +69,16 @@ var Gate = function (type, x, y, level) {
                 break;
             default: this.on = false;
         }
-        this.updated.dispatch();
+        this.updated.dispatch(args);
     };
 
     this.addChild = function (child) {
         child.register(this);
     };
+
+    this.destroy = function () {
+        this.sprite.destroy();
+    }
 
 }
 

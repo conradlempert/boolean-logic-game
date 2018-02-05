@@ -1,7 +1,8 @@
-var Room = function (name, background) {
+var Room = function (name, background, nr) {
 	this.name = name;
 	this.background = background;
 	this.items = [];
+	this.nr = nr;
 	this.activeLevel = null;
 	this.entrySpeech = null;
 	this.endLevels = [];
@@ -13,10 +14,31 @@ var Room = function (name, background) {
 			game.load.image(this.name, 'assets/' + this.background);
 		},
 		create: () => {
-			this.render();
-            if(this.entrySpeech != null) {
-                this.dialogue = new Dialogue(this.entrySpeech);
+		    this.closeLevel();
+		    this.currentEndLevel = 0;
+		    for(var i = 0; i < this.endLevels.length; i++) {
+		        this.endLevels[i].completed = false;
             }
+			this.render();
+			switch(this.name) {
+				case "room1":
+					new Dialogue("r1.d1");
+					break;
+				case "room2":
+					new Dialogue("r2.entrance");
+					break;
+				case "room4":
+					new Dialogue("r4.entrance");
+					break;
+				default:
+					break;
+			}
+
+      		if(this.nr > progress) {
+         		progress = this.nr;
+      		}
+      		showStatusBar();
+
 		},
 		update: () => {
 		    if(this.activeLevel != null) {
@@ -33,28 +55,32 @@ var Room = function (name, background) {
 
     this.endLevel = () => {
 	    var thisLevel = this.endLevels[this.currentEndLevel];
-	    if(this.endLevels.length == this.currentEndLevel + 1) {
-	        //This is the last endLevel in this room
 
-            thisLevel.winAction = this.nextRoom.show;
-        } else {
-	        //There is another level to be done in this room
-            thisLevel.winAction = this.endLevel;
-            if(thisLevel.completed) {
-                this.currentEndLevel++;
+	    if(thisLevel.completed) {
+			this.closeLevel();
+            this.currentEndLevel++;
+            if(this.endLevels.length == this.currentEndLevel) {
+                this.nextRoom.show();
+            } else {
+                thisLevel = this.endLevels[this.currentEndLevel];
+                this.showLevel(thisLevel);
             }
+        } else {
+	        this.showLevel(thisLevel);
         }
 
-	    this.showLevel(this.endLevels[this.currentEndLevel]);
+        thisLevel.winAction = this.endLevel;
     }
 
     this.closeLevel = () => {
+	    if(this.activeLevel) {
+            this.activeLevel.destroy();
+        }
 	    this.activeLevel = null;
-	    this.render();
     }
 
     this.render = () => {
-        game.add.sprite(0, 0, this.name);
+        game.add.sprite(0, statusBarHeight, this.name);
         for(var i = 0; i < this.items.length; i++) {
             this.items[i].init();
         }

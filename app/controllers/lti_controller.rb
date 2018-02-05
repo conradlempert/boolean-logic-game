@@ -4,6 +4,7 @@ class LtiController < ApplicationController
 
   def create
     session[:lti_launch_params] = lti_params
+    session[:locale] = lti_params.fetch('launch_presentation_locale', I18n.default_locale)
     redirect_to '/'
   end
 
@@ -13,18 +14,16 @@ class LtiController < ApplicationController
     if response.success? || response.processing?
       redirect_to action: :return
     elsif response.unsupported?
-      redirect_to :action, :error
+      Rails.logger.warn('Outcome could not be posted. Response was: ')
+      Rails.logger.warn(response.to_json)
+      return render template: 'error.html.haml', status: :internal_server_error
     end
   end
 
   def return
-    if consumer_url.present?
-      Rails.logger.warn(consumer_url)
-      redirect_to consumer_url
+    if @consumer_url.present?
+      redirect_to @consumer_url
     end
-  end
-
-  def error
   end
 
   private
@@ -95,7 +94,7 @@ class LtiController < ApplicationController
   end
 
   def consumer_url
-    session.to_hash.dig('lti_launch_params', 'launch_presentation_return_url')
+    @consumer_url ||= session.to_hash.dig('lti_launch_params', 'launch_presentation_return_url')
   end
 
 end
