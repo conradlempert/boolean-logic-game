@@ -17,7 +17,7 @@
 //= require_tree .
 
 if (window.location.pathname === '/') {
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create});
+    var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {preload: preload, create: create});
     var gridUnit = 25;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
 }
@@ -30,9 +30,30 @@ gameElements = {
     gates: [],
     inputs: [],
     outputs: []
-}
+};
+
+
 
 function preload() {
+    game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+
+    game.scale.setResizeCallback(this.gameResized, this);
+
+
+    gameResized(Phaser.ScaleManager, Phaser.Rectangle)
+    {
+        var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
+
+        manager.setUserScale(scale, scale, 0, 0);
+    }
+
+    //game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    //game.scale.parentIsWindow = true;
+    //game.scale.pageAlignHorizontally = true;
+    //game.scale.pageAlignVertically = true;
+    //game.scale.setResizeCallback(function() {
+      //  game.scale.setMaximum();
+    //});
     game.load.video('intro', 'assets/intro.mp4');
     game.load.image('logo', 'assets/openhpi.jpg');
     game.load.image('on', 'assets/on.png');
