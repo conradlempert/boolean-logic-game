@@ -17,7 +17,7 @@
 //= require_tree .
 
 if (window.location.pathname === '/') {
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create});
+    var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {preload: preload, create: create});
     var gridUnit = 25;
     var maxScore = 5;
     var statusBarHeight = 50;
@@ -32,9 +32,19 @@ function postScore(score) {
     window.location.href = '/quiz_finished?score=' + score
 }
 
+gameElements = {
+    gates: [],
+    inputs: [],
+    outputs: []
+};
 
 
 function preload() {
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.refresh();
+
     game.load.video('intro', 'assets/intro.mp4');
     game.load.image('logo', 'assets/openhpi.jpg');
     game.load.image('on', 'assets/on.png');
