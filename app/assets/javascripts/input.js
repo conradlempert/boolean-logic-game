@@ -3,11 +3,12 @@ var Input = function (x, y, on, level, locked = false) {
     // Attributes /////////////////////////////////////////
     this.on = on;
     this.x = x * gridUnit;
-    this.y = y * gridUnit;
+    this.y = y * gridUnit + statusBarHeight;
     this.type = "input";
     this.level = level;
     this.locked = locked;
     this.updated = new Phaser.Signal();
+    this.onClickUpdate = new Phaser.Signal();
     
     // Methods ///////////////////////////////////////////
 
@@ -19,7 +20,7 @@ var Input = function (x, y, on, level, locked = false) {
             this.sprite.inputEnabled = true;
             this.sprite.events.onInputDown.add(this.toggle, this);
         }
-        this.updated.dispatch();
+        this.updated.dispatch({onClick: false});
 
         this.show();
     }
@@ -35,7 +36,8 @@ var Input = function (x, y, on, level, locked = false) {
         if(!this.level.inputsDisabled) {
             this.on = !this.on;
             this.show();
-            this.updated.dispatch();
+            this.onClickUpdate.dispatch();
+            this.updated.dispatch({onClick: true});
         }
     };
 
@@ -43,5 +45,12 @@ var Input = function (x, y, on, level, locked = false) {
         child.register(this);
         this.updated.dispatch();
     };
+
+    this.destroy = function () {
+        this.sprite.destroy();
+        if (this.lockSprite) {
+            this.lockSprite.destroy();
+        }
+    }
 
 };
