@@ -118,21 +118,24 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
     }
 
 	this.checkWin = function() {
-    
-    	this.simulationMode = true;
-    	this.inputsDisabled = true;
 
-    	this.playButton.destroy();
+	    if(!dialogueOpen) {
 
-    	this.completed = true;
-    	for (var i = 0; i < this.outputs.length; i++) {
-        	this.completed = (this.outputs[i].on === this.outputs[i].expected) && this.completed;
-    	}
-    	if (this.completed) {
-            this.win();
-    	} else {
-    		this.fail();
-    	}
+            this.simulationMode = true;
+            this.inputsDisabled = true;
+
+            this.playButton.destroy();
+
+            this.completed = true;
+            for (var i = 0; i < this.outputs.length; i++) {
+                this.completed = (this.outputs[i].on === this.outputs[i].expected) && this.completed;
+            }
+            if (this.completed) {
+                this.win();
+            } else {
+                this.fail();
+            }
+        }
 	}
 
 	this.retry = function() {
@@ -171,10 +174,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 	this.fail = function() {
 		this.winText.text = I18n.t("game.texts.wrong");
-		window.setTimeout(() => {
-			this.room.closeLevel();
-			new Dialogue("dialogue.fail");
-		}, 1000);
+        new Dialogue("dialogue.fail", this.room.closeLevel);
     }
 
 
