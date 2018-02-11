@@ -15,12 +15,11 @@ class LtiController < ApplicationController
       if score > old_score
         response = tool_provider.post_replace_result!(score)
         if response.success? || response.processing?
-          Rails.logger.warn("tool_provider.nil?")
           return render json: { score: score }
         else
           Rails.logger.warn('Outcome could not be posted. Response was: ')
           Rails.logger.warn(response.to_json)
-          return render json: {errors: ["Error while transmitting score"]}, status: 500
+          return render json: {errors: ['Error while transmitting score']}, status: 500
         end
       end
       render json: { score: old_score }
