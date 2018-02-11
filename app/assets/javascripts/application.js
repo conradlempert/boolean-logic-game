@@ -25,7 +25,6 @@ if (window.location.pathname === '/') {
     var score = 0;
     var dialogueOpen = false;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-
 }
 
 function updateScore(score) {
@@ -41,6 +40,10 @@ function updateScore(score) {
         }
     };
     http.send(params);
+}
+
+function finishQuiz() {
+    window.location.href = '/quiz_finished'
 }
 
 gameElements = {
