@@ -2,10 +2,10 @@ var createLevel3_3 = function () {
 
     //Define Inputs//////////////////////////////////////
     var level3_3 = new Level('level3_3', 'challenge', 'X = (A && B || !B) || (!C || D)\n Y = !C || D');
-    var a = level3_3.addInput(2, 2, true);
-    var b = level3_3.addInput(2, 8, true);
-    var c = level3_3.addInput(2, 14, true);
-    var d = level3_3.addInput(2, 20, true);
+    var a = level3_3.addInput('A', 2, 2, true);
+    var b = level3_3.addInput('B', 2, 8, true);
+    var c = level3_3.addInput('C', 2, 14, true);
+    var d = level3_3.addInput('D', 2, 20, true);
 
     //Define Gates///////////////////////////////////////
     var andTop = level3_3.addGate('and', 8, 4);
@@ -16,8 +16,8 @@ var createLevel3_3 = function () {
     var or2 = level3_3.addGate('or', 20, 8);
 
     //Define Outputs/////////////////////////////////////
-    var x = level3_3.addOutput(false, 26, 12);
-    var y = level3_3.addOutput(false, 26, 18);
+    var x = level3_3.addOutput(false, 26, 12, 'X');
+    var y = level3_3.addOutput(false, 26, 18, 'Y');
     
     //Define Connections/////////////////////////////////
     a.addChild(andTop);

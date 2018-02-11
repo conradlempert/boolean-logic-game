@@ -1,9 +1,10 @@
-var Output = function (expected, x, y, level) {
+var Output = function (expected, x, y, level, name = "") {
     this.on = false;
     this.expected = expected || false;
     this.x = x * gridUnit;
     this.y = y * gridUnit + statusBarHeight;
     this.level = level;
+    this.name = name;
 
     
     this.updated = new Phaser.Signal();
@@ -13,6 +14,7 @@ var Output = function (expected, x, y, level) {
 
     this.init = function() {
         this.sprite = game.add.sprite(this.x, this.y, 'neutral');
+        this.description = game.add.text(this.x + 40, this.y - 5, this.name, style);
     }
 
     this.register = function (parent) {

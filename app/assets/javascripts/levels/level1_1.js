@@ -1,10 +1,10 @@
 var createLevel1_1 = function (){
     var level1_1 = new Level('level1_1', 'challenge', 'false && true == !A || B');
 
-    var off = level1_1.addInput(3, 4, false, true);
-    var on = level1_1.addInput(3, 8, true, true);
-    var a = level1_1.addInput(3, 12, true);
-    var b = level1_1.addInput(3, 16, true);
+    var off = level1_1.addInput('', 3, 4, false, true);
+    var on = level1_1.addInput('', 3, 8, true, true);
+    var a = level1_1.addInput('A', 3, 12, true);
+    var b = level1_1.addInput('B', 3, 16, true);
 
     var not = level1_1.addGate('not', 6, 12);
     var or = level1_1.addGate('or', 9, 14);

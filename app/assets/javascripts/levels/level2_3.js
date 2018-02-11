@@ -1,9 +1,9 @@
 var createLevel2_3 = function (){
     var level2_3 = new Level('level2_3', 'choice', 'A && !B || C');
     level2_3.choices = [false, true];
-    var a = level2_3.addInput(2, 2, true);
-    var b = level2_3.addInput(2, 5, true);
-    var c = level2_3.addInput(2, 8, true);
+    var a = level2_3.addInput('A', 2, 2, true);
+    var b = level2_3.addInput('B', 2, 5, true);
+    var c = level2_3.addInput('C', 2, 8, true);
     var and = level2_3.addGate('and', 10, 2);
     var not = level2_3.addGate('not', 4, 4);
     var or = level2_3.addGate('or', 7, 5);
@@ -17,9 +17,9 @@ var createLevel2_3 = function (){
     and.addChild(output);
 
 
-    var a2 = level2_3.addInput(18, 2, true);
-    var b2 = level2_3.addInput(18, 5, true);
-    var c2 = level2_3.addInput(18, 8, true);
+    var a2 = level2_3.addInput('A', 18, 2, true);
+    var b2 = level2_3.addInput('B', 18, 5, true);
+    var c2 = level2_3.addInput('C', 18, 8, true);
     var or2 = level2_3.addGate('or', 26, 5);
     var not2 = level2_3.addGate('not', 20, 4);
     var and2 = level2_3.addGate('and', 23, 2);

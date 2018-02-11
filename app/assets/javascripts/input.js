@@ -1,6 +1,7 @@
-var Input = function (x, y, on, level, locked = false) {
+var Input = function (name, x, y, on, level, locked = false) {
 
     // Attributes /////////////////////////////////////////
+    this.name = name;
     this.on = on;
     this.x = x * gridUnit;
     this.y = y * gridUnit + statusBarHeight;
@@ -14,6 +15,8 @@ var Input = function (x, y, on, level, locked = false) {
 
     this.init = function () {
         this.sprite = game.add.sprite(this.x, this.y, 'on');
+        this.description = game.add.text(this.x - 40, this.y - 5, this.name, style);
+        this.level.registerToDestroy(this.description);
         if(this.locked) {
             this.lockSprite = game.add.sprite(this.x + 20, this.y - 20, 'lock');
         } else {
