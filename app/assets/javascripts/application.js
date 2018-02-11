@@ -104,23 +104,23 @@ function create() {
     room1.addItem(new Item(70, 500, 'sterni', room1,
         {
             type: "level",
-            level: createLE_A_and_B()
+            level: createItemAnd()
         }
     ));
     room1.addItem(new Item(290, 290, 'mona_lisa', room1,
         {
             type: "level",
-            level: createLE_A()
+            level: createItemInput()
         }));
     room1.addItem(new Item(400, 450, 'imac', room1,
         {
             type: "level",
-            level: createLE_A_or_B()
+            level: createItemOr()
         }));
     room1.addItem(new Item(470, 290, 'modern', room1,
         {
             type: "level",
-            level: createLE_A_equals_B()
+            level: createItemEquals()
         }));
 
     room2 = new Room('room2','room2.png', 2);
@@ -141,7 +141,7 @@ function create() {
 
     room1.endLevels = [createLevel1_1()];
     room2.endLevels = [createLevel2_1(), createLevel2_2(), createLevel2_3()];
-    room3.endLevels = [createLevel3_2(), createLevel3_3()];
+    room3.endLevels = [createlevel3_1(), createLevel3_2(), createLevel3_3()];
 
     room1.nextRoom = room2;
     room2.nextRoom = room3;

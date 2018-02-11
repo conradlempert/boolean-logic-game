@@ -1,4 +1,4 @@
-var Item = function(x, y, name, room, action) {
+var Item = function(x, y, name, room, action = { type: "none"}) {
 	this.x = x;
 	this.y = y;
 	this.name = name;

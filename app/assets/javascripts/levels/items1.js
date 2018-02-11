@@ -21,7 +21,7 @@ var createItemAnd = function (){
 
 var createItemInput = function (){
     var item_input = new Level('item_input', 'lernItem');
-    var a = item_and.addInput(5, 5, false);
+    var a = item_input.addInput(5, 5, false);
 
     item_input.window = {x: 100, y: 100, width: 300, height: 300};
 
