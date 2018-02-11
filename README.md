@@ -8,7 +8,7 @@ https://waffle.io/conradlempert/openhpigame
 
 ## Rooms
 
-All the levels and learning items can be opened from rooms. As the player walks through the levels of the game, he will unlock new rooms with new items. In the current version there are 4 rooms: `room1`, `room2`, `room3` and `room4`.
+All the levels and learning items can be opened from rooms. As the player walks through the levels of the game, he will unlock new rooms with new items. In the current version there are 4 rooms: `room1`, `room2`, `room3` and `room4`. To show `room1`, just call `room1.show()`.
 
 ### Constructor
 
@@ -26,6 +26,86 @@ Attribute | Description
 --- | ---
 `items` | Array with all the items in this room
 `activeLevel` | The currently displayed level in this room (`null` without level)
+`inDialogue` | Dialogue which is shown when the room opens
+`outDialogue` | Dialogue which is shown when the room closes
+`endLevels` | Array of levels, which have to be completed to exit this room
+`currentEndLevel` | Current index in the `endLevels` Array
+`nextRoom` | The room which is shown when all `endLevels` are finished
+
+### State
+
+Each room has a Phaser.IO `state`. This means, that every room has its own `preload()`, `create()`, and `update()` method.
+
+Method | Description
+--- | ---
+`state.preload()` | Loads the background sprite for this room
+`state.create()` | Renders the room, shows the intro dialogue and resets the progress for this room
+`state.update()` | Updates the `activeLevel`
+
+### Methods
+
+Method | Description
+--- | ---
+`showLevel(level)` | Shows the `level`
+`endLevel()` | Shows the next level, that is required to exit this room
+`closeLevel()` | Closes the `activeLevel`
+`render()` | Renders the `background` and all the `items` in this room
+`show()` | Activates the `state` (calls `state.create()`)
+
+## Levels
+
+A `Level` is a circuit plan with `inputs`, `gates` and `outputs`. There are three types of levels:
+
+Type | Description
+--- | ---
+`'challenge'` | You must guess the right input combination that is required to get the desired output values
+`'choice'` | You must guess the right circuit that is equivalent to a given boolean expression
+`'lernItem'` | You can just play around with this level to learn something
+
+To show `level1_1` from `room1`, just call `room1.showLevel(level1_1)`.
+
+### Constructor
+
+`new Level(name, type, expression, winAction)`
+
+Parameter | Description
+--- | --- 
+`name` | Unique name for the level
+`type` (optional) | Level type (see table above), is `'challenge'` by default
+`expression` (optional) | Boolean expression that equals the level
+`winAction` (optional) | Callback function that is called when the level is completed successfully
+
+### Attributes
+
+Attribute | Description
+--- | ---
+`inputs` | All the inputs in this level
+`gates` | All the gates in this level
+`outputs` | All the outputs in this level
+`completed` | Boolean which indicates if the level is completed successfully
+`window` | Object which describes the window in which the level is shown. For example `{ x: 50, y: 50, width: 100, height: 100}`. If not set, the level is shown in fullscreen.
+`backgroundImage` | The name of the sprite which is the background for the level. By default it is `'defaultBg'`, which is a sky full of stars right now
+`destroyableGraphics` | All the sprites which have to be destroyed when the level is closed
+`dialogue` | Dialogue which is shown when the level is shown
+
+### Methods
+
+Method | Description
+--- | ---
+`show(room)` | Shows this level in the given `room`. Draws all the `inputs`, `gates` and `outputs` and the other UI
+`addInput(name, x, y, on, locked)` | Creates an `Input` with these parameters. See the `Input` documentation for more detail
+`addGate(type, x, y)` | Creates a `Gate` with these parameters. See the `Gate` documentation for more detail
+`addOutput(expected, x, y, name)` | Creates an `Output` with these parameters. See the `Output` documentation for more detail
+`update()` | Redraws all the connections and outputs
+`checkWin()` | (`'challenge'` type only) Checks if the inputs are set correctly, executes `win()` if they are, and `fail()` if they're not
+`checkChoice(index)` | (`'choice'` type only) Checks if the circuit at `index` is the correct one, executes `win()` if it is, and `fail()`if it isn't
+`drawConnection(startX, startY, goalX, goalY, on)` | Draws a circuit connection between the start and the goal
+`win()` | This is called when you checked a right solution. Executes the `winAction`
+`fail()` | This is called when you checked a wrong solution. Takes you back to the room
+`registerToDestroy(element)` | When you call this with `element`, it is destroyed when the level is destroyed
+`destroy()` | Destroys the level and all the `destroyableGraphics`
+
+
 
 # Backend
 
