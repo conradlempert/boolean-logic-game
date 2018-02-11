@@ -74,6 +74,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
                 this.simulationMode = true;
                 break;
             case "choice":
+                console.log(this.choices);
                 for(var i = 0; i < this.choices.length; i++) {
                     var button = drawButton(I18n.t("game.buttons.choose"), 100 + i*300, 300, "black", (button) => {this.checkChoice(button.id)}, this);
                     this.registerToDestroy(button);

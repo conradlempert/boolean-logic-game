@@ -19,7 +19,6 @@ var Dialogue = function (i18nScope, callback = () => {}) {
 
         I18n.locale = "de";
 		var i18nArray = I18n.translate(i18nScope);
-		console.log(i18nArray);
         this.speech = [];
         for (var i = 0; i < i18nArray.length; i++) {
         	this.speech.push({

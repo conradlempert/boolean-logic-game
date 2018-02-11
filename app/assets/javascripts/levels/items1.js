@@ -1,78 +1,78 @@
-var createLE_A_and_B = function (){
-    le = new Level('A_and_B', 'lernItem');
-    input1 = le.addInput(5, 5, false);
-    input2 = le.addInput(5, 10, true);
-    gate1 = le.addGate('and', 8, 8);
-    output1 = le.addOutput(true, 12, 8);
+var createItemAnd = function (){
+    var item_and = new Level('item_and', 'lernItem');
+    var a = item_and.addInput(5, 5, false);
+    var b = item_and.addInput(5, 10, true);
+    var and = item_and.addGate('and', 8, 8);
+    var output = item_and.addOutput(true, 12, 8);
 
-    input1.addChild(gate1);
-    input2.addChild(gate1);
-    gate1.addChild(output1);
+    a.addChild(and);
+    b.addChild(and);
+    and.addChild(output);
 
-    le.window = {x: 100, y: 100, width: 300, height: 300};
+    item_and.window = {x: 100, y: 100, width: 300, height: 300};
 
-    input1.onClickUpdate.addOnce(function() {
+    a.onClickUpdate.addOnce(function() {
         new Dialogue("r1.le_A&&B");
     }
     );
 
-    return le;
+    return item_and;
 }
 
-var createLE_A = function (){
-    le = new Level('A', 'lernItem');
-    input1 = le.addInput(5, 5, false);
+var createItemInput = function (){
+    var item_input = new Level('item_input', 'lernItem');
+    var a = item_and.addInput(5, 5, false);
 
-    le.window = {x: 100, y: 100, width: 300, height: 300};
+    item_input.window = {x: 100, y: 100, width: 300, height: 300};
 
-    input1.onClickUpdate.addOnce(function() {
+    a.onClickUpdate.addOnce(function() {
             new Dialogue("r1.le_A");
         }
     );
 
-    return le;
+    return item_input;
 }
 
-var createLE_A_or_B = function (){
-    le = new Level('A_or_B', 'lernItem');
+var createItemOr = function (){
+    var item_or = new Level('item_or', 'lernItem');
 
-    input1 = le.addInput(5, 5, false);
-    input2 = le.addInput(5, 10, false);
-    gate1 = le.addGate('or', 8, 8);
-    output1 = le.addOutput(true, 12, 8);
+    var a = item_or.addInput(5, 5, false);
+    var b = item_or.addInput(5, 10, false);
+    var or = item_or.addGate('or', 8, 8);
+    var output = item_or.addOutput(true, 12, 8);
 
-    input1.addChild(gate1);
-    input2.addChild(gate1);
-    gate1.addChild(output1);
+    a.addChild(or);
+    b.addChild(or);
+    or.addChild(output);
 
-    le.window = {x: 100, y: 100, width: 300, height: 300};
+    item_or.window = {x: 100, y: 100, width: 300, height: 300};
 
-    input1.onClickUpdate.addOnce(function() {
+    a.onClickUpdate.addOnce(function() {
             new Dialogue("r1.le_A||B");
         }
     );
 
-    return le;
+    return item_or;
 }
 
-var createLE_A_equals_B = function (){
-    le = new Level('A_equals_B', 'lernItem');
+var createItemEquals = function (){
+    var item_equals = new Level('item_equals', 'lernItem');
 
-    input1 = le.addInput(5, 5, false);
-    input2 = le.addInput(5, 10, true);
-    gate1 = le.addGate('equals', 8, 8);
-    output1 = le.addOutput(true, 12, 8);
+    var a = item_equals.addInput(5, 5, false);
+    var b = item_equals.addInput(5, 10, true);
+    var equals = item_equals.addGate('equals', 8, 8);
+    var output = item_equals.addOutput(true, 12, 8);
 
-    input1.addChild(gate1);
-    input2.addChild(gate1);
-    gate1.addChild(output1);
+    a.addChild(equals);
+    b.addChild(equals);
+    equals.addChild(output);
 
-    le.window = {x: 100, y: 100, width: 300, height: 300};
+    item_equals.window = {x: 100, y: 100, width: 300, height: 300};
 
-    output1.onClickUpdated.addOnce(function() {
+    output.onClickUpdated.addOnce(function() {
             new Dialogue("r1.le_A==B");
         }
     );
 
-    return le;
+    return item_equals;
 }

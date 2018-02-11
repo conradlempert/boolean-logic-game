@@ -1,5 +1,5 @@
 var createLevel2_2 = function (){
-    var level2_2 = new Level('level2_22', 'level2_2', 'A || B && C');
+    var level2_2 = new Level('level2_2', 'choice', 'A || B && C');
     level2_2.choices = [false, true];
     var a = level2_2.addInput(2, 2, true);
     var b = level2_2.addInput(2, 5, true);
