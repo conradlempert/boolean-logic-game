@@ -8,15 +8,22 @@ class LtiController < ApplicationController
     redirect_to '/'
   end
 
-  def post_outcome
-    score = params.permit(:score)[:score]
-    response = tool_provider.post_replace_result!(score)
-    if response.success? || response.processing?
-      redirect_to action: :return
-    elsif response.unsupported?
-      Rails.logger.warn('Outcome could not be posted. Response was: ')
-      Rails.logger.warn(response.to_json)
-      return render template: 'error.html.haml', status: :internal_server_error
+  def update_score
+    unless tool_provider.nil?
+      old_score = get_current_score
+      score = params.permit(:score)[:score]
+      if score > old_score
+        response = tool_provider.post_replace_result!(score)
+        if response.success? || response.processing?
+          Rails.logger.warn("tool_provider.nil?")
+          return render json: { score: score }
+        else
+          Rails.logger.warn('Outcome could not be posted. Response was: ')
+          Rails.logger.warn(response.to_json)
+          return render json: {errors: ["Error while transmitting score"]}, status: 500
+        end
+      end
+      render json: { score: old_score }
     end
   end
 
@@ -86,15 +93,30 @@ class LtiController < ApplicationController
   end
 
   def tool_provider
-    key = lti_launch_params['oauth_consumer_key']
-    secret = LTI_CREDENTIALS_HASH[key.to_sym]
-    tool_provider = IMS::LTI::ToolProvider.new(key,
-                                               secret,
-                                               lti_launch_params)
+    unless lti_launch_params.nil?
+      key = lti_launch_params['oauth_consumer_key']
+      secret = LTI_CREDENTIALS_HASH[key.to_sym]
+      tool_provider = IMS::LTI::ToolProvider.new(key,
+                                                 secret,
+                                                 lti_launch_params)
+    end
   end
 
   def consumer_url
     @consumer_url ||= session.to_hash.dig('lti_launch_params', 'launch_presentation_return_url')
+  end
+
+  def get_current_score
+    unless tool_provider.nil?
+      response = tool_provider.post_read_result!
+      if response.success?
+        return response.score
+      else
+        Rails.logger.error('Score could not be read. Response was: ')
+        Rails.logger.error(response.to_json)
+        return 0
+      end
+    end
   end
 
 end
