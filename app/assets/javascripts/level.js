@@ -17,14 +17,14 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.destroyableGraphics.push(element);
     }
 
-	this.addInput = function (x, y, on, locked = false) {
-		var input = new Input(x, y, on, this, locked);
+	this.addInput = function (name, x, y, on, locked = false) {
+		var input = new Input(name, x, y, on, this, locked);
 		this.inputs.push(input);
 		this.registerToDestroy(input);
 		return input;
 	}
-	this.addOutput = function (expected, x, y) {
-		var output = new Output(expected, x, y, this);
+	this.addOutput = function (expected, x, y, name) {
+		var output = new Output(expected, x, y, this, name);
 		this.outputs.push(output);
 		this.registerToDestroy(output);
 		return output;
@@ -95,7 +95,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.winText = game.add.text(300, 60, "", style);
         this.registerToDestroy(this.winText);
     
-        this.expressionText = game.add.text(300, 550, this.expression, style);
+        this.expressionText = game.add.text(0, 0, this.expression, style);
+        this.expressionText.setTextBounds(0, 0, this.window.x + this.window.width - 10, this.window.y + this.window.height - 5);
         this.registerToDestroy(this.expressionText);
 		this.update();
 

@@ -2,8 +2,8 @@ var createlevel3_1 = function () {
 
     //Define Inputs//////////////////////////////////////
     var level3_1 = new Level('level3_1', 'challenge', '(A && !B) && (B || A)');
-    var a = level3_1.addInput(2, 6, true);
-    var b = level3_1.addInput(8, 6, true);
+    var a = level3_1.addInput('A', 2, 6, true);
+    var b = level3_1.addInput('B', 8, 5, true);
 
     //Define Gates///////////////////////////////////////
     var not = level3_1.addGate('not', 6, 2);

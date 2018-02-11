@@ -19,12 +19,12 @@
 if (window.location.pathname === '/') {
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {preload: preload, create: create});
     var gridUnit = 25;
-    var maxScore = 5;
+    var maxScore = 7;
     var statusBarHeight = 50;
     var progress = 0;
     var score = 0;
     var dialogueOpen = false;
-    var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+    var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "right", boundsAlignV: "bottom"};
 }
 
 function updateScore(score) {

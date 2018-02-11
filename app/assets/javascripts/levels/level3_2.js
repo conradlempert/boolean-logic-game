@@ -2,9 +2,9 @@ var createLevel3_2 = function () {
 
     //Define Inputs//////////////////////////////////////
     var level3_2 = new Level('level3_2', 'challenge', '(!A && !B) == (B || false)');
-    var a = level3_2.addInput(2, 2, true);
-    var b = level3_2.addInput(2, 8, true);
-    var off = level3_2.addInput(2, 14, false, true);
+    var a = level3_2.addInput('A', 2, 2, true);
+    var b = level3_2.addInput('B', 2, 8, true);
+    var off = level3_2.addInput('', 2, 14, false, true);
 
     //Define Gates///////////////////////////////////////
     var notA = level3_2.addGate('not', 8, 2);
