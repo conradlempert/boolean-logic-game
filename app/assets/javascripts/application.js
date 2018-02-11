@@ -25,11 +25,25 @@ if (window.location.pathname === '/') {
     var score = 0;
     var dialogueOpen = false;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-
 }
 
-function postScore(score) {
-    window.location.href = '/quiz_finished?score=' + score
+function updateScore(score) {
+    var http = new XMLHttpRequest();
+    var url = "/update_score";
+    var params = "score=" + score;
+    http.open("POST", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function() {
+        if(http.readyState == 4 && http.status == 200) {
+            console.log("score updated successfully.")
+            console.log(http.response)
+        }
+    };
+    http.send(params);
+}
+
+function finishQuiz() {
+    window.location.href = '/quiz_finished'
 }
 
 gameElements = {
@@ -153,6 +167,7 @@ function create() {
 
 function raiseScore() {
     score++;
+    updateScore(score / maxScore);
     showStatusBar();
 }
 
