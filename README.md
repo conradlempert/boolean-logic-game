@@ -4,6 +4,28 @@
 
 https://waffle.io/conradlempert/openhpigame
 
+# Frontend
+
+## Rooms
+
+All the levels and learning items can be opened from rooms. As the player walks through the levels of the game, he will unlock new rooms with new items. In the current version there are 4 rooms: `room1`, `room2`, `room3` and `room4`.
+
+### Constructor
+
+`new Room(name, background, nr)`
+
+Parameter | Description
+--- | --- 
+`name` | Unique name for the room, which becomes the name of the cached background sprite
+`background` | Path to the background image for the room
+`nr` | Progress level of this room (`room1.nr` is 1, `room2.nr` is 2. This means when you already made it to `room2`, you can go back to `room1`, but not vice versa.)
+
+### Attributes
+
+Attribute | Description
+--- | ---
+`items` | Array with all the items in this room
+`activeLevel` | The currently displayed level in this room (`null` without level)
 
 # Backend
 
