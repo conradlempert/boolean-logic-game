@@ -51,6 +51,7 @@ Method | Description
 `closeLevel()` | Closes the `activeLevel`
 `render()` | Renders the `background` and all the `items` in this room
 `show()` | Activates the `state` (calls `state.create()`)
+`addItem(item)` | Adds the Item `item` to the room. See the Item documentation.
 
 ## Levels
 
@@ -105,7 +106,125 @@ Method | Description
 `registerToDestroy(element)` | When you call this with `element`, it is destroyed when the level is destroyed
 `destroy()` | Destroys the level and all the `destroyableGraphics`
 
+## Item
 
+An `Item` is a prop in the room, which does something when the user clicks on it. To create an `Item`, use `room1.addItem(new Item(...))`.
+
+### Constructor
+
+`new Item(x, y, name, room, action)`
+
+Parameter | Description
+--- | ---
+`x` | x-coordinate of the top left corner
+`y` | y-coordinate of the top left corner
+`name` | Sprite name for this item
+`room` | The room in which this item is placed
+`action` (optional)| Action object, see table below
+
+### Action
+
+The `action` object defines what happens when the user clicks on the item.
+
+Action Object | Description
+--- | ---
+`{ type: 'animation', fps: 30 }` | Plays an animation with 30 fps, if the sprite is an animation spritesheet
+`{ type: 'level', level: myLevel }` | Shows the Level `'myLevel'`
+`{ type: 'popup', popup: myPopup }` | Shows the Popup `'myPopup'`
+`{ type: 'endLevel' }` | Shows the next `endLevel` for the current room (See `Room.endLevels`)
+`{ type: 'none' }` | Does nothing (default value)
+
+### Methods
+
+Method | Description
+--- | ---
+`init()` | Draws the item and makes it clickable. This is called automatically when the `room` is rendered
+`clickAction()` | Executes the `action`. This is called when the item is clicked
+
+## Input
+
+A switch in a `Level` that has outgoing connection(s). Use `level1.addInput(...)` to create an `Input`, since it automatically creates the reference to the `Level`.
+
+### Constructor
+
+`new Input(name, x, y, on, level, locked)`
+
+Parameter | Description
+--- | ---
+`name` | Name for the input, which is shown left to the input. If you dont want any text to show, use `''`
+`x` | x-position for the input (in grid coordinates)
+`y` | y-position for the input (in grid coordinates)
+`on` | Boolean that determines whether the input is on or off by default
+`level` | Reference to the level
+`locked` (optional) | If this is set to true, the input can't be switched by the user. (`false` by default)
+
+### Methods
+
+Method | Description
+--- | ---
+`init()` | Renders the input and makes it clickable. This is automatically called by `Level.init()`
+`show()` | Updates the sprite when the on/off status has changed
+`toggle()` | Switches between on and off
+`addChild(child)` | Establishes an outgoing circuit connection from the `Input` to the `child`
+`destroy()` | Destroys the sprite
+
+## Gate
+
+A gate in a `Level` that has ingoing and outgoing connection(s). Use `level1.addGate(...)` to create a `Gate`, since it automatically creates the reference to the `Level`.
+
+### Constructor
+
+`new Gate(type, x, y, level)`
+
+Parameter | Description
+--- | ---
+`type` | `'and'`, `'or'`, `'not'` or `'equals'`
+`x` | x-position for the input (in grid coordinates)
+`y` | y-position for the input (in grid coordinates)
+`level` | Reference to the level
+
+### Methods
+
+Method | Description
+--- | ---
+`init()` | Renders the gate. This is automatically called by `Level.init()`
+`addChild(child)` | Establishes an outgoing circuit connection from the `Gate` to the `child`. To establish an ingoing connection, use `addChild(gate)` on the parent.
+`drawConnections()` | Draws the connection cables from the parent(s) to this `Gate`. This is called automatically by `Level.update()`
+`updateValues(args)` | Recomputes the output of this gate. This is called by the parent(s) if they get updated.
+`destroy()` | Destroys the sprite
+
+## Output
+
+An output in a `Level` that has an ingoing connection. Use `level1.addOutput(...)` to create an `Output`, since it automatically creates the reference to the `Level`. To establish an ingoing connection, use `addChild(output)` on the parent.
+
+### Constructor
+
+`new Output(expected, x, y, level, name)`
+
+Parameter | Description
+--- | ---
+`expected` | Boolean that determines whether the output has to be on or off to complete the level
+`x` | x-position for the input (in grid coordinates)
+`y` | y-position for the input (in grid coordinates)
+`level` | Reference to the level
+`name` (optional) | Name for the output, which is shown right to the output. If you dont want any text to show, leave this blank
+
+### Attributes
+
+Attribute | Description
+--- | --- 
+`on` | Boolean that is true when the output is on, and false when it's off
+
+### Methods
+
+Method | Description
+--- | ---
+`init()` | Renders the output. This is automatically called by `Level.init()`
+`drawConnections()` | Draws the connection cables from the parent(s) to this `Output`. This is called automatically by `Level.update()`
+`show()` | Updates the sprite when the on/off status has changed
+`setValue(on)` | Sets the on/off status to the boolean value of `'on'`
+`updateValues(args)` | Recomputes the output of this gate. This is called by the parent(s) if they get updated.
+`destroy()` | Destroys the sprite
 
 # Backend
 
