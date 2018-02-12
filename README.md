@@ -286,8 +286,8 @@ and.addChild(output);
 Parameter | Description
 --- | ---
 `type` | `'and'`, `'or'`, `'not'` or `'equals'`
-`x` | x-position for the input (in grid coordinates)
-`y` | y-position for the input (in grid coordinates)
+`x` | x-position for the gate (in grid coordinates)
+`y` | y-position for the gate (in grid coordinates)
 `level` | Reference to the level
 
 ### Methods
@@ -325,8 +325,8 @@ and.addChild(output2);
 Parameter | Description
 --- | ---
 `expected` | Boolean that determines whether the output has to be on or off to complete the level
-`x` | x-position for the input (in grid coordinates)
-`y` | y-position for the input (in grid coordinates)
+`x` | x-position for the output (in grid coordinates)
+`y` | y-position for the output (in grid coordinates)
 `level` | Reference to the level
 `name` (optional) | Name for the output, which is shown right to the output. If you dont want any text to show, leave this blank
 
@@ -346,6 +346,84 @@ Method | Description
 `setValue(on)` | Sets the on/off status to the boolean value of `'on'`
 `updateValues(args)` | Recomputes the output of this gate. This is called by the parent(s) if they get updated.
 `destroy()` | Destroys the sprite
+
+## Dialogues
+
+A `Dialogue` is a sequence of sentences that are spoken by different characters. Use `new Dialogue('hello')` to create a dialogue manually. If you want a `Dialogue` to appear when the user is entering or leaving a `Room`, you can set `Room.inDialogue` or `Room.outDialogue`. For a `Level`, use `Level.dialogue`.
+
+The dialogues are saved in the language files **/config/locales/de.yml** and **/config/locales/en.yml**.
+
+### Code Example
+
+**/config/locales/de.yml**
+
+```
+welcome:
+  - "Maus: Hey Erik"
+  - "Erik: Hallo Maus"
+```
+
+**/assets/javascript/application.js**
+
+```
+new Dialogue("welcome", () => { alert("wow") }); //Opens the dialogue right away and alerts "wow" when the dialogue is closed
+
+level1.dialogue = "welcome"; //Opens the dialogue when level1 is shown
+room1.inDialogue = "welcome"; //Opens the dialogue when room1 is shown
+room1.outDialogue = "welcome"; //Opens the dialogue when the user leaves room1
+```
+
+### Constructor
+
+`new Dialogue(i18nScope, callback)`
+
+Parameter | Description
+--- | ---
+`i18nScope` | The reference to the dialogue in the language file
+`callback` (optional) | A function that is called, when the dialogue is closed
+
+### Methods
+
+Method | Description
+--- | ---
+`draw()` | Shows the dialogue
+`textClick()` | Is triggered when the dialogue is clicked. Calls `setUpSpeaker()` or closes the dialogue if it's over
+`setUpSpeaker(index)` | Shows the speaker at `index`
+
+## Translations
+
+You can store translations in **/config/locales/de.yml** and **/config/locales/en.yml**.
+
+### Code Examples
+
+**/config/locales/de.yml**
+
+```
+hello: "Hallo"
+animals:
+  dog: "Der Hund"
+  cat: "Die Katze"
+```
+
+**/config/locales/en.yml**
+
+```
+hello: "Hello"
+animals:
+  dog: "The dog"
+  cat: "The cat"
+```
+
+**/assets/javascript/application.js**
+
+```
+  I18n.locale = "de";
+  console.log(I18n.t("hello"));       // Hallo
+  console.log(I18n.t("animals.dog"))  // Der Hund
+
+  I18n.locale = "en";
+  console.log(I18n.t("hello"))        // Hello
+```
 
 # Backend
 
