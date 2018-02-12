@@ -10,6 +10,24 @@ https://waffle.io/conradlempert/openhpigame
 
 All the levels and learning items can be opened from rooms. As the player walks through the levels of the game, he will unlock new rooms with new items. In the current version there are 4 rooms: `room1`, `room2`, `room3` and `room4`. To show `room1`, just call `room1.show()`.
 
+### Example code
+
+```
+var room1 = new Room('room1','room1.jpg', 1);
+
+room1.addItem(new Item(200, 500, 'pigeon', room1,
+    {
+        type: "animation",
+        fps: 30
+    }
+));
+
+room1.nextRoom = room2;
+room1.inDialogue = "hello";
+room1.endLevels = [level1, level2];
+
+room1.show();
+```
 ### Constructor
 
 `new Room(name, background, nr)`
@@ -65,6 +83,27 @@ Type | Description
 
 To show `level1_1` from `room1`, just call `room1.showLevel(level1_1)`.
 
+### Example code
+
+```
+var level1 = new Level('level1', 'challenge', 'A && B');
+
+var a = level1.addInput('A', 3, 2, true);
+var b = level1.addInput('B', 3, 6, true);
+
+var and = level1.addGate('and', 9, 4);
+
+var output = level1.addOutput(true, 12, 5);
+
+a.addChild(and);
+b.addChild(and);
+and.addChild(output);
+
+level1.dialogue = "hello";
+
+room1.showLevel(level1);
+```
+
 ### Constructor
 
 `new Level(name, type, expression, winAction)`
@@ -110,6 +149,31 @@ Method | Description
 
 An `Item` is a prop in the room, which does something when the user clicks on it. To create an `Item`, use `room1.addItem(new Item(...))`.
 
+### Example code
+
+```
+room1.addItem(new Item(200, 500, 'pigeon', room1,
+    {
+        type: "animation",
+        fps: 30
+    }
+));
+room1.addItem(new Item(70, 500, 'dog', room1,
+    {
+        type: "level",
+        level: level1
+    }
+));
+room1.addItem(new Item(630, 480, 'cat', room1,
+    {
+        type: "popup",
+        popup: catPopup
+    }
+));
+room1.addItem(new Item(530, 300, 'cow', room1, { type: "endlevel" }));
+room1.addItem(new Item(370, 200, 'bird', room1)); // action will be { type: 'none' }
+```
+
 ### Constructor
 
 `new Item(x, y, name, room, action)`
@@ -145,9 +209,23 @@ Method | Description
 
 A switch in a `Level` that has outgoing connection(s). Use `level1.addInput(...)` to create an `Input`, since it automatically creates the reference to the `Level`.
 
+### Example Code
+
+```
+var a = level1.addInput('A', 3, 2, true);
+var b = level1.addInput('B', 3, 6, true, true); // locked input
+
+var and = level1.addGate('and', 9, 4);
+
+a.addChild(and);
+b.addChild(and);
+```
+
 ### Constructor
 
 `new Input(name, x, y, on, level, locked)`
+
+(please use `Level.addInput(name, x, y, on, locked)`)
 
 Parameter | Description
 --- | ---
@@ -172,9 +250,38 @@ Method | Description
 
 A gate in a `Level` that has ingoing and outgoing connection(s). Use `level1.addGate(...)` to create a `Gate`, since it automatically creates the reference to the `Level`.
 
+### Example Code
+
+```
+var a = level1.addInput('A', 3, 2, true);
+var b = level1.addInput('B', 3, 6, true);
+
+var and = level1.addGate('and', 9, 4);
+var or = level1.addGate('or', 9, 8);
+var not = level1.addGate('not', 9, 12);
+var equals = level1.addGate('equals', 9, 16);
+
+var output = level1.addOutput(true, 12, 5);
+
+a.addChild(and);
+b.addChild(and);
+
+a.addChild(or);
+b.addChild(or);
+
+a.addChild(not); //'not' is the only gate type that has only one input
+
+a.addChild(equals);
+b.addChild(equals);
+
+and.addChild(output);
+```
+
 ### Constructor
 
 `new Gate(type, x, y, level)`
+
+(please use `Level.addGate(type, x, y)`)
 
 Parameter | Description
 --- | ---
@@ -197,9 +304,23 @@ Method | Description
 
 An output in a `Level` that has an ingoing connection. Use `level1.addOutput(...)` to create an `Output`, since it automatically creates the reference to the `Level`. To establish an ingoing connection, use `addChild(output)` on the parent.
 
+### Example Code
+
+```
+var and = level1.addGate('and', 9, 4);
+
+var output1 = level1.addOutput(false, 12, 5); //has to be off to complete the level
+var output2 = level1.addOutput(true, 12, 5, 'X'); //X is displayed right to the gate
+
+and.addChild(output1);
+and.addChild(output2);
+```
+
 ### Constructor
 
 `new Output(expected, x, y, level, name)`
+
+(please use `Level.addOutput(expected, x, y, name)`)
 
 Parameter | Description
 --- | ---
