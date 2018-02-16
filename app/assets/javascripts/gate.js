@@ -67,6 +67,8 @@ var Gate = function (type, x, y, level) {
                 break;
             case 'equals': this.on = this.input1 == this.input2;
                 break;
+            case 'notequals': this.on = this.input1 != this.input2;
+                break;
             default: this.on = false;
         }
         this.updated.dispatch(args);

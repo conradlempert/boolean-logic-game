@@ -43,8 +43,16 @@ de:
       - "Maus: Dieses Wissen öffnet Türen!"
       - "Eric: Na dann, schnell weiter. Was uns wohl im nächsten Raum erwartet?"
   r3:
+    le1:
+      - "Maus: Zwei Ausdrücke können mit != auf Ungleichheit überprüft werden. Dann dürfen beide Signale nicht gleich sein, damit die logische Aussage erfüllt wird."
+    entrance:
+      - "Maus: Hier ist das Ding auch nirgends. Der nächste Raum ist wohl der letzte im Museum, hoffentlich werden wir da fündig."
+      - "Eric: Also eine Tür noch!"
+      - "Maus: Genau. Entsprechend vertrackt ist die Sicherung - Alarm und Sperre müssen aus."
+      - "Eric: Klingt easy."
+      - "Maus: Ein paar Gatter sind vorgeschaltet. Aber du schaffst das. Falls du vorher noch etwas üben möchtest, liegen hier noch ein paar alte Schaltpläne rum."
     endlevel:
-      - "Hier musst du einmal umdenken: Nur wenn beide Ausgänge aus sind, gewinnst du!"
+      - "Maus: Denk dran: Nur wenn beide Ausgänge aus sind, gewinnst du!"
   r4:
     entrance:
       - "Maus: Da ist es ja! Warum du dich mit einem Samenkorn zufrieden gibst, ist mir jedoch nicht klar."

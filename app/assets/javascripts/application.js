@@ -135,6 +135,11 @@ function create() {
             popup: robotPopUp
         }
     ));
+    room3.addItem(new Item(450, 480, 'modern', room3,
+        {
+            type: "level",
+            level: createItemLevel3_NotEqual()
+        }));
 
     room4 = new Room('room4', 'finalroom.png', 4);
     room4.addItem(new Item(370,200, 'samenkorn', room4));
@@ -161,7 +166,7 @@ function create() {
     video.play(false);
 
     video.addToWorld();
-//    room1.show();
+    //room3.show();
 
 }
 
