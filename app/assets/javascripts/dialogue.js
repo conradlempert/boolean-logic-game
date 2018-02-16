@@ -18,6 +18,8 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom=true) {
             }
         ];
 
+        this.group = game.add.group();
+
         I18n.locale = "de";
 		var i18nArray = I18n.translate(i18nScope);
         this.speech = [];
@@ -39,21 +41,32 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom=true) {
         	w = game.world.width*0.4 - 20;
         	h = game.world.height - 40;
 		}
-		this.graphics = game.add.graphics(x, y);
+		var textx = (bottom ? 200 : 30);
+        var texty = (bottom ? 30 : 150);
+		this.group.x = x;
+        this.group.y = y;
+		this.graphics = game.add.graphics(0, 0);
+        this.group.add(this.graphics);
 		this.graphics.beginFill(0xAAAAAA);
 
 
 		this.graphics.drawRect(0, 0, w, h);
+		this.graphics.alpha = 0.8;
 
 		this.graphics.lineStyle(2, "", 1);
 		this.graphics.endFill();
 
 
-		this.sprite = game.add.sprite(40, this.y+40, this.speech[this.textIndex].image);
+		this.sprite = game.add.sprite((bottom == true ? 40 : w/2), (bottom?40:20), this.speech[this.textIndex].image);
+		if (!bottom) {
+            this.sprite.anchor = new Phaser.Point(0.5, 0);
+        }
+		this.group.add(this.sprite);
 
-		var style = { font: "20px Arial", fill: "black", wordWrap: true, wordWrapWidth: game.world.width-300 };//, align: "center" };
-		this.text = game.add.text(200, this.y+50,
+		var style = { font: "20px Arial", fill: "black", wordWrap: true, wordWrapWidth: w-textx-30 };//, align: "center" };
+		this.text = game.add.text(textx, texty,
 			"", style);
+		this.group.add(this.text);
 		this.graphics.inputEnabled = true;
 		this.graphics.events.onInputUp.add(this.textClick, this);
 
@@ -67,9 +80,7 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom=true) {
 		if (++this.textIndex < this.speech.length) {
 			this.setUpSpeaker(this.textIndex);
 		} else {
-			this.graphics.destroy();
-			this.text.destroy();
-			this.sprite.destroy();
+			this.group.destroy();
 			dialogueOpen = false;
 			this.callback();
 		}

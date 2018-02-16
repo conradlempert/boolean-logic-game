@@ -43,7 +43,7 @@ de:
       - "Maus: Dieses Wissen öffnet Türen!"
       - "Eric: Na dann, schnell weiter. Was uns wohl im nächsten Raum erwartet?"
   r3:
-    le_A!=B:
+    le1:
       - "Maus: Zwei Ausdrücke können mit != auf Ungleichheit überprüft werden. Dann dürfen beide Signale nicht gleich sein, damit die logische Aussage erfüllt wird."
     entrance:
       - "Maus: Hier ist das Ding auch nirgends. Der nächste Raum ist wohl der letzte im Museum, hoffentlich werden wir da fündig."

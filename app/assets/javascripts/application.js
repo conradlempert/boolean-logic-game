@@ -135,7 +135,7 @@ function create() {
             popup: robotPopUp
         }
     ));
-    room3.addItem(new Item(650, 480, 'modern', room3,
+    room3.addItem(new Item(450, 480, 'modern', room3,
         {
             type: "level",
             level: createItemLevel3_NotEqual()
