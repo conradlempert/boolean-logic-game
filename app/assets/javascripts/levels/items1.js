@@ -13,6 +13,7 @@ var createItemAnd = function (){
 
     a.onClickUpdate.addOnce(function() {
         new Dialogue("r1.le_A&&B");
+        dialogueOpen = false;
     }
     );
 
@@ -27,6 +28,7 @@ var createItemInput = function (){
 
     a.onClickUpdate.addOnce(function() {
             new Dialogue("r1.le_A");
+            dialogueOpen = false;
         }
     );
 
@@ -49,6 +51,7 @@ var createItemOr = function (){
 
     a.onClickUpdate.addOnce(function() {
             new Dialogue("r1.le_A||B");
+            dialogueOpen = false;
         }
     );
 
@@ -71,6 +74,7 @@ var createItemEquals = function (){
 
     output.onClickUpdated.addOnce(function() {
             new Dialogue("r1.le_A==B");
+            dialogueOpen = false;
         }
     );
 

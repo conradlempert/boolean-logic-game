@@ -2,6 +2,7 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom=true) {
 
 	this.textIndex = 0;
 	this.callback = callback;
+	this.bottom = bottom;
 
 	this.y = game.world.height*0.6;
 
@@ -26,9 +27,24 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom=true) {
 				text: i18nArray[i]
 			});
 		}
-		this.graphics = game.add.graphics(0, this.y);
+        var x, y, w, h;
+        if (bottom) {
+            x = 20;
+            y = game.world.height*0.6;
+            w = game.world.width - 40;
+            h = game.world.height - this.y - 40;
+        } else {
+        	x = game.world.width*0.6;
+        	y = 20;
+        	w = game.world.width*0.4 - 20;
+        	h = game.world.height - 40;
+		}
+		this.graphics = game.add.graphics(x, y);
 		this.graphics.beginFill(0xAAAAAA);
-		this.graphics.drawRect(20,20,game.world.width-40, game.world.height-this.y-40);
+
+
+		this.graphics.drawRect(0, 0, w, h);
+
 		this.graphics.lineStyle(2, "", 1);
 		this.graphics.endFill();
 
