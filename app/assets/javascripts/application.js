@@ -159,14 +159,14 @@ function create() {
 
     I18n.locale = "de";
     score = 0;
-/*    video = game.add.video('intro');
+    video = game.add.video('intro');
     video.onComplete.dispatch = function () {
         room1.show();
     };
     video.play(false);
 
-    video.addToWorld();*/
-    room3.show();
+    video.addToWorld();
+    //room3.show();
 
 }
 
