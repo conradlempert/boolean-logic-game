@@ -37,6 +37,7 @@ Parameter | Description
 `name` | Unique name for the room, which becomes the name of the cached background sprite
 `background` | Path to the background image for the room
 `nr` | Progress level of this room (`room1.nr` is 1, `room2.nr` is 2. This means when you already made it to `room2`, you can go back to `room1`, but not vice versa.)
+`hasItemLock`(optional) | You can set this to true if the room has items that shouldn't be unlocked when you enter the room. You have to set `locked` in the constructor for these Items to make this work
 
 ### Attributes
 
@@ -69,7 +70,8 @@ Method | Description
 `closeLevel()` | Closes the `activeLevel`
 `render()` | Renders the `background` and all the `items` in this room
 `show()` | Activates the `state` (calls `state.create()`)
-`addItem(item)` | Adds the Item `item` to the room. See the Item documentation.
+`addItem(item)` | Adds the Item `item` to the room. See the Item documentation
+`unlockItems()` | If the room has items that are not unlocked when you enter the room, you can unlock them with this method. You could call this in a `Level.winAction`
 
 ## Levels
 
@@ -176,7 +178,7 @@ room1.addItem(new Item(370, 200, 'bird', room1)); // action will be { type: 'non
 
 ### Constructor
 
-`new Item(x, y, name, room, action)`
+`new Item(x, y, name, room, action, locked)`
 
 Parameter | Description
 --- | ---
@@ -185,6 +187,7 @@ Parameter | Description
 `name` | Sprite name for this item
 `room` | The room in which this item is placed
 `action` (optional)| Action object, see table below
+`locked` (optional)| Set this to `true`, if you don't want the item to be unlocked yet when the player enters the room. You have to set `hasItemLock` in the room constructor as well
 
 ### Action
 
