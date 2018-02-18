@@ -17,7 +17,8 @@
 //= require_tree .
 
 if (window.location.pathname === '/') {
-    var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {preload: preload, create: create});
+
+    var game = new Phaser.Game(800, 650, Phaser.AUTO, 'game', {preload: preload, create: create});
     var gridUnit = 25;
     var maxScore = 7;
     var statusBarHeight = 50;
@@ -54,10 +55,16 @@ gameElements = {
 
 
 function preload() {
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.scale.pageAlignHorizontally = true;
+    game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
     game.scale.pageAlignVertically = true;
+    game.scale.pageAlignHorizontally = true;
+    game.scale.setUserScale(fitSize(800, 650));
     game.scale.refresh();
+
+    window.addEventListener("resize" , function () {
+        game.scale.setUserScale(fitSize(800, 650));
+        game.scale.refresh();
+    });
 
     game.load.video('intro', 'assets/intro.mp4');
     game.load.image('logo', 'assets/openhpi.jpg');
@@ -210,4 +217,17 @@ function isSafari() {
         }
     }
     return false;
+}
+
+function fitSize(width, height) {
+    var ww = window.innerWidth - 20;
+    var wh = window.innerHeight - 50;
+    var gameRatio = width/height;
+    var screenRatio = ww/wh;
+
+    if(gameRatio > screenRatio) {
+        return ww/width
+    } else {
+        return wh/height
+    }
 }
