@@ -1,14 +1,17 @@
-var Item = function(x, y, name, room, action = { type: "none"}) {
+var Item = function(x, y, name, room, action = { type: "none"}, locked = false) {
 	this.x = x;
 	this.y = y;
 	this.name = name;
 	this.room = room;
 	this.action = action;
+	this.locked = locked;
 
 	this.init = function() {
-		this.sprite = game.add.sprite(this.x, this.y, this.name);
-		this.sprite.inputEnabled = true;
-		this.sprite.events.onInputDown.add(this.clickAction, this);
+	    if(!(this.locked && this.room.hasItemLock)) {
+            this.sprite = game.add.sprite(this.x, this.y, this.name);
+            this.sprite.inputEnabled = true;
+            this.sprite.events.onInputDown.add(this.clickAction, this);
+        }
 	}
 
 	this.clickAction = function () {

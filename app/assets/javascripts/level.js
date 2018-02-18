@@ -168,7 +168,10 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 
 	// Löscht alle Elemente, die this.registerToDestroy() übergeben wurden
-    this.destroy = function() {
+    this.destroy = () => {
+	    if(this.type == "lernItem") {
+	        this.winAction();
+        }
         for(var i = 0; i < this.destroyableGraphics.length; i++) {
         	if (this.destroyableGraphics[i] != null) {
                 this.destroyableGraphics[i].destroy();

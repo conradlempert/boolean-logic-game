@@ -93,8 +93,8 @@ function preload() {
 
 function create() {
 
-    room1 = new Room('room1','roomz.jpg', 1);
-    room1.addItem(new Item(370, 320, 'transparent', room1, { type: "endlevel" }));
+    room1 = new Room('room1','roomz.jpg', 1, true);
+    room1.addItem(new Item(370, 320, 'transparent', room1, { type: "endlevel" }, true));
     room1.addItem(new Item(200, 500, 'pigeon', room1,
         {
             type: "animation",
@@ -105,8 +105,7 @@ function create() {
         {
             type: "level",
             level: createItemAnd()
-        }
-    ));
+        }, true));
     room1.addItem(new Item(290, 290, 'mona_lisa', room1,
         {
             type: "level",
@@ -116,12 +115,12 @@ function create() {
         {
             type: "level",
             level: createItemOr()
-        }));
+        }, true));
     room1.addItem(new Item(470, 290, 'modern', room1,
         {
             type: "level",
             level: createItemEquals()
-        }));
+        }, true));
 
     room2 = new Room('room2','room2.png', 2);
     room2.addItem(new Item(530, 300, 'grid', room2, { type: "endlevel" }));

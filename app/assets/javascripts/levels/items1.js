@@ -32,6 +32,8 @@ var createItemInput = function (){
         }
     );
 
+    item_input.winAction = room1.unlockItems;
+
     return item_input;
 }
 

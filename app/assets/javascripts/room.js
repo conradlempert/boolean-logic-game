@@ -1,4 +1,4 @@
-var Room = function (name, background, nr) {
+var Room = function (name, background, nr, hasItemLock = false) {
 	this.name = name;
 	this.background = background;
 	this.items = [];
@@ -9,6 +9,7 @@ var Room = function (name, background, nr) {
 	this.endLevels = [];
 	this.currentEndLevel = 0;
 	this.nextRoom = null;
+	this.hasItemLock = hasItemLock;
 
 	this.state = {
 		preload: () => {
@@ -88,5 +89,15 @@ var Room = function (name, background, nr) {
 
 	this.addItem = function(item) {
 		this.items.push(item);
-	} 
+	}
+	this.unlockItems = () =>  {
+	    for(var i = 0; i < this.items.length; i++) {
+	        if(this.items[i].locked) {
+                this.items[i].locked = false;
+	            this.items[i].init();
+
+            }
+
+        }
+    }
 }
