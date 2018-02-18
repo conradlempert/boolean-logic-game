@@ -14,7 +14,7 @@ var Output = function (expected, x, y, level, name = "") {
 
     this.init = function() {
         this.sprite = game.add.sprite(this.x, this.y, 'neutral');
-        this.description = game.add.text(this.x + 40, this.y - 5, this.name, style);
+        this.description = game.add.text(this.x + 40, this.y + 3, this.name, style);
     }
 
     this.register = function (parent) {
@@ -25,7 +25,7 @@ var Output = function (expected, x, y, level, name = "") {
     this.drawConnections = function () {
         for(var i = 0; i < this.parents.length; i++) {
             var goalX = this.x;
-            var goalY = this.y + 12;
+            var goalY = this.y + 20;
             var startX = this.parents[i].x + 50;
             var startY = this.parents[i].y + 25;
             this.level.drawConnection(startX, startY, goalX, goalY, this.parents[i].on);

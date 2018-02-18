@@ -31,8 +31,8 @@ var Gate = function (type, x, y, level) {
             	}
             }
             if(parent.type == "input") {
-            	var startX = parent.x + 25;
-            	var startY = parent.y + 12;
+            	var startX = parent.x + 40;
+            	var startY = parent.y + 20;
             } else {
             	var startX = parent.x + 50;
             	var startY = parent.y + 25;
