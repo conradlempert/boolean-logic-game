@@ -139,18 +139,6 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         }
 	}
 
-	this.retry = function() {
-		this.simulationMode = false;
-		this.inputsDisabled = false;
-		this.winText.text = '';
-		this.retryButton.destroy();
-
-		this.playButton = game.add.button(140, statusBarHeight, 'play', this.checkWin, this, 2, 1, 0);
-    this.registerToDestroy(this.playButton);
-
-	}
-
-
 	this.drawConnection = function(startX, startY, goalX, goalY, on) {
 		if(!dialogueOpen) {
 			var midX = (startX + goalX) / 2;

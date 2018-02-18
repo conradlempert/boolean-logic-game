@@ -154,14 +154,16 @@ function create() {
 
     I18n.locale = "de";
     score = 0;
-    video = game.add.video('intro');
-    video.onComplete.dispatch = function () {
+    if(isSafari()) {
         room1.show();
-    };
-    video.play(false);
-
-    video.addToWorld();
-//    room1.show();
+    } else {
+        video = game.add.video('intro');
+        video.onComplete.dispatch = function () {
+            room1.show();
+        };
+        video.play(false);
+        video.addToWorld();
+    }
 
 }
 
@@ -197,4 +199,16 @@ function drawButton(text, x, y, color, callback, reference) {
         button.destroy();
         text.destroy();
     }};
+}
+
+function isSafari() {
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.indexOf('safari') != -1) {
+        if (ua.indexOf('chrome') > -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    return false;
 }
