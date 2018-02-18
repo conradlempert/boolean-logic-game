@@ -128,13 +128,8 @@ function create() {
     room3 = new Room('room3','room3.jpg', 3);
     robotPopUp = new PopUp(450, 290, 'pixel');
     room3.addItem(new Item(250, 300, 'pad', room3, { type: "endlevel" }));
-    room3.addItem(new Item(630, 480, 'robot', room3,
-        {
-            type: "popup",
-            popup: robotPopUp
-        }
-    ));
-    room3.addItem(new Item(450, 480, 'modern', room3,
+    room3.addItem(new Item(630, 480, 'robot', room3));
+    room3.addItem(new Item(570, 250, 'modern', room3,
         {
             type: "level",
             level: createItemLevel3_NotEqual()

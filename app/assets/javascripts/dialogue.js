@@ -1,4 +1,4 @@
-var Dialogue = function (i18nScope, callback = () => {}, bottom=true) {
+var Dialogue = function (i18nScope, callback = () => {}, bottom = true) {
 
 	this.textIndex = 0;
 	this.callback = callback;
