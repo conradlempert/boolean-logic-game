@@ -563,3 +563,28 @@ tool_provider.post_replace_result!(score)
 // Reads the current score from the external tool consumer
 tool_provider.post_read_result!```
 
+
+# Issues
+
+## Levels
+
+- Cables drawn upon dialogue boxes (fix: rearrange drawing order)
+- Plain input labeling, not much help for user (fix: labeling of gates, pre-coloring of certain cables)
+- Required output not easily recognizable (fix: label, maybe coloring)
+- User is not given the option of a graceful exit when an error is made (fix: option to stay&play or exit)
+- Errors have no consequences in evaluation yet (fix: subtract half points)
+- Video not playable in Safari (web is fun!)
+
+## Mobile
+
+- Game not scaleable for various screen sizes (maybe benign because computers and phones have similar screen ratios)
+
+## Miscellaneous
+
+- Dialogues not yet complete
+- No translations yet
+
+
+
+
+
