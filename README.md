@@ -562,6 +562,7 @@ tool_provider.post_replace_result!(score)
 
 // Reads the current score from the external tool consumer
 tool_provider.post_read_result!
+
 ```
 
 
