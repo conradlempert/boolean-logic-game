@@ -128,6 +128,11 @@ function create() {
             type: "level",
             level: createItemEquals()
         }, true));
+    room1.addItem(new Item(100, 400, 'sterni', room1,
+        {
+            type: "level",
+            level: createItemNot()
+        }, true));
 
     room2 = new Room('room2','room2.png', 2);
     room2.addItem(new Item(530, 300, 'grid', room2, { type: "endlevel" }));
