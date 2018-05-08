@@ -31,7 +31,6 @@ var Room = function (name, background, nr, hasItemLock = false) {
          		progress = this.nr;
       		}
       		showStatusBar();
-
 		},
 		update: () => {
 		    if(this.activeLevel != null) {
@@ -77,7 +76,8 @@ var Room = function (name, background, nr, hasItemLock = false) {
     }
 
     this.render = () => {
-        game.add.sprite(0, statusBarHeight, this.name);
+        //game.add.sprite(0, statusBarHeight, this.name);
+        console.log("Room render");
         for(var i = 0; i < this.items.length; i++) {
             this.items[i].init();
         }

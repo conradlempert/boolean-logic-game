@@ -16,7 +16,7 @@ var Input = function (name, x, y, on, level, locked = false) {
     this.init = function () {
         this.sprite = game.add.sprite(this.x, this.y, 'on');
         this.description = game.add.text(this.x - 40, this.y + 3, this.name, style);
-        this.level.registerToDestroy(this.description);
+
         if(this.locked) {
             this.lockSprite = game.add.sprite(this.x + 20, this.y - 20, 'lock');
         } else {
@@ -50,7 +50,12 @@ var Input = function (name, x, y, on, level, locked = false) {
     };
 
     this.destroy = function () {
-        this.sprite.destroy();
+        if(this.sprite) {
+            this.sprite.destroy();
+        }
+        if (this.description){
+            this.description.destroy();
+        }
         if (this.lockSprite) {
             this.lockSprite.destroy();
         }

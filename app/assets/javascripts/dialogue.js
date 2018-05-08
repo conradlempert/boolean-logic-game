@@ -73,7 +73,7 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom = true) {
 
 		this.setUpSpeaker(this.textIndex);
 
-		window.graphics = this.graphics;
+//		window.graphics = this.graphics;
 	}	
 
 	this.textClick = function (){

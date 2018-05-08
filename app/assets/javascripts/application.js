@@ -166,14 +166,16 @@ function create() {
     I18n.locale = "de";
     score = 0;
     if(isSafari()) {
-        room1.show();
+        // room1.show();
+        room3.show();
     } else {
-        video = game.add.video('intro');
+        /*video = game.add.video('intro');
         video.onComplete.dispatch = function () {
             room1.show();
         };
         video.play(false);
-        video.addToWorld();
+        video.addToWorld();*/
+        room3.show();
     }
 
 }

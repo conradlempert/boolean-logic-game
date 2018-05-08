@@ -22,7 +22,10 @@ var createItemLevel3_NotEqual = function () {
     equals2.addChild(output);
 
     item.window = {x: 50, y: 80, width: 500, height: 550};
-    item.dialogue = new Dialogue("r3.le1", null, false);
+    output.onClickUpdated.addOnce(function() {
+        new Dialogue("r3.le1", null, true);
+        dialogueOpen = false;
+    });
 
     return item;
 }

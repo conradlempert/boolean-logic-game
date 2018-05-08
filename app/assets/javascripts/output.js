@@ -61,6 +61,7 @@ var Output = function (expected, x, y, level, name = "") {
     };
 
     this.destroy = function() {
-        this.sprite.destroy();
+        if (this.sprite)
+            this.sprite.destroy();
     }
 };
