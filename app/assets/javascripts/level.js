@@ -14,7 +14,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.backgroundImage = "defaultBg";
 	this.destroyableGraphics = [];
 	this.dialogue = null;
-	this.graphics = game.make.graphics(0,0);
+	//this.graphics = game.make.graphics(0,0);
     this.group;// = game.make.group();
 
 	// element: Every element that should disappear when the level is closed is passed to this function
@@ -130,10 +130,6 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
             }
         }
 
-//        this.group.add(window.graphics);
-
-		game.add.graphics(this.graphics);
-
         game.add.group(this.group);
 	}
 
@@ -169,27 +165,34 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	}
 
 	this.drawConnection = function(startX, startY, goalX, goalY, on) {
+/*        var testRect = game.make.graphics(400, 400);
+        testRect.beginFill(0x0000FF, 1);
+        testRect.drawRoundedRect(0, 0, 100, 100, 10);
+        this.group.add(testRect); */
+
 //	    console.log("Draw Connection.");
 //		if(!dialogueOpen) {
-			var midX = (startX + goalX) / 2;
-//			var graphics = game.add.graphics(0, 0);
+
+
+        var midX = (startX + goalX) / 2;
+        
+        this.graphics = game.make.graphics(0,0);
         this.graphics.clear();
 
-            this.graphics.lineStyle(3, 0xffff00, 1);
-			if (this.simulationMode) {
-				if (on) {
-					this.graphics.lineStyle(3, 0x00ff00, 1);
-				} else {
-					this.graphics.lineStyle(3, 0xff0000, 1);
-				}
-			}
-			this.graphics.moveTo(startX, startY);
-			this.graphics.lineTo(midX, startY);
-			this.graphics.lineTo(midX, goalY);
-			this.graphics.lineTo(goalX, goalY);
+        this.graphics.lineStyle(3, 0xffff00, 1);
+        if (this.simulationMode) {
+            if (on) {
+                this.graphics.lineStyle(3, 0x00ff00, 1);
+            } else {
+                this.graphics.lineStyle(3, 0xff0000, 1);
+            }
+        }
+        this.graphics.moveTo(startX, startY);
+        this.graphics.lineTo(midX, startY);
+        this.graphics.lineTo(midX, goalY);
+        this.graphics.lineTo(goalX, goalY);
 
-//			window.graphics = graphics;
-//		}
+        this.group.add(this.graphics);
 	}
 
 	this.fail = function() {
