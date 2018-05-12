@@ -23,7 +23,7 @@ var Input = function (name, x, y, on, level, locked = false) {
 
         if(this.locked) {
             this.lockSprite = game.add.sprite(this.x + 20, this.y - 20, 'lock');
-            this.group.add(lockSprite);
+            this.group.add(this.lockSprite);
         } else {
             this.sprite.inputEnabled = true;
             this.sprite.events.onInputDown.add(this.toggle, this);

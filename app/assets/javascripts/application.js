@@ -166,8 +166,8 @@ function create() {
     I18n.locale = "de";
     score = 0;
     if(isSafari()) {
-        // room1.show();
-        room3.show();
+//        room1.show();
+        room2.show();
     } else {
         /*video = game.add.video('intro');
         video.onComplete.dispatch = function () {
@@ -204,8 +204,13 @@ function drawButton(text, x, y, color, callback, reference) {
     var button = game.add.button(x, y + 2, "button_empty", callback, reference, 2, 1, 0);
     var style = { font: "24px Arial", fill: "black" };
     var text = game.add.text(x + 14, y + 10, text, style);
+    
+    var group = game.make.group();
+    group.add(button);
+    group.add(text);
 
     return {
+        group: group,
         button: button,
         text: text,
         destroy: () => {

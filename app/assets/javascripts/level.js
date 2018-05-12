@@ -25,19 +25,16 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.addInput = function (name, x, y, on, locked = false) {
 		var input = new Input(name, x, y, on, this, locked);
 		this.inputs.push(input);
-		//this.group.add(input.group);
 		return input;
 	}
 	this.addOutput = function (expected, x, y, name) {
 		var output = new Output(expected, x, y, this, name);
 		this.outputs.push(output);
-        //this.group.add(output);
 		return output;
 	}
 	this.addGate = function (type, x, y) {
 		var gate = new Gate(type, x, y, this, this.group);
 		this.gates.push(gate);
-		//this.group.add(gate);
 		return gate;
 	}
 
@@ -93,7 +90,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
                 for(var i = 0; i < this.choices.length; i++) {
                     var button = drawButton(I18n.t("game.buttons.choose"), 100 + i*300, 300, "black", (button) => {this.checkChoice(button.id)}, this);
                     // this.registerToDestroy(button);
-                    this.group.add(button);
+                    this.group.add(button.group);
 
                     button.button.id = i;
                 }
@@ -113,13 +110,11 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.group.add(this.backButton);
 
         this.winText = game.add.text(300, 60, "", style);
-        //this.registerToDestroy(this.winText);
         this.group.add(this.winText);
 
 
         this.expressionText = game.add.text(0, 0, this.expression, style);
         this.expressionText.setTextBounds(0, 0, this.window.x + this.window.width - 10, this.window.y + this.window.height - 5);
-        //this.registerToDestroy(this.expressionText);
         this.group.add(this.expressionText);
 		this.update();
 
@@ -131,6 +126,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         }
 
         game.add.group(this.group);
+
+		console.log("Level.show() end.");
 	}
 
 
@@ -175,7 +172,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 
         var midX = (startX + goalX) / 2;
-        
+
         this.graphics = game.make.graphics(0,0);
         this.graphics.clear();
 
