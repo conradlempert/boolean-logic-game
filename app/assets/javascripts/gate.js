@@ -13,9 +13,13 @@ var Gate = function (type, x, y, level, group) {
 
     this.parents = [];
 
+    this.group;
+
     // Methods
     this.init = function () {
+        this.group = game.make.group();
         this.sprite = game.add.sprite(this.x, this.y, this.type);
+        this.group.add(this.sprite);
     }
 
     this.drawConnections = function () {
@@ -80,9 +84,7 @@ var Gate = function (type, x, y, level, group) {
     };
 
     this.destroy = function () {
-        if (this.sprite)
-            this.sprite.destroy();
+        this.group.destroy();
     }
-
 }
 

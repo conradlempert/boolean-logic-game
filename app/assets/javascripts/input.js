@@ -10,15 +10,20 @@ var Input = function (name, x, y, on, level, locked = false) {
     this.locked = locked;
     this.updated = new Phaser.Signal();
     this.onClickUpdate = new Phaser.Signal();
+    this.group;
     
     // Methods ///////////////////////////////////////////
 
     this.init = function () {
+        this.group = game.make.group();
         this.sprite = game.add.sprite(this.x, this.y, 'on');
+        this.group.add(this.sprite);
         this.description = game.add.text(this.x - 40, this.y + 3, this.name, style);
+        this.group.add(this.description);
 
         if(this.locked) {
             this.lockSprite = game.add.sprite(this.x + 20, this.y - 20, 'lock');
+            this.group.add(lockSprite);
         } else {
             this.sprite.inputEnabled = true;
             this.sprite.events.onInputDown.add(this.toggle, this);
@@ -27,6 +32,7 @@ var Input = function (name, x, y, on, level, locked = false) {
 
         this.show();
     }
+
     this.show = function () {
         if(this.on) {
             this.sprite.loadTexture('on');
@@ -50,15 +56,7 @@ var Input = function (name, x, y, on, level, locked = false) {
     };
 
     this.destroy = function () {
-        if(this.sprite) {
-            this.sprite.destroy();
-        }
-        if (this.description){
-            this.description.destroy();
-        }
-        if (this.lockSprite) {
-            this.lockSprite.destroy();
-        }
+        this.group.destroy();
     }
 
 };

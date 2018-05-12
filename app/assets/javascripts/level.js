@@ -15,7 +15,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.destroyableGraphics = [];
 	this.dialogue = null;
 	this.graphics = game.make.graphics(0,0);
-    this.group = game.make.group();
+    this.group;// = game.make.group();
 
 	// element: Every element that should disappear when the level is closed is passed to this function
 	this.registerToDestroy = function(element) {
@@ -25,19 +25,19 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.addInput = function (name, x, y, on, locked = false) {
 		var input = new Input(name, x, y, on, this, locked);
 		this.inputs.push(input);
-		this.group.add(input);
+		//this.group.add(input.group);
 		return input;
 	}
 	this.addOutput = function (expected, x, y, name) {
 		var output = new Output(expected, x, y, this, name);
 		this.outputs.push(output);
-        this.group.add(output);
+        //this.group.add(output);
 		return output;
 	}
 	this.addGate = function (type, x, y) {
 		var gate = new Gate(type, x, y, this, this.group);
 		this.gates.push(gate);
-		this.group.add(gate);
+		//this.group.add(gate);
 		return gate;
 	}
 
@@ -53,8 +53,10 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 	this.show = (room) => {
 
-	    console.log("level show");
+	    console.log("level show: "+ name);
 	    this.room = room;
+
+        this.group = game.add.group();
 
         this.group.x = 100;
         this.group.y = 100;
@@ -68,12 +70,15 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
         for (var i = 0; i < this.outputs.length; i++) {
             this.outputs[i].init();
+            this.group.add(this.outputs[i].group);
         }
         for (var i = 0; i < this.gates.length; i++) {
             this.gates[i].init();
+            this.group.add(this.gates[i].group);
         }
         for (var i = 0; i < this.inputs.length; i++) {
             this.inputs[i].init();
+            this.group.add(this.inputs[i].group);
         }
         switch(type) {
             case "challenge":
@@ -105,7 +110,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.backButton = game.add.button(0, 0, 'back', this.room.closeLevel, this, 2, 1, 0);
         //this.registerToDestroy(this.backButton);
 
-        //this.group.add(this.backButton);
+        this.group.add(this.backButton);
 
         this.winText = game.add.text(300, 60, "", style);
         //this.registerToDestroy(this.winText);
@@ -201,11 +206,6 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
             this.winAction();
         }
         this.group.destroy();
-        /*for(var i = 0; i < this.destroyableGraphics.length; i++) {
-        	if (this.destroyableGraphics[i] != null) {
-                this.destroyableGraphics[i].destroy();
-          } 
-        }*/
     }
 
     this.win = function () {
