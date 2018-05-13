@@ -7,7 +7,7 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom = true) {
 	this.y = game.world.height*0.6;
 
 	this.draw = function () {
-        room1.entrySpeech = [
+        room1_1.entrySpeech = [
             {
                 image: "mouse",
                 text: I18n.t('r1.m1')
@@ -51,7 +51,7 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom = true) {
 
 
 		this.graphics.drawRect(0, 0, w, h);
-		this.graphics.alpha = 0.8;
+		this.graphics.alpha = 0.9;
 
 		this.graphics.lineStyle(2, "", 1);
 		this.graphics.endFill();

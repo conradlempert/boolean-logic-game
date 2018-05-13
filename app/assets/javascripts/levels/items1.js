@@ -32,7 +32,7 @@ var createItemInput = function (){
         }
     );
 
-    item_input.winAction = room1.unlockItems;
+    item_input.winAction = room1_1.unlockItems;
 
     return item_input;
 }

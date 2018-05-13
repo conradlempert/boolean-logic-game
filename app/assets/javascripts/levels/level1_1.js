@@ -1,5 +1,5 @@
 var createLevel1_1 = function (){
-    var level1_1 = new Level('level1_1', 'challenge', 'false && true == !A || B');
+    var level1_1 = new Level('level1_1', 'challenge', 'A && false || A && B(false)');
 
     var off = level1_1.addInput('', 3, 4, false, true);
     var on = level1_1.addInput('', 3, 8, true, true);

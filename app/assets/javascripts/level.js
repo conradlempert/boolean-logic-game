@@ -55,9 +55,6 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
         this.group = game.add.group();
 
-        this.group.x = 100;
-        this.group.y = 100;
-
         this.bgSprite = game.add.sprite(this.window.x, this.window.y, this.backgroundImage);
         //this.group.create(0, 0, this.backgroundImage);
         this.group.add(this.bgSprite);
@@ -80,7 +77,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         switch(type) {
             case "challenge":
                 this.playButton = drawButton(I18n.t("game.buttons.play"), 100, statusBarHeight, "black", this.checkWin, this);
-                this.group.add(this.playButton);
+                this.group.add(this.playButton.group);
                 this.simulationMode = false;
                 break;
             case "lernItem":
