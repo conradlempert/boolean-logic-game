@@ -1,4 +1,4 @@
-var Gate = function (type, x, y, level) {
+var Gate = function (type, x, y, level, group) {
     // Attributes
 
     this.x = x * gridUnit;
@@ -13,10 +13,15 @@ var Gate = function (type, x, y, level) {
 
     this.parents = [];
 
+    this.group;
+
     // Methods
     this.init = function () {
-        this.sprite = game.add.sprite(this.x, this.y, type);
+        this.group = game.make.group();
+        this.sprite = game.add.sprite(this.x, this.y, this.type);
+        this.group.add(this.sprite);
     }
+
     this.drawConnections = function () {
         for(var i = 0; i < this.parents.length; i++) {
         	var parent = this.parents[i];
@@ -79,8 +84,7 @@ var Gate = function (type, x, y, level) {
     };
 
     this.destroy = function () {
-        this.sprite.destroy();
+        this.group.destroy();
     }
-
 }
 

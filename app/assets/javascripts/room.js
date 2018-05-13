@@ -31,7 +31,6 @@ var Room = function (name, background, nr, hasItemLock = false) {
          		progress = this.nr;
       		}
       		showStatusBar();
-
 		},
 		update: () => {
 		    if(this.activeLevel != null) {
@@ -42,6 +41,7 @@ var Room = function (name, background, nr, hasItemLock = false) {
 	game.state.add(this.name, this.state);
 
 	this.showLevel = (level) => {
+		console.log("Room.showLevel");
 	    this.activeLevel = level;
 	    level.show(this);
     }
@@ -76,8 +76,12 @@ var Room = function (name, background, nr, hasItemLock = false) {
 	    this.activeLevel = null;
     }
 
+
     this.render = () => {
         game.add.sprite(0, statusBarHeight, this.name);
+        //console.log("Room render");
+        // Dadurch dass die Items initialisiert werden, werden auch die jeweiligen Level initialisiert, die sich durch
+		// sie oeffnen
         for(var i = 0; i < this.items.length; i++) {
             this.items[i].init();
         }
@@ -90,14 +94,13 @@ var Room = function (name, background, nr, hasItemLock = false) {
 	this.addItem = function(item) {
 		this.items.push(item);
 	}
+
 	this.unlockItems = () =>  {
 	    for(var i = 0; i < this.items.length; i++) {
 	        if(this.items[i].locked) {
                 this.items[i].locked = false;
 	            this.items[i].init();
-
             }
-
         }
     }
 }

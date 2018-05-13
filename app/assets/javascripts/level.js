@@ -1,4 +1,7 @@
 var Level = function (name, type = "challenge", expression = "", winAction = function() {}) {
+
+    console.log("Hello level" + name);
+
 	this.name = name;
 	this.inputs = [];
 	this.outputs = [];
@@ -11,6 +14,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.backgroundImage = "defaultBg";
 	this.destroyableGraphics = [];
 	this.dialogue = null;
+	//this.graphics = game.make.graphics(0,0);
+    this.group;// = game.make.group();
 
 	// element: Every element that should disappear when the level is closed is passed to this function
 	this.registerToDestroy = function(element) {
@@ -20,19 +25,16 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.addInput = function (name, x, y, on, locked = false) {
 		var input = new Input(name, x, y, on, this, locked);
 		this.inputs.push(input);
-		this.registerToDestroy(input);
 		return input;
 	}
 	this.addOutput = function (expected, x, y, name) {
 		var output = new Output(expected, x, y, this, name);
 		this.outputs.push(output);
-		this.registerToDestroy(output);
 		return output;
 	}
 	this.addGate = function (type, x, y) {
-		var gate = new Gate(type, x, y, this);
+		var gate = new Gate(type, x, y, this, this.group);
 		this.gates.push(gate);
-		this.registerToDestroy(gate);
 		return gate;
 	}
 
@@ -48,26 +50,34 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 	this.show = (room) => {
 
+	    console.log("level show: "+ name);
 	    this.room = room;
 
+        this.group = game.add.group();
+
         this.bgSprite = game.add.sprite(this.window.x, this.window.y, this.backgroundImage);
-        this.registerToDestroy(this.bgSprite);
+        //this.group.create(0, 0, this.backgroundImage);
+        this.group.add(this.bgSprite);
+
         this.bgSprite.width = this.window.width;
         this.bgSprite.height = this.window.height;
 
         for (var i = 0; i < this.outputs.length; i++) {
             this.outputs[i].init();
+            this.group.add(this.outputs[i].group);
         }
         for (var i = 0; i < this.gates.length; i++) {
             this.gates[i].init();
+            this.group.add(this.gates[i].group);
         }
         for (var i = 0; i < this.inputs.length; i++) {
             this.inputs[i].init();
+            this.group.add(this.inputs[i].group);
         }
         switch(type) {
             case "challenge":
                 this.playButton = drawButton(I18n.t("game.buttons.play"), 100, statusBarHeight, "black", this.checkWin, this);
-                this.registerToDestroy(this.playButton);
+                this.group.add(this.playButton.group);
                 this.simulationMode = false;
                 break;
             case "lernItem":
@@ -76,7 +86,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
             case "choice":
                 for(var i = 0; i < this.choices.length; i++) {
                     var button = drawButton(I18n.t("game.buttons.choose"), 100 + i*300, 300, "black", (button) => {this.checkChoice(button.id)}, this);
-                    this.registerToDestroy(button);
+                    // this.registerToDestroy(button);
+                    this.group.add(button.group);
 
                     button.button.id = i;
                 }
@@ -89,15 +100,19 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
         this.inputsDisabled = false;
 
-        this.backButton = game.add.button(0, statusBarHeight, 'back', this.room.closeLevel, this, 2, 1, 0);
-        this.registerToDestroy(this.backButton);
+//        this.backButton = game.add.button(0, statusBarHeight, 'back', this.room.closeLevel, this, 2, 1, 0);
+        this.backButton = game.add.button(0, 0, 'back', this.room.closeLevel, this, 2, 1, 0);
+        //this.registerToDestroy(this.backButton);
+
+        this.group.add(this.backButton);
 
         this.winText = game.add.text(300, 60, "", style);
-        this.registerToDestroy(this.winText);
-    
+        this.group.add(this.winText);
+
+
         this.expressionText = game.add.text(0, 0, this.expression, style);
         this.expressionText.setTextBounds(0, 0, this.window.x + this.window.width - 10, this.window.y + this.window.height - 5);
-        this.registerToDestroy(this.expressionText);
+        this.group.add(this.expressionText);
 		this.update();
 
 		if(this.dialogue != null) {
@@ -106,6 +121,10 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 		        dialogueOpen = true;
             }
         }
+
+        game.add.group(this.group);
+
+		console.log("Level.show() end.");
 	}
 
 
@@ -140,25 +159,34 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	}
 
 	this.drawConnection = function(startX, startY, goalX, goalY, on) {
-		if(!dialogueOpen) {
-			var midX = (startX + goalX) / 2;
-			var graphics = game.add.graphics(0, 0);
-			this.registerToDestroy(graphics);
-			graphics.lineStyle(3, 0xffff00, 1);
-			if (this.simulationMode) {
-				if (on) {
-					graphics.lineStyle(3, 0x00ff00, 1);
-				} else {
-					graphics.lineStyle(3, 0xff0000, 1);
-				}
-			}
-			graphics.moveTo(startX, startY);
-			graphics.lineTo(midX, startY);
-			graphics.lineTo(midX, goalY);
-			graphics.lineTo(goalX, goalY);
+/*        var testRect = game.make.graphics(400, 400);
+        testRect.beginFill(0x0000FF, 1);
+        testRect.drawRoundedRect(0, 0, 100, 100, 10);
+        this.group.add(testRect); */
 
-			window.graphics = graphics;
-		}
+//	    console.log("Draw Connection.");
+//		if(!dialogueOpen) {
+
+
+        var midX = (startX + goalX) / 2;
+
+        this.graphics = game.make.graphics(0,0);
+        this.graphics.clear();
+
+        this.graphics.lineStyle(3, 0xffff00, 1);
+        if (this.simulationMode) {
+            if (on) {
+                this.graphics.lineStyle(3, 0x00ff00, 1);
+            } else {
+                this.graphics.lineStyle(3, 0xff0000, 1);
+            }
+        }
+        this.graphics.moveTo(startX, startY);
+        this.graphics.lineTo(midX, startY);
+        this.graphics.lineTo(midX, goalY);
+        this.graphics.lineTo(goalX, goalY);
+
+        this.group.add(this.graphics);
 	}
 
 	this.fail = function() {
@@ -168,16 +196,14 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 
 	// Löscht alle Elemente, die this.registerToDestroy() übergeben wurden
-    this.destroy = () => {
-	    if(this.type == "lernItem") {
-	        this.winAction();
+    this.destroy = () =>
+    {
+        console.log("Destroy");
+        if (this.type == "lernItem") {
+            this.winAction();
         }
-        for(var i = 0; i < this.destroyableGraphics.length; i++) {
-        	if (this.destroyableGraphics[i] != null) {
-                this.destroyableGraphics[i].destroy();
-          } 
-        }
-		}
+        this.group.destroy();
+    }
 
     this.win = function () {
 	    if(this.room.nr >= progress) {

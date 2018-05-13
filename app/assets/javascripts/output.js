@@ -5,7 +5,7 @@ var Output = function (expected, x, y, level, name = "") {
     this.y = y * gridUnit + statusBarHeight;
     this.level = level;
     this.name = name;
-
+    this.group = game.make.group();
     
     this.updated = new Phaser.Signal();
     this.onClickUpdated = new Phaser.Signal(); // dispatched, if the value change of this pin is triggered by a click by the user as opposed to internal updates
@@ -14,7 +14,9 @@ var Output = function (expected, x, y, level, name = "") {
 
     this.init = function() {
         this.sprite = game.add.sprite(this.x, this.y, 'neutral');
+        this.group.add(this.sprite);
         this.description = game.add.text(this.x + 40, this.y + 3, this.name, style);
+        this.group.add(this.description);
     }
 
     this.register = function (parent) {
@@ -61,6 +63,6 @@ var Output = function (expected, x, y, level, name = "") {
     };
 
     this.destroy = function() {
-        this.sprite.destroy();
+        this.group.destroy();
     }
 };

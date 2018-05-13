@@ -32,7 +32,7 @@ var createItemInput = function (){
         }
     );
 
-    item_input.winAction = room1.unlockItems;
+    item_input.winAction = room1_1.unlockItems;
 
     return item_input;
 }
@@ -81,4 +81,25 @@ var createItemEquals = function (){
     );
 
     return item_equals;
+}
+
+var createItemNot = function (){
+    var item_not = new Level('item_not', 'lernItem', '!A');
+
+    var a = item_not.addInput('A', 5, 5, false);
+    var not = item_not.addGate('not', 8, 5);
+    var output = item_not.addOutput(true, 12, 5);
+
+    a.addChild(not);
+    not.addChild(output);
+
+    item_not.window = {x: 50, y: 125, width: 300, height: 250};
+
+    output.onClickUpdated.addOnce(function() {
+            new Dialogue("r1.le1");
+            dialogueOpen = false;
+        }
+    );
+
+    return item_not;
 }
