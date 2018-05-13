@@ -177,7 +177,7 @@ function create() {
     I18n.locale = "de";
     score = 0;
     if(isSafari()) {
-        room4.show();
+        room1_1.show();
 //        room3.show();
     } else {
         /*video = game.add.video('intro');
