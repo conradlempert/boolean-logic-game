@@ -2,6 +2,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
     console.log("Hello level" + name);
 
+    this.firstTry = true;
 	this.name = name;
 	this.inputs = [];
 	this.outputs = [];
@@ -129,20 +130,23 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 
 	this.checkChoice = function(index) {
+	    var first = this.firstTry;
+	    this.firstTry = false;
         if(this.choices[index]) {
             this.completed = true;
-            this.win();
+            this.win(first);
         } else {
             this.fail();
         }
     }
 
 	this.checkWin = function() {
+        var first = this.firstTry;
+        this.firstTry = false;
 
 	    if(!dialogueOpen) {
-
             this.simulationMode = true;
-            this.inputsDisabled = true;
+            // this.inputsDisabled = true;
 
             this.playButton.destroy();
 
@@ -151,7 +155,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
                 this.completed = (this.outputs[i].on === this.outputs[i].expected) && this.completed;
             }
             if (this.completed) {
-                this.win();
+                this.win(first);
             } else {
                 this.fail();
             }
@@ -191,7 +195,13 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 
 	this.fail = function() {
 		this.winText.text = I18n.t("game.texts.wrong");
-        new Dialogue("dialogue.fail", this.room.closeLevel);
+        //new Dialogue("dialogue.fail", this.room.closeLevel);
+        var d = new Dialogue("dialogue.fail", null);
+        this.group.add(d.group);
+        var backButton = drawButton(I18n.t("game.buttons.backToRoom"), 300, 100, "black", this.room.closeLevel, this);
+        var stayButton = drawButton(I18n.t("game.buttons.stayAfterFail"), 500, 100, "black", () => {d.group.destroy();}, this);
+        d.group.add(backButton.group);
+        d.group.add(stayButton.group);
     }
 
 
@@ -205,9 +215,9 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.group.destroy();
     }
 
-    this.win = function () {
+    this.win = function (firstTry) {
 	    if(this.room.nr >= progress) {
-            raiseScore();
+            raiseScore(firstTry);
         }
         this.winText.text = I18n.t("game.texts.correct");
         window.setTimeout(this.winAction, 1000);
