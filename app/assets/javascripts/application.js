@@ -138,7 +138,9 @@ function create() {
         }));
 
     room4 = new Room('room4', 'Room_final_shadow_klein.png', 5);
-    room4.addItem(new Item(370,200, 100, 100, room4));
+
+
+
 
     room1_1.endLevels = [createLevel1_1()];
     room1_2.endLevels = [createLevel1_2()];

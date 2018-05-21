@@ -17,7 +17,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	this.dialogue = null;
 	//this.graphics = game.make.graphics(0,0);
     this.group;// = game.make.group();
-    //this.cableGroup;
+    this.cableGroup;
 
 	// element: Every element that should disappear when the level is closed is passed to this function
 	this.registerToDestroy = function(element) {
@@ -56,8 +56,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	    this.room = room;
 
         this.group = game.add.group();
-        // this.cableGroup = game.add.group();
-        // this.group.add(this.cableGroup);
+        this.cableGroup = game.add.group();
+
 
         this.bgSprite = game.add.sprite(this.window.x, this.window.y, this.backgroundImage);
         //this.group.create(0, 0, this.backgroundImage);
@@ -194,8 +194,10 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.graphics.lineTo(midX, goalY);
         this.graphics.lineTo(goalX, goalY);
 
-        //this.cableGroup.add(this.graphics);
-        this.group.add(this.graphics);
+        this.cableGroup.add(this.graphics);
+        this.group.add(this.cableGroup);
+
+        //this.group.add(this.graphics);
 	}
 
 	this.fail = function() {
@@ -203,8 +205,8 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         //new Dialogue("dialogue.fail", this.room.closeLevel);
         var d = new Dialogue("dialogue.fail", null);
         this.group.add(d.group);
-        var backButton = drawButton(I18n.t("game.buttons.backToRoom"), 300, 100, "black", this.room.closeLevel, this);
-        var stayButton = drawButton(I18n.t("game.buttons.stayAfterFail"), 500, 100, "black", () => {d.group.destroy();}, this);
+        var backButton = drawButton(I18n.t("game.buttons.backToRoom"), 300, 120, "black", this.room.closeLevel, this);
+        var stayButton = drawButton(I18n.t("game.buttons.stayAfterFail"), 500, 120, "black", () => {d.group.destroy();}, this);
         d.group.add(backButton.group);
         d.group.add(stayButton.group);
     }

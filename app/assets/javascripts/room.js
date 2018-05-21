@@ -85,6 +85,12 @@ var Room = function (name, background, nr, hasItemLock = false) {
         for(var i = 0; i < this.items.length; i++) {
             this.items[i].init();
         }
+        if (this.name === "room4") {
+            var b = game.add.button(10, statusBarHeight+10, 'back', () => {
+				var es = new Endscreen(room4);
+			room4.group.add(es.group);
+        }, this, 2, 1, 0);
+		}
     }
 
 	this.show = () => {
