@@ -158,8 +158,8 @@ function create() {
     I18n.locale = "de";
     score = 0;
     if(isSafari()) {
-       room1_1.show();
-        // room4.show();
+       // room1_1.show();
+       room4.show();
     } else {
         /*video = game.add.video('intro');
         video.onComplete.dispatch = function () {
