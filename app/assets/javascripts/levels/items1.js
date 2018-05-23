@@ -27,8 +27,8 @@ var createItemInput = function (){
     item_input.window = {x: 50, y: 125, width: 150, height: 100};
 
     a.onClickUpdate.addOnce(function() {
-            new Dialogue("r1.le_A");
-            dialogueOpen = false;
+            var d = new Dialogue("r1.le_A");
+            item_input.currentOpenDialogue = d;
         }
     );
 

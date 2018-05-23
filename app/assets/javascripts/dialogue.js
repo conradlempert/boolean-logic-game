@@ -5,6 +5,7 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom = true) {
 	this.bottom = bottom;
 
 	this.y = game.world.height*0.6;
+	this.group;
 
 	this.draw = function () {
         room1_1.entrySpeech = [
@@ -90,6 +91,10 @@ var Dialogue = function (i18nScope, callback = () => {}, bottom = true) {
 	this.setUpSpeaker = function(index) {
 		this.text.text = this.speech[this.textIndex].text;
 		this.sprite.loadTexture(this.speech[this.textIndex].image);
+	}
+
+	this.destroy = function() {
+		this.group.destroy();
 	}
 
 	this.draw();

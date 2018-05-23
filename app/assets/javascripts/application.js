@@ -20,31 +20,12 @@ if (window.location.pathname === '/') {
 
     var game = new Phaser.Game(800, 616, Phaser.AUTO, 'game', {preload: preload, create: create});
     var gridUnit = 25;
-    var maxScore = 7;
+    var maxScore = 8;
     var statusBarHeight = 50;
     var progress = 0;
     var score = 0;
     var dialogueOpen = false;
     var style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "right", boundsAlignV: "bottom"};
-}
-
-function updateScore(score) {
-    var http = new XMLHttpRequest();
-    var url = "/update_score";
-    var params = "score=" + score;
-    http.open("POST", url, true);
-    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.onreadystatechange = function() {
-        if(http.readyState == 4 && http.status == 200) {
-            console.log("score updated successfully.")
-            console.log(http.response)
-        }
-    };
-    http.send(params);
-}
-
-function finishQuiz() {
-    window.location.href = '/quiz_finished'
 }
 
 gameElements = {
@@ -157,7 +138,9 @@ function create() {
         }));
 
     room4 = new Room('room4', 'Room_final_shadow_klein.png', 5);
-    room4.addItem(new Item(370,200, 100, 100, room4));
+
+
+
 
     room1_1.endLevels = [createLevel1_1()];
     room1_2.endLevels = [createLevel1_2()];
@@ -177,8 +160,8 @@ function create() {
     I18n.locale = "de";
     score = 0;
     if(isSafari()) {
-        room1_1.show();
-//        room3.show();
+       // room1_1.show();
+       room4.show();
     } else {
         /*video = game.add.video('intro');
         video.onComplete.dispatch = function () {
@@ -191,10 +174,35 @@ function create() {
 
 }
 
-function raiseScore() {
-    score++;
+function raiseScore(firstTry) {
+    if (firstTry) {
+        score++;
+    } else {
+        score += 0.5;
+    }
     updateScore(score / maxScore);
     showStatusBar();
+}
+
+
+function updateScore(score) {
+    console.log("update score.");
+    var http = new XMLHttpRequest();
+    var url = "/update_score";
+    var params = "score=" + score;
+    http.open("POST", url, true);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function() {
+        if(http.readyState == 4 && http.status == 200) {
+            console.log("score updated successfully.")
+            console.log(http.response)
+        }
+    };
+    http.send(params);
+}
+
+function finishQuiz() {
+    window.location.href = '/quiz_finished'
 }
 
 function showStatusBar() {
@@ -210,6 +218,7 @@ function showStatusBar() {
         drawButton(I18n.t("game.buttons.room") + " 4", 500, 0, "#ffffff", room3.show, room3);
     }
     drawButton(I18n.t("game.buttons.room") + " 1", 200, 0, "#ffffff", room1_1.show, room1_1);
+    drawButton(I18n.t("game.buttons.send"), 660, 0, "#ffffff", updateScore, null);
     scoreText = game.add.text(10, 6, I18n.t("game.texts.score") + ": " + score + "/" + maxScore, style);
 }
 

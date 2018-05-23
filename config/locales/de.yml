@@ -27,7 +27,7 @@ de:
       - "Eric: Ach, ich schaff das auch nur mit den unteren beiden!"
   dialogue:
     fail:
-      - "Maus: Hmm, das war nicht richtig. Guck dir noch mal die Lern-Items an, wenn du das noch nicht verstanden hast."
+      - "Maus: Das war nicht richtig. Bleibe gern um es herauszufinden. Vor dem naechsten Versuch musst du in den Raum zurueck."
   r2:
     entrance:
       - "Maus: Hier sehe ich auch kein Samenkorn. Und das Fenster ist scheinbar durch das Präzedenz-Preservations-Verfahren gesichert."
@@ -64,6 +64,9 @@ de:
       room: "Raum"
       play: "Spielen"
       choose: "Wählen"
+      send: "Senden"
+      backToRoom: "Zurueck"
+      stayAfterFail: "Bleiben"
     texts:
       correct: "Richtig!"
       wrong: "Falsch!"
