@@ -86,10 +86,19 @@ var Room = function (name, background, nr, hasItemLock = false) {
             this.items[i].init();
         }
         if (this.name === "room4") {
-            var b = game.add.button(10, statusBarHeight+10, 'back', () => {
-				var es = new Endscreen(room4);
-			room4.group.add(es.group);
-        }, this, 2, 1, 0);
+
+        	// Koennte man in eine Funktion transparentButton auslagern
+        	var b = game.add.graphics(0, 0);
+        	b.beginFill(0xAAAAAA);
+        	b.alpha = 0.0;
+        	b.drawRect(370, 370, 60, 70);
+        	b.endFill();
+        	b.inputEnabled = true;
+        	b.events.onInputUp.add(() => {
+                var es = new Endscreen(room4);
+                // room4.group.add(es.group);
+			});
+
 		}
     }
 

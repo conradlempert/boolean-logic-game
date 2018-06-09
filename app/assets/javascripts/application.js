@@ -185,8 +185,8 @@ function raiseScore(firstTry) {
 }
 
 
-function updateScore(score) {
-    console.log("update score.");
+function updateScore() {
+    console.log("update score to:"+score);
     var http = new XMLHttpRequest();
     var url = "/update_score";
     var params = "score=" + score;
@@ -238,8 +238,9 @@ function drawButton(text, x, y, color, callback, reference) {
         text: text,
         destroy: () => {
         button.destroy();
-        text.destroy();
-    }};
+    text.destroy();
+}
+    };
 }
 
 function isSafari() {

@@ -67,6 +67,7 @@ de:
       send: "Senden"
       backToRoom: "Zurueck"
       stayAfterFail: "Bleiben"
+      restart: "Nochmal"
     texts:
       correct: "Richtig!"
       wrong: "Falsch!"
