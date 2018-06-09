@@ -12,7 +12,7 @@ var createlevel3_1 = function () {
     var or = level3_1.addGate('or', 12, 10);
 
     //Define Outputs/////////////////////////////////////
-    var output = level3_1.addOutput(true, 20, 6);
+    var output = level3_1.addOutput(true, 20, 6, I18n.t("challenge.out_on"));
 
     //Define Connections/////////////////////////////////
     a.addChild(not);

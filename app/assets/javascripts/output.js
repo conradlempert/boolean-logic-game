@@ -30,7 +30,7 @@ var Output = function (expected, x, y, level, name = "") {
             var goalY = this.y + 20;
             var startX = this.parents[i].x + 50;
             var startY = this.parents[i].y + 25;
-            this.level.drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
+            this.level.drawConnection(startX, startY, goalX, goalY, this.parents[i].on, this.parents[i].outputHint);
         }
     }
 

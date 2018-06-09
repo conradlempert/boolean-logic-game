@@ -9,9 +9,9 @@ var createLevel1_1 = function (){
     //var not = level1_1.addGate('not', 6, 12);
     var and1 = level1_1.addGate('and', 9, 6);
     var and2 = level1_1.addGate('and', 9, 14);
-    var or = level1_1.addGate('or', 12, 7);
+    var or = level1_1.addGate('or', 12, 7, true);
 
-    var output = level1_1.addOutput(true, 15, 7);
+    var output = level1_1.addOutput(true, 15, 7, I18n.t("challenge.out_on"));
 
     a.addChild(and1);
     off.addChild(and1);

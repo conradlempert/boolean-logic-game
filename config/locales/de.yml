@@ -27,7 +27,7 @@ de:
       - "Eric: Ach, ich schaff das auch nur mit den unteren beiden!"
   dialogue:
     fail:
-      - "Maus: Das war nicht richtig. Bleibe gern um es herauszufinden. Vor dem naechsten Versuch musst du in den Raum zurueck."
+      - "Maus: Das war nicht richtig. Warum? Bleib und click dich durch. Vor dem naechsten Versuch musst du in den Raum zurueck."
   r2:
     entrance:
       - "Maus: Hier sehe ich auch kein Samenkorn. Und das Fenster ist scheinbar durch das Präzedenz-Preservations-Verfahren gesichert."
@@ -59,6 +59,9 @@ de:
     entrance:
       - "Maus: Da ist es ja! Warum du dich mit einem Samenkorn zufrieden gibst, ist mir jedoch nicht klar."
       - "Eric: Aus kleinen Samen können große Bäume wachsen - wart nur ab!"
+  challenge:
+    out_on: "Ziel: an"
+    out_off: "Ziel: aus"
   game:
     buttons:
       room: "Raum"
@@ -70,5 +73,5 @@ de:
       restart: "Nochmal"
     texts:
       correct: "Richtig!"
-      wrong: "Falsch!"
+      wrong: "Leider Falsch."
       score: "Punkte"

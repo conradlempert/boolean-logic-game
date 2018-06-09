@@ -14,7 +14,7 @@ var createLevel3_2 = function () {
     var equals = level3_2.addGate('equals', 16, 7);
 
     //Define Outputs/////////////////////////////////////
-    var output = level3_2.addOutput(true, 26, 12);
+    var output = level3_2.addOutput(true, 20, 7, I18n.t("challenge.out_on"));
 
     //Define Connections/////////////////////////////////
     a.addChild(notA);

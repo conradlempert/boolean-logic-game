@@ -18,6 +18,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 	//this.graphics = game.make.graphics(0,0);
     this.group;// = game.make.group();
     this.cableGroup;
+    this.simulationMode = false;
 
 	// element: Every element that should disappear when the level is closed is passed to this function
 	this.registerToDestroy = function(element) {
@@ -34,8 +35,12 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
 		this.outputs.push(output);
 		return output;
 	}
-	this.addGate = function (type, x, y) {
+	this.addGate = function (type, x, y, outputHint) {
 		var gate = new Gate(type, x, y, this, this.group);
+		if(outputHint) {
+		    console.log("OH"+type)
+            gate.outputHint = outputHint;
+        }
 		this.gates.push(gate);
 		return gate;
 	}
@@ -83,7 +88,7 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         }
         switch(type) {
             case "challenge":
-                this.playButton = drawButton(I18n.t("game.buttons.play"), 100, statusBarHeight, "black", this.checkWin, this);
+                this.playButton = drawButton(I18n.t("game.buttons.play"), 300, 500, "black", this.checkWin, this);
                 this.group.add(this.playButton.group);
                 this.simulationMode = false;
                 break;
@@ -111,13 +116,13 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         this.backButton = game.add.button(10, statusBarHeight+10, 'back', this.room.closeLevel, this, 2, 1, 0);
         this.group.add(this.backButton);
 
-        this.winText = game.add.text(300, 60, "", style);
-        this.group.add(this.winText);
+        this.winText = game.add.text(0, 0, "", style, this.group);
+        this.winText.setTextBounds(0, 0, this.window.x + this.window.width - 10, this.window.y + this.window.height - 5);
+        //this.group.add(this.winText);
 
+        this.expressionText = game.add.text(this.window.x+80, this.window.y+10, this.expression, style, this.group);
+        //this.group.add(this.expressionText);
 
-        this.expressionText = game.add.text(0, 0, this.expression, style);
-        this.expressionText.setTextBounds(0, 0, this.window.x + this.window.width - 10, this.window.y + this.window.height - 5);
-        this.group.add(this.expressionText);
 		this.update();
 
 		if(this.dialogue != null) {
@@ -166,27 +171,31 @@ var Level = function (name, type = "challenge", expression = "", winAction = fun
         }
 	}
 
-	this.drawConnection = function(startX, startY, goalX, goalY, on) {
-/*        var testRect = game.make.graphics(400, 400);
-        testRect.beginFill(0x0000FF, 1);
-        testRect.drawRoundedRect(0, 0, 100, 100, 10);
-        this.group.add(testRect); */
-
-//	    console.log("Draw Connection.");
-//		if(!dialogueOpen) {
-
+	this.drawConnection = function(startX, startY, goalX, goalY, on, outputHint) {
 
         var midX = (startX + goalX) / 2;
 
         this.graphics = game.make.graphics(0,0);
         this.graphics.clear();
 
-        this.graphics.lineStyle(3, 0xffff00, 1);
+        this.graphics.lineStyle(3, 0xaaaaaa, 1);
+
+        console.log("sim mode:"+this.simulationMode);
+
+        // outputHint ist null, true oder false
+        if (!this.simulationMode) {
+            if(outputHint === true) {
+                this.graphics.lineStyle(3, 0x00aa00, 1);
+            }
+            if (outputHint === false) {
+                this.graphics.lineStyle(3, 0xaa0000, 1);
+            }
+        }
         if (this.simulationMode) {
             if (on) {
-                this.graphics.lineStyle(3, 0x00ff00, 1);
+                this.graphics.lineStyle(3, 0x00aa00, 1);
             } else {
-                this.graphics.lineStyle(3, 0xff0000, 1);
+                this.graphics.lineStyle(3, 0xaa0000, 1);
             }
         }
         this.graphics.moveTo(startX, startY);

@@ -11,7 +11,7 @@ var createLevel1_2 = function (){
     var and = level1_2.addGate('and', 9, 6);
     var equals = level1_2.addGate('equals', 12, 7);
 
-    var output = level1_2.addOutput(true, 15, 7);
+    var output = level1_2.addOutput(true, 15, 7, I18n.t("challenge.out_on"));
 
     a.addChild(not);
 

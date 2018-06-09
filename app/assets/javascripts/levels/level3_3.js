@@ -16,8 +16,8 @@ var createLevel3_3 = function () {
     var or2 = level3_3.addGate('or', 20, 8);
 
     //Define Outputs/////////////////////////////////////
-    var x = level3_3.addOutput(false, 26, 12, 'X');
-    var y = level3_3.addOutput(false, 26, 18, 'Y');
+    var x = level3_3.addOutput(false, 26, 12, 'X ' + I18n.t("challenge.out_off"));
+    var y = level3_3.addOutput(false, 26, 18, 'Y ' + I18n.t("challenge.out_off"));
     
     //Define Connections/////////////////////////////////
     a.addChild(andTop);

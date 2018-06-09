@@ -15,6 +15,8 @@ var Gate = function (type, x, y, level, group) {
 
     this.group;
 
+    this.outputHint = null;
+
     // Methods
     this.init = function () {
         this.group = game.make.group();
@@ -42,7 +44,7 @@ var Gate = function (type, x, y, level, group) {
             	var startX = parent.x + 50;
             	var startY = parent.y + 25;
             }
-            this.level.drawConnection(startX, startY, goalX, goalY, this.parents[i].on);
+            this.level.drawConnection(startX, startY, goalX, goalY, this.parents[i].on, this.parents[i].outputHint);
         }
     };
 
