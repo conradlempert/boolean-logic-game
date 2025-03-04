@@ -1,9 +1,5 @@
 # README
 
-## Waffle
-
-https://waffle.io/conradlempert/openhpigame
-
 # Frontend
 
 ## Rooms
