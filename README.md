@@ -1,5 +1,20 @@
 # README
 
+![Screenshot 2025-03-05 at 14 57 50](https://github.com/user-attachments/assets/181f8880-624b-4b1d-b8ba-11ecd450c1b0)
+
+This is a game that helps students learn about boolean logic by solving riddles.
+
+It is written in the game engine phaser.io with a rails backend.
+
+To start the game, run
+
+```
+bundle install
+rails server
+```
+
+and go to http://localhost:3000.
+
 # Frontend
 
 ## Rooms
