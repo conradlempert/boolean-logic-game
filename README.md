@@ -15,6 +15,8 @@ rails server
 
 and go to http://localhost:3000.
 
+# Documentation
+
 # Frontend
 
 ## Rooms
