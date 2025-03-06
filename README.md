@@ -4,16 +4,16 @@
 
 This is a game that helps students learn about boolean logic by solving riddles.
 
-It is written in the game engine phaser.io with a rails backend.
+It is written in the game engine phaser.io with a vite server.
 
 To start the game, run
 
 ```
-bundle install
-rails server
+npm install
+npm run dev
 ```
 
-and go to http://localhost:3000.
+and go to http://localhost:8080.
 
 # Documentation
 
