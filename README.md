@@ -1,10 +1,10 @@
-# README
+# boolean-logic-game
 
 ![Screenshot 2025-03-05 at 14 57 50](https://github.com/user-attachments/assets/181f8880-624b-4b1d-b8ba-11ecd450c1b0)
 
 This is a game that helps students learn about boolean logic by solving riddles.
 
-It is written in the game engine phaser.io with a vite server.
+It is written in TypeScript with the game engine phaser.io and a vite server.
 
 To start the game, run
 
@@ -15,15 +15,19 @@ npm run dev
 
 and go to http://localhost:8080.
 
+## Deploy = TODO
+
+I'm currently working on deploying the game so it can be played online.
+
 # Documentation
 
-# Frontend
+## Frontend
 
-## Rooms
+### Rooms
 
 All the levels and learning items can be opened from rooms. As the player walks through the levels of the game, he will unlock new rooms with new items. In the current version there are 4 rooms: `room1`, `room2`, `room3` and `room4`. To show `room1`, just call `room1.show()`.
 
-### Example code
+#### Example code
 
 ```
 var room1 = new Room('room1','room1.jpg', 1);
@@ -42,7 +46,7 @@ room1.endLevels = [level1, level2];
 room1.show();
 ```
 
-### Constructor
+#### Constructor
 
 `new Room(name, background, nr)`
 
@@ -53,7 +57,7 @@ room1.show();
 | `nr`                    | Progress level of this room (`room1.nr` is 1, `room2.nr` is 2. This means when you already made it to `room2`, you can go back to `room1`, but not vice versa.)                  |
 | `hasItemLock`(optional) | You can set this to true if the room has items that shouldn't be unlocked when you enter the room. You have to set `locked` in the constructor for these Items to make this work |
 
-### Attributes
+#### Attributes
 
 | Attribute         | Description                                                       |
 | ----------------- | ----------------------------------------------------------------- |
@@ -65,7 +69,7 @@ room1.show();
 | `currentEndLevel` | Current index in the `endLevels` Array                            |
 | `nextRoom`        | The room which is shown when all `endLevels` are finished         |
 
-### State
+#### State
 
 Each room has a Phaser.IO `state`. This means, that every room has its own `preload()`, `create()`, and `update()` method.
 
@@ -75,7 +79,7 @@ Each room has a Phaser.IO `state`. This means, that every room has its own `prel
 | `state.create()`  | Renders the room, shows the intro dialogue and resets the progress for this room |
 | `state.update()`  | Updates the `activeLevel`                                                        |
 
-### Methods
+#### Methods
 
 | Method              | Description                                                                                                                                           |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -87,7 +91,7 @@ Each room has a Phaser.IO `state`. This means, that every room has its own `prel
 | `addItem(item)`     | Adds the Item `item` to the room. See the Item documentation                                                                                          |
 | `unlockItems()`     | If the room has items that are not unlocked when you enter the room, you can unlock them with this method. You could call this in a `Level.winAction` |
 
-## Levels
+### Levels
 
 A `Level` is a circuit plan with `inputs`, `gates` and `outputs`. There are three types of levels:
 
@@ -99,7 +103,7 @@ A `Level` is a circuit plan with `inputs`, `gates` and `outputs`. There are thre
 
 To show `level1_1` from `room1`, just call `room1.showLevel(level1_1)`.
 
-### Example code
+#### Example code
 
 ```
 var level1 = new Level('level1', 'challenge', 'A && B');
@@ -120,7 +124,7 @@ level1.dialogue = "hello";
 room1.showLevel(level1);
 ```
 
-### Constructor
+#### Constructor
 
 `new Level(name, type, expression, winAction)`
 
@@ -131,7 +135,7 @@ room1.showLevel(level1);
 | `expression` (optional) | Boolean expression that equals the level                                  |
 | `winAction` (optional)  | Callback function that is called when the level is completed successfully |
 
-### Attributes
+#### Attributes
 
 | Attribute             | Description                                                                                                                                                          |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -144,7 +148,7 @@ room1.showLevel(level1);
 | `destroyableGraphics` | All the sprites which have to be destroyed when the level is closed                                                                                                  |
 | `dialogue`            | Dialogue which is shown when the level is shown                                                                                                                      |
 
-### Methods
+#### Methods
 
 | Method                                             | Description                                                                                                                    |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -161,11 +165,11 @@ room1.showLevel(level1);
 | `registerToDestroy(element)`                       | When you call this with `element`, it is destroyed when the level is destroyed                                                 |
 | `destroy()`                                        | Destroys the level and all the `destroyableGraphics`                                                                           |
 
-## Item
+### Item
 
 An `Item` is a prop in the room, which does something when the user clicks on it. To create an `Item`, use `room1.addItem(new Item(...))`.
 
-### Example code
+#### Example code
 
 ```
 room1.addItem(new Item(200, 500, 'pigeon', room1,
@@ -190,7 +194,7 @@ room1.addItem(new Item(530, 300, 'cow', room1, { type: "endlevel" }));
 room1.addItem(new Item(370, 200, 'bird', room1)); // action will be { type: 'none' }
 ```
 
-### Constructor
+#### Constructor
 
 `new Item(x, y, name, room, action, locked)`
 
@@ -203,7 +207,7 @@ room1.addItem(new Item(370, 200, 'bird', room1)); // action will be { type: 'non
 | `action` (optional) | Action object, see table below                                                                                                                                   |
 | `locked` (optional) | Set this to `true`, if you don't want the item to be unlocked yet when the player enters the room. You have to set `hasItemLock` in the room constructor as well |
 
-### Action
+#### Action
 
 The `action` object defines what happens when the user clicks on the item.
 
@@ -215,18 +219,18 @@ The `action` object defines what happens when the user clicks on the item.
 | `{ type: 'endLevel' }`              | Shows the next `endLevel` for the current room (See `Room.endLevels`)     |
 | `{ type: 'none' }`                  | Does nothing (default value)                                              |
 
-### Methods
+#### Methods
 
 | Method          | Description                                                                                     |
 | --------------- | ----------------------------------------------------------------------------------------------- |
 | `init()`        | Draws the item and makes it clickable. This is called automatically when the `room` is rendered |
 | `clickAction()` | Executes the `action`. This is called when the item is clicked                                  |
 
-## Input
+### Input
 
 A switch in a `Level` that has outgoing connection(s). Use `level1.addInput(...)` to create an `Input`, since it automatically creates the reference to the `Level`.
 
-### Example Code
+#### Example Code
 
 ```
 var a = level1.addInput('A', 3, 2, true);
@@ -238,7 +242,7 @@ a.addChild(and);
 b.addChild(and);
 ```
 
-### Constructor
+#### Constructor
 
 `new Input(name, x, y, on, level, locked)`
 
@@ -253,7 +257,7 @@ b.addChild(and);
 | `level`             | Reference to the level                                                                            |
 | `locked` (optional) | If this is set to true, the input can't be switched by the user. (`false` by default)             |
 
-### Methods
+#### Methods
 
 | Method            | Description                                                                              |
 | ----------------- | ---------------------------------------------------------------------------------------- |
@@ -263,11 +267,11 @@ b.addChild(and);
 | `addChild(child)` | Establishes an outgoing circuit connection from the `Input` to the `child`               |
 | `destroy()`       | Destroys the sprite                                                                      |
 
-## Gate
+### Gate
 
 A gate in a `Level` that has ingoing and outgoing connection(s). Use `level1.addGate(...)` to create a `Gate`, since it automatically creates the reference to the `Level`.
 
-### Example Code
+#### Example Code
 
 ```
 var a = level1.addInput('A', 3, 2, true);
@@ -294,7 +298,7 @@ b.addChild(equals);
 and.addChild(output);
 ```
 
-### Constructor
+#### Constructor
 
 `new Gate(type, x, y, level)`
 
@@ -307,7 +311,7 @@ and.addChild(output);
 | `y`       | y-position for the gate (in grid coordinates) |
 | `level`   | Reference to the level                        |
 
-### Methods
+#### Methods
 
 | Method               | Description                                                                                                                                        |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -317,11 +321,11 @@ and.addChild(output);
 | `updateValues(args)` | Recomputes the output of this gate. This is called by the parent(s) if they get updated.                                                           |
 | `destroy()`          | Destroys the sprite                                                                                                                                |
 
-## Output
+### Output
 
 An output in a `Level` that has an ingoing connection. Use `level1.addOutput(...)` to create an `Output`, since it automatically creates the reference to the `Level`. To establish an ingoing connection, use `addChild(output)` on the parent.
 
-### Example Code
+#### Example Code
 
 ```
 var and = level1.addGate('and', 9, 4);
@@ -333,7 +337,7 @@ and.addChild(output1);
 and.addChild(output2);
 ```
 
-### Constructor
+#### Constructor
 
 `new Output(expected, x, y, level, name)`
 
@@ -347,13 +351,13 @@ and.addChild(output2);
 | `level`           | Reference to the level                                                                                       |
 | `name` (optional) | Name for the output, which is shown right to the output. If you dont want any text to show, leave this blank |
 
-### Attributes
+#### Attributes
 
 | Attribute | Description                                                         |
 | --------- | ------------------------------------------------------------------- |
 | `on`      | Boolean that is true when the output is on, and false when it's off |
 
-### Methods
+#### Methods
 
 | Method               | Description                                                                                                       |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -364,13 +368,13 @@ and.addChild(output2);
 | `updateValues(args)` | Recomputes the output of this gate. This is called by the parent(s) if they get updated.                          |
 | `destroy()`          | Destroys the sprite                                                                                               |
 
-## Dialogues
+### Dialogues
 
 A `Dialogue` is a sequence of sentences that are spoken by different characters. Use `new Dialogue('hello')` to create a dialogue manually. If you want a `Dialogue` to appear when the user is entering or leaving a `Room`, you can set `Room.inDialogue` or `Room.outDialogue`. For a `Level`, use `Level.dialogue`.
 
 The dialogues are saved in the language files **/config/locales/de.yml** and **/config/locales/en.yml**.
 
-### Code Example
+#### Code Example
 
 **/config/locales/de.yml**
 
@@ -390,7 +394,7 @@ room1.inDialogue = "welcome"; //Opens the dialogue when room1 is shown
 room1.outDialogue = "welcome"; //Opens the dialogue when the user leaves room1
 ```
 
-### Constructor
+#### Constructor
 
 `new Dialogue(i18nScope, callback)`
 
@@ -399,7 +403,7 @@ room1.outDialogue = "welcome"; //Opens the dialogue when the user leaves room1
 | `i18nScope`           | The reference to the dialogue in the language file     |
 | `callback` (optional) | A function that is called, when the dialogue is closed |
 
-### Methods
+#### Methods
 
 | Method                | Description                                                                                           |
 | --------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -407,11 +411,11 @@ room1.outDialogue = "welcome"; //Opens the dialogue when the user leaves room1
 | `textClick()`         | Is triggered when the dialogue is clicked. Calls `setUpSpeaker()` or closes the dialogue if it's over |
 | `setUpSpeaker(index)` | Shows the speaker at `index`                                                                          |
 
-## Translations
+### Translations
 
 You can store translations in **/config/locales/de.yml** and **/config/locales/en.yml**.
 
-### Code Examples
+#### Code Examples
 
 **/config/locales/de.yml**
 
@@ -442,145 +446,9 @@ animals:
   console.log(I18n.t("hello"))        // Hello
 ```
 
-# Backend
+## Issues
 
-## Services
-
-The Backend is dockerized. The services are:
-
-1. Web: Rails Server for handling LTI and rendering the frontend
-2. Postgres: Database for persistence (not used at the moment)
-3. Nginx: Reverse Proxy
-
-To add or remove services you will need to edit the `docker-compose.yml`
-
-## Starting the server via Docker
-
-1. Rename file `.env.sample` to `.env`
-2. Modify the values in `.env` **(for production)**
-3. Run `$ docker-compose up`
-
-## LTI (1.1)
-
-The app can act as a LTI Tool Provider through the `'/lti'` endpoint.
-To start the quiz one must `post` to this endpoint according to the **LTI 1.1** specification.
-
-LTI Secrets and Keys can be configured in `config/initializers/lti.rb`
-
-The app is preconfigured for the key `openhpi` the corresponding secret
-must be specified in the `.env` file
-
-### Important LTI Parameters
-
-```
-lis_outcome_service_url // For updating the score
-launch_presentation_return_url // Url to return to after game was completed
-launch_presentation_locale // For setting the quiz locale ('de', 'en')
-```
-
-### Implementation
-
-LTI connectivity is handled through the LTI Controller in `app/controllers/lti_controller.rb`
-
-We expose three lti endpoints defined in `config/routes.rb`.
-
-#### post '/lti'
-
-The first endpoint is the entrypoint `'/lti'`, this is mapped to the `create` action of the LTI Controller. Here we save the recievied LTI parameters in the session and try to determine the correct locale.
-
-```
-  def create
-    session[:lti_launch_params] = lti_params
-    session[:locale] = lti_params.fetch('launch_presentation_locale', I18n.default_locale)
-    redirect_to '/'
-  end
-```
-
-#### post '/update_score'
-
-The next endpoint handles the updating of the quiz score.
-It is exposed as `'/update_score'` and maps to the `update_score`
-action of the LTI Controller. This action is used by posting a score value to the endpoint. The Controller than first requests the current score of the user from the external outcome service and
-compares it to the score that was posted. If the posted score is higher than the old score it is send back to the outcome service to be updated.
-
-```
-  def update_score
-    unless tool_provider.nil?
-      old_score = get_current_score
-      score = params.permit(:score)[:score]
-      if score > old_score
-        response = tool_provider.post_replace_result!(score)
-        if response.success? || response.processing?
-          return render json: { score: score }
-        else
-          Rails.logger.warn('Outcome could not be posted. Response was: ')
-          Rails.logger.warn(response.to_json)
-          return render json: {errors: ['Error while transmitting score']}, status: 500
-        end
-      end
-      render json: { score: old_score }
-    end
-  end
-```
-
-#### get '/quiz_finished'
-
-This endpoint allows us to return to the tool provider once the quiz has finished. Here we simply redirect to the `launch_presentation_return_url` if it was passed to the `/lti` endpoint and saved to the session.
-
-```
-def return
-  if @consumer_url.present?
-    redirect_to @consumer_url
-  end
-end
-
-def consumer_url
-    @consumer_url ||= session.to_hash.dig('lti_launch_params', 'launch_presentation_return_url')
-end
-```
-
-#### Tool Provider Object
-
-The actual lti communication is handled trough the gems `ims-lti 1.1.3` and `omniauth-lti`. The gem `omniauth-lti` was added to the repository because changes were necessary to make it work with rails 5. If preferred you can extract it again.
-
-The lti communication is handled through the `tool_provider` object,
-which is implemented by the `ims-lti` gem and initialized in the LTI Controller method `tool_provider`
-
-Here we first check if lti params were saved to the session trough
-`lti_launch_params`, which are defined by the `omniauth-lti` gem.
-This is the same as calling `session[:lti_launch_params]` directly.
-Then we extract the key and secret from the parameters and the configured credentials (`LTI_CREDENTIALS_HASH` in `config/initializers/lti.rb`).
-
-Finally we create the tool_provider object and pass it the key, secret and the rest of the parameters.
-
-This allows it to create a validated connection to the external tool consumer service.
-
-```
-  def tool_provider
-    unless lti_launch_params.nil?
-      key = lti_launch_params['oauth_consumer_key']
-      secret = LTI_CREDENTIALS_HASH[key.to_sym]
-      tool_provider = IMS::LTI::ToolProvider.new(key,
-                                                 secret,
-                                                 lti_launch_params)
-    end
-  end
-```
-
-We use the following two methods of this object.
-
-```
-// Post the passed score to the external tool consumer
-tool_provider.post_replace_result!(score)
-
-// Reads the current score from the external tool consumer
-tool_provider.post_read_result!
-
-```
-
-# Issues
-
-## Levels
+### Levels
 
 - Cables drawn upon dialogue boxes (fix: rearrange drawing order)
 - Plain input labeling, not much help for user (fix: labeling of gates, pre-coloring of certain cables)
@@ -589,11 +457,11 @@ tool_provider.post_read_result!
 - Errors have no consequences in evaluation yet (fix: subtract half points)
 - Video not playable in Safari (web is fun!)
 
-## Mobile
+### Mobile
 
 - Game not scaleable for various screen sizes (maybe benign because computers and phones have similar screen ratios)
 
-## Miscellaneous
+### Miscellaneous
 
 - Dialogues not yet complete
 - No translations yet
